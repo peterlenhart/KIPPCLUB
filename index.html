@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KIPP CLUB</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f4f6fa;
+        color: #222;
+        display: flex;
+        flex-direction: column;
+        align-items: center;   /* alles mittig */
+        text-align: center;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    .menu-buttons,
+    .smiley-container {
+        width: 100%;
+        max-width: 600px;  /* gut für Handy & Tablet (hoch & quer) */
+    }
+
+    .menu-buttons button {
+        width: 100%;
+        padding: 14px;
+        margin-bottom: 10px;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        background: #004aad;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .menu-buttons button:active {
+        background: #003680;
+    }
+
+    .smiley-grid {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        justify-items: center;
+    }
+
+    .smiley-card {
+        position: relative;
+        width: 100%;
+        max-width: 250px;
+        height: 120px;
+        background: white;
+        border-radius: 10px;
+        border: 2px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .smiley-card:active {
+        transform: scale(0.98);
+    }
+
+    .smiley-card.selected {
+        opacity: 0.3;
+    }
+
+    .smiley-text {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .topkipp-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-15deg);
+        font-size: 20px;
+        font-weight: bold;
+        color: #c00000;
+        pointer-events: none;
+        text-shadow: 0 0 4px white;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .stopp-kipp {
+        margin-top: 40px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #c00000;
+    }
+
+    .restart-button {
+        margin-top: 20px;
+        padding: 14px 20px;
+        font-size: 18px;
+        border-radius: 6px;
+        border: none;
+        background: #008000;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .restart-button:active {
+        background: #006000;
+    }
+</style>
+</head>
+<body>
+
+<h1 id="title">KIPP CLUB</h1>
+
+<!-- Hauptmenü -->
+<div id="mainMenu" class="menu-buttons">
+    <button onclick="startVariant('classic')">KIPP Classic</button>
+    <button onclick="startVariant('color')">KIPP Color</button>
+    <button onclick="startVariant('card')">KIPP Card</button>
+    <button onclick="startSmiley()">KIPP Smiley</button>
+</div>
+
+<!-- KIPP Smiley Bereich -->
+<div id="smileyArea" class="smiley-container hidden">
+    <div class="smiley-grid" id="smileyGrid">
+        <!-- 6 Karten werden per JS erzeugt -->
+    </div>
+
+    <div id="stoppKippBlock" class="hidden">
+        <div class="stopp-kipp">STOPP KIPP</div>
+        <button class="restart-button" onclick="restartKipp()">KIPP START</button>
+    </div>
+</div>
+
+<script>
+const faces = Array.from({ length: 12 }, (_, i) => "Gesicht " + (i + 1));
+const hands = Array.from({ length: 4 }, (_, i) => "Geste " + (i + 1));
+
+let selectedCount = 0;
+
+function startVariant(name) {
+    // Platzhalter – später können wir hier andere Varianten einbauen.
+    alert("Variante '" + name + "' ist noch nicht implementiert.\nKIPP Smiley ist schon spielbar.");
+}
+
+function startSmiley() {
+    document.getElementById("title").innerText = "KIPP Smiley";
+    document.getElementById("mainMenu").classList.add("hidden");
+    document.getElementById("smileyArea").classList.remove("hidden");
+
+    selectedCount = 0;
+    document.getElementById("stoppKippBlock").classList.add("hidden");
+    document.getElementById("smileyGrid").classList.remove("hidden");
+    buildSmileyGrid();
+}
+
+function restartKipp() {
+    // Komplett zurück zum Startbildschirm
+    document.getElementById("title").innerText = "KIPP CLUB";
+    document.getElementById("smileyArea").classList.add("hidden");
+    document.getElementById("mainMenu").classList.remove("hidden");
+}
+
+function buildSmileyGrid() {
+    const grid = document.getElementById("smileyGrid");
+    grid.innerHTML = "";
+
+    const combos = [];
+    for (let i = 0; i < faces.length; i++) {
+        for (let j = 0; j < hands.length; j++) {
+            combos.push({ faceIndex: i, handIndex: j });
+        }
+    }
+
+    // zufällig mischen
+    shuffleArray(combos);
+
+    // 6 Kombinationen nehmen
+    const selectedCombos = combos.slice(0, 6);
+
+    selectedCombos.forEach((combo, idx) => {
+        const card = document.createElement("div");
+        card.className = "smiley-card";
+        card.dataset.index = idx;
+
+        // Platzhalter-Inhalt – später ersetzen wir das durch Bilder.
+        const text = document.createElement("div");
+        text.className = "smiley-text";
+        text.innerText = faces[combo.faceIndex] + " + " + hands[combo.handIndex];
+
+        const overlay = document.createElement("div");
+        overlay.className = "topkipp-overlay hidden";
+        overlay.innerText = "TOP KIPP";
+
+        card.appendChild(text);
+        card.appendChild(overlay);
+
+        card.addEventListener("click", () => {
+            toggleCard(card);
+        });
+
+        grid.appendChild(card);
+    });
+}
+
+function toggleCard(card) {
+    if (card.classList.contains("selected")) {
+        // Option: wieder abwählen? In deiner Beschreibung war nur „anklicken -> TOP KIPP“,
+        // daher hier: einmal klicken reicht, kein Zurück.
+        return;
+    }
+
+    card.classList.add("selected");
+    const overlay = card.querySelector(".topkipp-overlay");
+    if (overlay) {
+        overlay.classList.remove("hidden");
+    }
+
+    selectedCount++;
+    if (selectedCount >= 6) {
+        allSelected();
+    }
+}
+
+function allSelected() {
+    // Wenn alle 6 „TOP KIPP“ sind:
+    document.getElementById("smileyGrid").classList.add("hidden");
+    document.getElementById("stoppKippBlock").classList.remove("hidden");
+}
+
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+}
+</script>
+
+</body>
+</html>
