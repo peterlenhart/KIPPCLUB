@@ -3,674 +3,657 @@
 <head>
   <meta charset="UTF-8" />
   <title>Fairy KIPP</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Verspielte Schrift für "Fairy" -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --blue: rgb(0, 101, 171);
-      --violet: rgb(170, 0, 120);
-      --green: rgb(59, 165, 43);
-      --orange: rgb(242, 150, 0);
-      --lindgreen: rgb(191, 212, 188);
-
-      --bg-dark: #05070b;
-      --card-bg: #11141c;
-      --card-alt-bg: #181c26;
-      --text-main: #f5f7ff;
-      --text-muted: #a7afc5;
-      --border-soft: #252a39;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
-      --radius-lg: 24px;
-      --radius-pill: 999px;
+      /* Deine Farben */
+      --color-blue: rgb(0, 101, 171);
+      --color-violet: rgb(170, 0, 120);
+      --color-green: rgb(59, 165, 43);
+      --color-orange: rgb(242, 150, 0);
+      --color-dark: #202020;
+      --color-darker: #141414;
+      --color-text: #f5f5f5;
+      --color-muted: #b0b0b0;
+      --radius-card: 22px;
+      --radius-btn: 7px;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       min-height: 100vh;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background: radial-gradient(circle at top, #202b3d 0, #05070b 55%);
-      color: var(--text-main);
+      background: radial-gradient(circle at top, #303030 0, #050505 55%);
+      color: var(--color-text);
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 16px;
+      align-items: flex-start;
+      padding: 18px 10px 32px;
     }
 
-    .app-frame {
+    .app-shell {
       width: 100%;
-      max-width: 480px;
-      background: linear-gradient(145deg, #0b0e15, #05070b);
-      border-radius: 32px;
-      padding: 20px 18px 24px;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      max-width: 460px;
+      background: var(--color-darker);
+      border-radius: var(--radius-card);
+      padding: 18px 18px 22px;
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.04);
     }
+
+    /* Farbstreifen wie am Boxrand */
+    .color-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+
+    .color-block {
+      height: 10px;
+    }
+    .color-orange { background: var(--color-orange); }
+    .color-blue   { background: var(--color-blue); }
+    .color-violet { background: var(--color-violet); }
+    .color-green  { background: var(--color-green); }
 
     .title {
       text-align: center;
       margin-bottom: 4px;
     }
 
-    .title-line {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
+    .title-fairy {
+      font-family: "Pacifico", system-ui, sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: 0.03em;
+      color: var(--color-orange);
+      text-shadow: 0 0 10px rgba(242, 150, 0, 0.8);
     }
 
-    .title-line span.fairy {
-      font-family: "Segoe Script", "Bradley Hand", system-ui;
-      font-weight: 600;
-      color: var(--orange);
-      text-shadow: 0 0 14px rgba(242, 150, 0, 0.9);
-    }
-
-    .title-line span.kipp {
-      color: var(--blue);
+    .title-kipp {
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: 0.16em;
+      margin-left: 4px;
+      color: var(--color-blue);
+      text-transform: uppercase;
     }
 
     .subtitle {
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 0.12em;
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      margin-top: 2px;
+      color: var(--color-muted);
+      margin-bottom: 18px;
     }
 
-    .fairy-btn-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: 4px;
-    }
-
-    .fairy-btn {
-      min-width: 190px;
-      padding: 16px 32px;
-      border-radius: 999px;
+    .fairy-button {
+      width: 100%;
+      padding: 16px 10px;
+      background: var(--color-orange);
+      color: #1a1204;
       border: none;
-      cursor: pointer;
-      font-size: 20px;
+      border-radius: var(--radius-btn);
       font-weight: 800;
-      letter-spacing: 0.15em;
+      font-size: 1.2rem;
       text-transform: uppercase;
-      color: #111;
-      background: radial-gradient(circle at top, #ffd37a 0, #f29600 40%, #c57300 100%);
+      letter-spacing: 0.16em;
+      cursor: pointer;
       box-shadow:
-        0 0 0 2px rgba(0, 0, 0, 0.6),
-        0 0 24px rgba(242, 150, 0, 0.9),
-        0 14px 26px rgba(0, 0, 0, 0.5);
-      position: relative;
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
-        filter 0.08s ease-out;
+        0 0 0 2px rgba(0, 0, 0, 0.3),
+        0 10px 28px rgba(242, 150, 0, 0.55);
+      margin-bottom: 18px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease,
+                  filter 0.1s ease;
     }
 
-    .fairy-btn::after {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border-radius: inherit;
-      border: 1px dashed rgba(255, 255, 255, 0.45);
-      pointer-events: none;
-    }
-
-    .fairy-btn:active {
-      transform: translateY(1px) scale(0.99);
+    .fairy-button:active {
+      transform: translateY(1px);
       box-shadow:
-        0 0 0 2px rgba(0, 0, 0, 0.7),
-        0 6px 14px rgba(0, 0, 0, 0.7);
+        0 4px 16px rgba(242, 150, 0, 0.45);
       filter: brightness(0.96);
     }
 
-    .fairy-btn:disabled {
-      opacity: 0.55;
-      cursor: default;
-      box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.4),
-        0 4px 10px rgba(0, 0, 0, 0.5);
-      filter: grayscale(0.1) brightness(0.8);
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 14px 16px 16px;
-      border: 1px solid var(--border-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .story-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+    .panel {
+      background: #181818;
+      border-radius: var(--radius-btn);
+      padding: 14px 12px 12px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03);
     }
 
     .story-box {
-      margin-top: 2px;
-      padding: 12px 12px;
-      border-radius: 18px;
-      background: linear-gradient(145deg, #171c26, #10131c);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      min-height: 72px;
+      background: #101010;
+      border-radius: var(--radius-btn);
+      padding: 12px 11px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.055);
+      min-height: 92px;
       display: flex;
       align-items: center;
-      font-size: 14px;
-      line-height: 1.5;
-      color: #e4e8ff;
+      justify-content: center;
     }
 
-    .story-placeholder {
-      opacity: 0.7;
-      font-style: italic;
+    .story-text {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: #f4f4f4;
+      text-align: left;
+      white-space: pre-wrap;
     }
 
-    .story-actions {
+    .section-info {
+      margin-top: 8px;
+      text-align: right;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .controls-row {
+      margin-top: 10px;
       display: flex;
       justify-content: flex-end;
     }
 
-    .btn-weiter {
-      border-radius: var(--radius-pill);
-      border: none;
-      padding: 8px 18px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+    .btn-next {
+      min-width: 110px;
+      padding: 9px 14px;
       background: transparent;
-      color: var(--violet);
+      border-radius: var(--radius-btn);
+      border: 1px solid var(--color-violet);
+      color: var(--color-violet);
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
       cursor: pointer;
-      border: 1px solid rgba(170, 0, 120, 0.4);
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6);
-      transition: background 0.12s ease-out, color 0.12s ease-out,
-        border-color 0.12s ease-out, transform 0.08s ease-out;
+      transition: background 0.1s ease, color 0.1s ease;
     }
 
-    .btn-weiter:disabled {
-      opacity: 0.45;
-      border-color: rgba(255, 255, 255, 0.08);
+    .btn-next:disabled {
+      opacity: 0.25;
       cursor: default;
-      transform: none;
     }
 
-    .btn-weiter:not(:disabled):active {
-      transform: translateY(1px);
-      background: rgba(170, 0, 120, 0.12);
+    .btn-next:not(:disabled):hover {
+      background: var(--color-violet);
+      color: #ffffff;
     }
 
-    .fund-section {
-      background: var(--card-alt-bg);
-      border-radius: var(--radius-lg);
-      padding: 12px 14px 14px;
-      border: 1px solid var(--border-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .fund-actions {
+    .fund-row {
+      margin-top: 6px;
       display: flex;
       justify-content: center;
     }
 
     .btn-fund {
-      min-width: 180px;
-      padding: 12px 20px;
-      border-radius: 999px;
+      width: 100%;
+      padding: 13px 12px;
+      background: var(--color-blue);
+      border-radius: var(--radius-btn);
       border: none;
-      cursor: pointer;
-      font-size: 15px;
+      color: #f4f8ff;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      font-size: 0.96rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      background: linear-gradient(145deg, var(--blue), var(--green));
-      color: #f7fbff;
-      box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.7),
-        0 8px 18px rgba(0, 0, 0, 0.7);
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
-        filter 0.08s ease-out;
+      cursor: pointer;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5),
+                  0 8px 22px rgba(0, 101, 171, 0.55);
+      transition: transform 0.1s ease, box-shadow 0.1s ease,
+                  filter 0.1s ease;
     }
 
     .btn-fund:active {
-      transform: translateY(1px) scale(0.99);
-      box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.8),
-        0 4px 10px rgba(0, 0, 0, 0.8);
-      filter: brightness(0.94);
+      transform: translateY(1px);
+      box-shadow: 0 4px 14px rgba(0, 101, 171, 0.5);
+      filter: brightness(0.97);
     }
 
-    .btn-fund:disabled {
-      opacity: 0.5;
-      cursor: default;
-      filter: grayscale(0.1) brightness(0.86);
-    }
-
-    .fund-hint {
+    .score-panel {
+      margin-top: 10px;
+      background: #111111;
+      border-radius: var(--radius-btn);
+      padding: 12px 10px 16px;
       text-align: center;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .score-card {
-      background: transparent;
-      border-radius: var(--radius-lg);
-      padding: 8px 6px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03);
     }
 
     .score-label {
-      font-size: 11px;
-      letter-spacing: 0.24em;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--color-muted);
+      margin-bottom: 6px;
     }
 
     .score-value {
-      font-size: 40px;
+      font-size: 2.6rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      line-height: 1.1;
     }
 
-    .score-detail {
-      font-size: 12px;
-      color: var(--text-muted);
+    .fairies-count {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: var(--color-muted);
     }
 
-    .end-overlay {
-      position: absolute;
-      inset: 0;
-      border-radius: 32px;
-      background: radial-gradient(circle at top, rgba(242, 150, 0, 0.16), transparent 55%),
-                  rgba(3, 4, 8, 0.98);
+    /* End-Screen */
+    .end-screen {
       display: none;
-      align-items: center;
-      justify-content: center;
       text-align: center;
-      padding: 24px;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .end-overlay.active {
-      display: flex;
+      padding-top: 24px;
+      padding-bottom: 10px;
     }
 
     .end-title {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: 0.22em;
+      font-family: "Pacifico", system-ui, sans-serif;
+      font-size: 2.1rem;
+      color: var(--color-violet);
+      text-shadow: 0 0 14px rgba(170, 0, 120, 0.9);
+      margin-bottom: 8px;
+    }
+
+    .end-score-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: var(--orange);
-      text-shadow: 0 0 18px rgba(242, 150, 0, 0.9);
+      color: var(--color-muted);
+      margin-bottom: 6px;
     }
 
-    .end-score {
-      font-size: 56px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      margin-top: 4px;
+    .end-score-value {
+      font-size: 3.1rem;
+      font-weight: 800;
+      margin-bottom: 16px;
     }
 
-    .end-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .btn-newgame {
-      margin-top: 10px;
-      padding: 11px 26px;
-      border-radius: 999px;
+    .btn-restart {
+      padding: 11px 16px;
+      background: var(--color-green);
+      border-radius: var(--radius-btn);
       border: none;
-      background: linear-gradient(145deg, var(--green), var(--blue));
-      color: #f7fbff;
-      font-size: 14px;
+      color: #031003;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      font-size: 0.9rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       cursor: pointer;
-      box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.75),
-        0 10px 22px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 10px 20px rgba(59, 165, 43, 0.45);
+      transition: transform 0.1s ease, box-shadow 0.1s ease,
+                  filter 0.1s ease;
     }
 
-    @media (max-width: 360px) {
-      .title-line {
-        font-size: 22px;
+    .btn-restart:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 10px rgba(59, 165, 43, 0.4);
+      filter: brightness(0.96);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 380px) {
+      .subtitle {
+        letter-spacing: 0.18em;
       }
-      .fairy-btn {
-        min-width: 0;
-        width: 100%;
-        font-size: 18px;
+      .fairy-button {
+        font-size: 1.05rem;
       }
-      .btn-fund {
-        width: 100%;
+      .score-value {
+        font-size: 2.3rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="app-frame">
-    <div class="content-wrap" style="position: relative;">
-      <div class="title">
-        <div class="title-line">
-          <span class="fairy">Fairy</span> <span class="kipp">KIPP</span>
-        </div>
-        <div class="subtitle">Unendlich viele Kipp-Geschichten</div>
-      </div>
-
-      <div class="fairy-btn-wrap">
-        <button id="fairyBtn" class="fairy-btn">FAIRY</button>
-      </div>
-
-      <div class="card">
-        <div class="story-header">
-          <span>Fairy-Geschichte</span>
-          <span id="sectionLabel">Abschnitt 0 von 3</span>
-        </div>
-        <div id="storyBox" class="story-box">
-          <span class="story-placeholder">
-            Tippe auf FAIRY, lies die Geschichte vor – dann wird gekippt.
-          </span>
-        </div>
-        <div class="story-actions">
-          <button id="nextBtn" class="btn-weiter" disabled>Weiter</button>
-        </div>
-      </div>
-
-      <div class="fund-section">
-        <div class="fund-actions">
-          <button id="fundBtn" class="btn-fund" disabled>FAIRY-FUND</button>
-        </div>
-        <div class="fund-hint">
-          Tippe FAIRY-FUND, wenn du die aktuelle Fairy getroffen oder bereits aufgelegt hattest.
-        </div>
-      </div>
-
-      <div class="score-card">
-        <div class="score-label">Fairy-Punkte</div>
-        <div id="scoreValue" class="score-value">0</div>
-        <div id="scoreDetail" class="score-detail">Erzählte Fairies: 0 / 6</div>
-      </div>
-
-      <div id="endOverlay" class="end-overlay">
-        <div class="end-title">Fairy-End</div>
-        <div id="endScore" class="end-score">0</div>
-        <div class="end-sub">
-          Deine Fairy-Punkte in dieser Partie.<br />
-          Starte gern eine neue Runde.
-        </div>
-        <button id="newGameBtn" class="btn-newgame">Neue Partie</button>
-      </div>
+  <div class="app-shell" id="appMain">
+    <div class="color-strip">
+      <div class="color-block color-orange"></div>
+      <div class="color-block color-blue"></div>
+      <div class="color-block color-violet"></div>
+      <div class="color-block color-green"></div>
     </div>
+
+    <header class="title">
+      <span class="title-fairy">Fairy</span>
+      <span class="title-kipp">KIPP</span>
+    </header>
+    <div class="subtitle">Unendlich viele Kipp-Geschichten</div>
+
+    <button id="fairyButton" class="fairy-button">FAIRY</button>
+
+    <section class="panel" id="storyPanel">
+      <div class="story-box">
+        <div id="storyText" class="story-text">
+          Tippe auf FAIRY, um eine erste Fairy zu hören.
+        </div>
+      </div>
+      <div class="section-info" id="sectionInfo"></div>
+      <div class="controls-row">
+        <button id="nextButton" class="btn-next" disabled>WEITER</button>
+      </div>
+      <div class="fund-row">
+        <button id="fundButton" class="btn-fund">FAIRY-FUND</button>
+      </div>
+    </section>
+
+    <section class="score-panel">
+      <div class="score-label">Fairy-Punkte</div>
+      <div id="scoreValue" class="score-value">0</div>
+      <div class="fairies-count">
+        Erzählte Fairies: <span id="fairiesCount">0</span> / 6
+      </div>
+    </section>
+
+    <!-- End-Screen -->
+    <section class="end-screen" id="endScreen">
+      <div class="end-title">Fairy-End</div>
+      <div class="end-score-label">Gesamtpunkte</div>
+      <div id="endScoreValue" class="end-score-value">0</div>
+      <button id="restartButton" class="btn-restart">Neues Spiel</button>
+    </section>
   </div>
 
   <script>
-    // ----------------------
-    // Spielzustand
-    // ----------------------
-    const fairyBtn = document.getElementById("fairyBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const fundBtn = document.getElementById("fundBtn");
-    const storyBox = document.getElementById("storyBox");
-    const sectionLabel = document.getElementById("sectionLabel");
-    const scoreValue = document.getElementById("scoreValue");
-    const scoreDetail = document.getElementById("scoreDetail");
-    const endOverlay = document.getElementById("endOverlay");
-    const endScore = document.getElementById("endScore");
-    const newGameBtn = document.getElementById("newGameBtn");
+    // ----------- Daten für Fairies --------------
 
-    let currentStory = null;
-    let currentSectionIndex = 0;
-
-    let fairyPoints = 0;
-    let narratedFairies = 0;
-    const MAX_FAIRIES = 6;
-    let narratedSinceLastScore = false; // true = eigene Fairy möglich
-    let gameOver = false;
-
-    // Merker, damit das Farbadjektiv nicht ständig wiederholt wird
-    let lastColorAdjective = null;
-
-    // ----------------------
-    // Daten: Motive & Farben
-    // ----------------------
     const motifs = [
-      { key: "wasserball", name: "Wasserball" },
-      { key: "auto", name: "Auto" },
-      { key: "farbfleck", name: "Farbfleck" },
-      { key: "buch", name: "Buch" },
-      { key: "giesskanne", name: "Gießkanne" },
-      { key: "kerze", name: "Kerze" },
-      { key: "blume", name: "Blume" },
-      { key: "fisch", name: "Fisch" },
-      { key: "schmetterling", name: "Schmetterling" },
-      { key: "schuh", name: "Schuh" },
-      { key: "tasse", name: "Tasse" },
-      { key: "tshirt", name: "T-Shirt" }
+      {
+        name: "Wasserball",
+        articleAcc: "den",
+        hints: [
+          "Zwischen feinem Sand und leisen Wellen schien etwas Rundes immer wieder kurz aus dem Schatten zu rollen.",
+          "Fernes Lachen hallte über den Platz, als ob irgendwo ein verstecktes Spiel längst noch nicht vorbei wäre."
+        ]
+      },
+      {
+        name: "Auto",
+        articleAcc: "das",
+        hints: [
+          "In der Ferne glitt ein schwacher Schein wie eine kleine Spur über den Boden, begleitet von einem fast unhörbaren Summen.",
+          "Zwischen zwei alten Mauern zeichnete sich eine schmale Spur ab, als hätte sich hier etwas mit leisen Rädern vorbeigeschoben."
+        ]
+      },
+      {
+        name: "Farbfleck",
+        articleAcc: "den",
+        hints: [
+          "Auf dem Boden wirkten manche Stellen, als hätte jemand heimlich mit der Nacht gemalt.",
+          "Zwischen den Schatten schimmerte ein seltsamer Tupfer, der nicht ganz zur Umgebung passen wollte."
+        ]
+      },
+      {
+        name: "Buch",
+        articleAcc: "das",
+        hints: [
+          "Die Luft roch nach Staub und Geschichten, als würden unsichtbare Seiten leise umgeblättert.",
+          "Aus einer dunklen Ecke kam ein Hauch von alten Wörtern, obwohl niemand zu lesen schien."
+        ]
+      },
+      {
+        name: "Gießkanne",
+        articleAcc: "die",
+        hints: [
+          "Irgendwo tropfte es regelmäßig, als würde jemand heimlich die Pflanzen flüstern hören.",
+          "Zwischen den Pflanzen glänzte etwas mit einem schmalen Griff und einer langen Öffnung, bereit, jeden Tropfen zu lenken."
+        ]
+      },
+      {
+        name: "Kerze",
+        articleAcc: "die",
+        hints: [
+          "Ein warmer, ruhiger Duft lag in der Luft, als hätte jemand ein kleines Licht gut versteckt.",
+          "An einer ruhigen Stelle flackerte ein winziger Schein, kaum größer als ein Atemzug."
+        ]
+      },
+      {
+        name: "Blume",
+        articleAcc: "die",
+        hints: [
+          "Mitten im Grau zeigte sich ein zarter Duft, der nicht von Stein oder Holz stammen konnte.",
+          "Zwischen den Ritzen des Bodens reckte sich etwas Feines zum Licht, als hätte es den Platz heimlich erobert."
+        ]
+      },
+      {
+        name: "Fisch",
+        articleAcc: "den",
+        hints: [
+          "Im Wasser zeichnete sich eine kleine Bewegung ab, als würde ein Schatten hin und her huschen.",
+          "Die Oberfläche kräuselte sich kurz, als hätte darunter jemand neugierig nach oben geschaut."
+        ]
+      },
+      {
+        name: "Schmetterling",
+        articleAcc: "den",
+        hints: [
+          "Ein kaum spürbarer Luftzug strich vorbei, als würde etwas Leichtes daran hängen.",
+          "Zwischen den Schatten tanzte ein winziger Schimmer, mal hier, mal dort, ohne einen Laut zu machen."
+        ]
+      },
+      {
+        name: "Schuh",
+        articleAcc: "den",
+        hints: [
+          "Im Staub zeichnete sich eine kleine Spur ab, als wäre jemand mitten im Schritt stehen geblieben.",
+          "Zwischen all den Dingen wirkte es, als hätte etwas auf den richtigen Weg gewartet."
+        ]
+      },
+      {
+        name: "Tasse",
+        articleAcc: "die",
+        hints: [
+          "Ein feiner Duft von Wärme und Ruhe schien aus einer unscheinbaren Ecke zu kommen.",
+          "Auf einem kleinen Vorsprung stand etwas, das jeden Moment zum Anheben einlud."
+        ]
+      },
+      {
+        name: "T-Shirt",
+        articleAcc: "das",
+        hints: [
+          "Am Rand des Weges hing etwas Stoffiges, das sich ganz leicht im Luftzug bewegte.",
+          "Auf einer Kante lag etwas Weiches zusammengefaltet, als würde es auf einen neuen Besitzer warten."
+        ]
+      }
     ];
 
-    const colors = [
-      { key: "blau", label: "Blau" },
-      { key: "violett", label: "Violett" },
-      { key: "orange", label: "Orange" },
-      { key: "grün", label: "Grün" }
-    ];
+    const colors = ["Blau", "Violett", "Orange", "Grün"];
 
     const colorAdjectives = [
       "leuchtendem",
-      "tiefem",
-      "zartem",
-      "warmem",
-      "klarem",
       "sanftem",
-      "hellen",
-      "mystischem"
+      "kräftigem",
+      "schimmerndem",
+      "tiefem"
     ];
 
-    // Hilfsfunktion
-    function randItem(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
+    const openers = [
+      "Der Abend legte sich wie ein flüsternder Schleier über den Weg, als ob irgendwo etwas auf einen Moment der Aufmerksamkeit wartete.",
+      "Ein leiser Wind strich durch die Luft und ließ die Schatten tanzen, als hielten sie den Atem an.",
+      "In der stillen Dämmerung schien die Welt für einen Augenblick langsamer zu atmen.",
+      "Die Umgebung war so ruhig, dass jedes kleine Geräusch wie ein Geheimnis klang.",
+      "Zwischen Licht und Dunkel fühlte sich der Ort an, als könnte hier jederzeit etwas Unerwartetes auftauchen."
+    ];
+
+    // ----------- Zustand -------------
+
+    const fairyButton = document.getElementById("fairyButton");
+    const nextButton = document.getElementById("nextButton");
+    const fundButton = document.getElementById("fundButton");
+    const storyTextEl = document.getElementById("storyText");
+    const sectionInfoEl = document.getElementById("sectionInfo");
+    const scoreValueEl = document.getElementById("scoreValue");
+    const fairiesCountEl = document.getElementById("fairiesCount");
+
+    const endScreen = document.getElementById("endScreen");
+    const endScoreValueEl = document.getElementById("endScoreValue");
+    const restartButton = document.getElementById("restartButton");
+    const storyPanel = document.getElementById("storyPanel");
+
+    let currentStoryParts = [];
+    let currentSectionIndex = 0;
+    let lastStoryId = null;
+    let score = 0;
+    let toldFairies = 0;
+    const maxFairies = 6;
+    let lastFairyStartedHere = false;
+    let gameEnded = false;
+
+    function randInt(max) {
+      return Math.floor(Math.random() * max);
     }
 
-    function pickColorAdjective() {
-      let adj;
-      for (let i = 0; i < 5; i++) {
-        adj = randItem(colorAdjectives);
-        if (adj !== lastColorAdjective) break;
+    function generateStory() {
+      let attempts = 0;
+      let motifIndex, colorIndex, adjIndex, storyId;
+
+      do {
+        motifIndex = randInt(motifs.length);
+        colorIndex = randInt(colors.length);
+        adjIndex = randInt(colorAdjectives.length);
+        storyId = motifIndex + "-" + colorIndex + "-" + adjIndex;
+        attempts++;
+      } while (storyId === lastStoryId && attempts < 10);
+
+      lastStoryId = storyId;
+
+      const motif = motifs[motifIndex];
+      const color = colors[colorIndex];
+      const adj = colorAdjectives[adjIndex];
+
+      const opener = openers[randInt(openers.length)];
+      const hint = motif.hints[randInt(motif.hints.length)];
+      const reveal =
+        "Am Ende entdeckte jemand " +
+        motif.articleAcc +
+        " " +
+        motif.name +
+        " in " +
+        adj +
+        " " +
+        color +
+        ".";
+
+      return [opener, hint, reveal];
+    }
+
+    function showCurrentSection() {
+      if (!currentStoryParts.length) return;
+      storyTextEl.textContent = currentStoryParts[currentSectionIndex];
+
+      sectionInfoEl.textContent =
+        "Abschnitt " +
+        (currentSectionIndex + 1) +
+        " von " +
+        currentStoryParts.length;
+
+      if (currentSectionIndex >= currentStoryParts.length - 1) {
+        nextButton.disabled = true;
+      } else {
+        nextButton.disabled = false;
       }
-      lastColorAdjective = adj;
-      return adj;
     }
 
-    // ----------------------
-    // Fairy-Generator
-    // ----------------------
-    function generateFairyStory() {
-      const motif = randItem(motifs);
-      const color = randItem(colors);
-      const adj = pickColorAdjective();
+    function startNewFairy() {
+      if (gameEnded) return;
 
-      // neutrale „Erzählstimme“ ohne Motiv-Wort
-      const openingTemplates = [
-        "Der Abend legte sich wie ein flüsternder Schleier über den Weg, und irgendwo zwischen den Schatten schien etwas auf einen Moment der Aufmerksamkeit zu warten.",
-        "Ein leiser Wind strich über den Boden, als würde er heimlich jemanden einladen, genauer hinzusehen.",
-        "Zwischen den Bäumen wurde die Luft dichter, als hätte jemand dort einen winzigen Funken Zauber versteckt.",
-        "Über dem Weg hing ein fast unsichtbares Kitzeln, so als würde etwas Kleines den Mut sammeln, entdeckt zu werden."
-      ];
+      currentStoryParts = generateStory();
+      currentSectionIndex = 0;
+      showCurrentSection();
 
-      const hintTemplates = [
-        "Nicht weit davon glitzerte eine kleine Form, rund und doch irgendwie verspielt, als hätte jemand sie mitten in einer Bewegung angehalten.",
-        "In einer flachen Vertiefung lag etwas, das wie ein stiller Begleiter aussah – bereit, in die Hand genommen zu werden.",
-        "Zwischen ein paar Steinen ruhte ein kleines Ding, als würde es schon lange darauf warten, endlich beachtet zu werden.",
-        "Auf einem Fleck, wo sich Licht und Schatten trafen, zeichnete sich eine Kontur ab, die fast so wirkte, als hätte sie eine eigene Geschichte."
-      ];
+      // Neue Fairy wurde von DIESEM Handy gestartet
+      lastFairyStartedHere = true;
 
-      const finaleTemplates = [
-        `Und als der Blick schließlich genau dort zum Stillstand kam, lag vor allen Augen ein ${motif.name} in ${adj} ${color.label}.`,
-        `Ganz am Ende des Weges wartete wie zufällig ein ${motif.name} in ${adj} ${color.label}.`,
-        `Mit einem Mal war alles klar: Mitten im Bild lag ein ${motif.name} in ${adj} ${color.label}.`,
-        `Und da, genau dort, wo niemand mehr damit rechnete, fand man ein ${motif.name} in ${adj} ${color.label}.`
-      ];
+      toldFairies++;
+      if (toldFairies > maxFairies) toldFairies = maxFairies;
+      fairiesCountEl.textContent = toldFairies + " / " + maxFairies;
 
-      const sections = [
-        randItem(openingTemplates),
-        randItem(hintTemplates),
-        randItem(finaleTemplates)
-      ];
-
-      return {
-        motif,
-        color,
-        sections
-      };
+      if (toldFairies === maxFairies) {
+        // Nur markieren – beendet wird erst, wenn der Spieler möchte,
+        // hier aber schon vorbereitet.
+      }
     }
 
-    // ----------------------
-    // UI-Helfer
-    // ----------------------
-    function updateStoryBox(text, isPlaceholder = false) {
-      storyBox.innerHTML = "";
-      const span = document.createElement("span");
-      span.textContent = text;
-      if (isPlaceholder) span.classList.add("story-placeholder");
-      storyBox.appendChild(span);
+    function addFundPoints() {
+      if (gameEnded) return;
+
+      if (!currentStoryParts.length) return;
+
+      // Wenn dieses Handy die aktuelle Fairy gestartet hat → 3 Punkte,
+      // sonst 2 Punkte (fremde Fairy).
+      const gained = lastFairyStartedHere ? 3 : 2;
+      score += gained;
+      scoreValueEl.textContent = score;
+
+      // Nach dem Bepunkten gehört die Fairy als "abgehandelt"
+      lastFairyStartedHere = false;
+
+      // Wenn maximale Anzahl erzählter Fairies erreicht UND der Spieler
+      // jetzt gewertet hat, kann das Spiel auf Wunsch beendet werden.
+      if (toldFairies >= maxFairies) {
+        showEndScreen();
+      }
     }
 
-    function updateSectionLabel() {
-      sectionLabel.textContent = `Abschnitt ${currentSectionIndex} von 3`;
-    }
-
-    function updateScore() {
-      scoreValue.textContent = fairyPoints.toString();
-      scoreDetail.textContent = `Erzählte Fairies: ${narratedFairies} / ${MAX_FAIRIES}`;
-    }
-
-    function showEndOverlay() {
-      gameOver = true;
-      endScore.textContent = fairyPoints.toString();
-      endOverlay.classList.add("active");
-
-      fairyBtn.disabled = true;
-      nextBtn.disabled = true;
-      fundBtn.disabled = true;
+    function showEndScreen() {
+      gameEnded = true;
+      storyPanel.classList.add("hidden");
+      fairyButton.classList.add("hidden");
+      endScoreValueEl.textContent = score;
+      endScreen.style.display = "block";
     }
 
     function resetGame() {
-      fairyPoints = 0;
-      narratedFairies = 0;
-      narratedSinceLastScore = false;
-      currentStory = null;
+      gameEnded = false;
+      score = 0;
+      toldFairies = 0;
+      currentStoryParts = [];
       currentSectionIndex = 0;
-      gameOver = false;
+      lastStoryId = null;
+      lastFairyStartedHere = false;
 
-      updateStoryBox(
-        "Tippe auf FAIRY, lies die Geschichte vor – dann wird gekippt.",
-        true
-      );
-      updateSectionLabel();
-      updateScore();
+      scoreValueEl.textContent = "0";
+      fairiesCountEl.textContent = "0 / " + maxFairies;
+      storyTextEl.textContent =
+        "Tippe auf FAIRY, um eine erste Fairy zu hören.";
+      sectionInfoEl.textContent = "";
+      nextButton.disabled = true;
 
-      fairyBtn.disabled = false;
-      nextBtn.disabled = true;
-      fundBtn.disabled = true;
-      endOverlay.classList.remove("active");
+      endScreen.style.display = "none";
+      storyPanel.classList.remove("hidden");
+      fairyButton.classList.remove("hidden");
     }
 
-    // ----------------------
-    // Ereignisse
-    // ----------------------
-    fairyBtn.addEventListener("click", () => {
-      if (gameOver) return;
+    // ----------- Events -------------
 
-      currentStory = generateFairyStory();
-      currentSectionIndex = 1;
-      narratedSinceLastScore = true;
-      narratedFairies = Math.min(narratedFairies + 1, MAX_FAIRIES);
+    fairyButton.addEventListener("click", startNewFairy);
 
-      updateStoryBox(currentStory.sections[0]);
-      updateSectionLabel();
-
-      nextBtn.disabled = false;
-      fundBtn.disabled = true;
-
-      updateScore();
-
-      if (narratedFairies >= MAX_FAIRIES) {
-        // Spieler hat seine sechste Fairy gestartet – Endbild nach der nächsten Wertung
-        // (das eigentliche Fairy-End passiert dann nach dem nächsten FAIRY-FUND-Klick)
+    nextButton.addEventListener("click", () => {
+      if (!currentStoryParts.length) return;
+      if (currentSectionIndex < currentStoryParts.length - 1) {
+        currentSectionIndex++;
+        showCurrentSection();
       }
     });
 
-    nextBtn.addEventListener("click", () => {
-      if (!currentStory) return;
-
-      currentSectionIndex++;
-      if (currentSectionIndex >= 3) {
-        currentSectionIndex = 3;
-        nextBtn.disabled = true;
-        fundBtn.disabled = false;
-      }
-
-      const text =
-        currentStory.sections[currentSectionIndex - 1] || currentStory.sections[2];
-      updateStoryBox(text);
-      updateSectionLabel();
-    });
-
-    fundBtn.addEventListener("click", () => {
-      if (!currentStory || gameOver) return;
-
-      if (narratedSinceLastScore) {
-        fairyPoints += 3; // eigene Fairy erkippt
-      } else {
-        fairyPoints += 2; // Fairy von jemand anderem / aufgelegt
-      }
-      narratedSinceLastScore = false;
-
-      updateScore();
-
-      // Story ist für diese Runde erledigt
-      currentStory = null;
-      currentSectionIndex = 0;
-      updateStoryBox(
-        "Fairy gewertet. Wenn du wieder an der Reihe bist, tippe erneut auf FAIRY.",
-        true
-      );
-      updateSectionLabel();
-      nextBtn.disabled = true;
-      fundBtn.disabled = true;
-
-      if (narratedFairies >= MAX_FAIRIES) {
-        showEndOverlay();
-      }
-    });
-
-    newGameBtn.addEventListener("click", resetGame);
-
-    // Wenn ein Spieler eine fremde Fairy trifft oder eine aufgelegte Fairy hat,
-    // tippt er einfach FAIRY-FUND, ohne vorher FAIRY gedrückt zu haben.
-    // Damit weiß die App automatisch: 2 Punkte statt 3.
-    // Deshalb setzen wir narratedSinceLastScore zusätzlich auf false,
-    // wenn längere Zeit keine eigene Fairy gestartet wurde,
-    // aber das ist hier nicht nötig – ein Fremd-Treffer beginnt immer
-    // mit "nur FAIRY-FUND" auf diesem Handy.
-
-    // Startzustand
-    resetGame();
+    fundButton.addEventListener("click", addFundPoints);
+    restartButton.addEventListener("click", resetGame);
   </script>
 </body>
 </html>
