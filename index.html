@@ -1,254 +1,435 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>KIPP CLUB</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KIPP CLUB</title>
 
-<style>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background: #f4f6fa;
-        color: #222;
-        display: flex;
-        flex-direction: column;
-        align-items: center;   /* alles mittig */
-        text-align: center;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101218;
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px 16px 40px;
     }
 
     h1 {
-        margin-bottom: 20px;
+      margin: 0 0 16px;
+      text-align: center;
+      font-size: 2.1rem;
+      letter-spacing: 0.12em;
     }
 
-    .menu-buttons,
-    .smiley-container {
-        width: 100%;
-        max-width: 600px;  /* gut für Handy & Tablet (hoch & quer) */
+    .mode-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 20px;
     }
 
-    .menu-buttons button {
-        width: 100%;
-        padding: 14px;
-        margin-bottom: 10px;
-        font-size: 18px;
-        border: none;
-        border-radius: 6px;
-        background: #004aad;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
+    .mode-btn {
+      padding: 8px 4px;
+      font-size: 0.7rem;
+      border-radius: 999px;
+      border: 1px solid #444;
+      background: #1b1f2a;
+      color: #ddd;
+      text-align: center;
+      line-height: 1.2;
     }
 
-    .menu-buttons button:active {
-        background: #003680;
+    .mode-btn.active {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #fff;
+      font-weight: 600;
     }
 
-    .smiley-grid {
-        margin-top: 20px;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        justify-items: center;
+    .mode-btn.disabled {
+      opacity: 0.45;
     }
 
-    .smiley-card {
-        position: relative;
-        width: 100%;
-        max-width: 250px;
-        height: 120px;
-        background: white;
-        border-radius: 10px;
-        border: 2px solid #ccc;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        cursor: pointer;
-        transition: opacity 0.2s, transform 0.1s;
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-bottom: 16px;
     }
 
-    .smiley-card:active {
-        transform: scale(0.98);
+    /* Kombi-Karte */
+    .card-area {
+      background: #181b24;
+      border-radius: 18px;
+      padding: 16px 12px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.6);
     }
 
-    .smiley-card.selected {
-        opacity: 0.3;
+    .kombi-label {
+      font-size: 0.9rem;
+      color: #ccc;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
     }
 
-    .smiley-text {
-        font-size: 18px;
-        font-weight: bold;
+    .kombi-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+      max-width: 360px;
     }
 
-    .topkipp-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-15deg);
-        font-size: 20px;
-        font-weight: bold;
-        color: #c00000;
-        pointer-events: none;
-        text-shadow: 0 0 4px white;
+    .kombi-tile {
+      background: #0b1220;
+      border-radius: 16px;
+      padding: 10px;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border: 1px solid #303549;
     }
 
-    .hidden {
-        display: none;
+    .kombi-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
     }
 
-    .stopp-kipp {
-        margin-top: 40px;
-        font-size: 28px;
-        font-weight: bold;
-        color: #c00000;
+    .kombi-icon {
+      font-size: 2.4rem;
     }
 
-    .restart-button {
-        margin-top: 20px;
-        padding: 14px 20px;
-        font-size: 18px;
-        border-radius: 6px;
-        border: none;
-        background: #008000;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
+    .kombi-code {
+      font-size: 0.85rem;
+      color: #e5e7eb;
     }
 
-    .restart-button:active {
-        background: #006000;
+    /* Buttons unten */
+    .action-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+      width: 100%;
+      max-width: 360px;
     }
-</style>
+
+    .action-btn {
+      border-radius: 16px;
+      border: none;
+      padding: 12px 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: #f9fafb;
+    }
+
+    .btn-self {
+      background: #16a34a;
+    }
+
+    .btn-self:active {
+      background: #15803d;
+    }
+
+    .btn-other {
+      background: #f97316;
+    }
+
+    .btn-other:active {
+      background: #ea580c;
+    }
+
+    .action-btn small {
+      font-size: 0.75rem;
+      opacity: 0.82;
+    }
+
+    .action-btn.disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    /* Score */
+    .score-row {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+
+    .score-chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #111827;
+      border: 1px solid #374151;
+    }
+
+    .stop-banner {
+      margin-top: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fbbf24;
+      text-align: center;
+    }
+
+    .restart-row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .restart-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      background: #2563eb;
+      color: #f9fafb;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .restart-btn:active {
+      background: #1d4ed8;
+    }
+
+    @media (min-width: 768px) {
+      .app {
+        max-width: 720px;
+      }
+      .kombi-box {
+        max-width: 420px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="app">
+    <h1>KIPP CLUB</h1>
 
-<h1 id="title">KIPP CLUB</h1>
-
-<!-- Hauptmenü -->
-<div id="mainMenu" class="menu-buttons">
-    <button onclick="startVariant('classic')">KIPP Classic</button>
-    <button onclick="startVariant('color')">KIPP Color</button>
-    <button onclick="startVariant('card')">KIPP Card</button>
-    <button onclick="startSmiley()">KIPP Smiley</button>
-</div>
-
-<!-- KIPP Smiley Bereich -->
-<div id="smileyArea" class="smiley-container hidden">
-    <div class="smiley-grid" id="smileyGrid">
-        <!-- 6 Karten werden per JS erzeugt -->
+    <div class="mode-row">
+      <button class="mode-btn disabled">KIPP<br>Classic</button>
+      <button class="mode-btn disabled">KIPP<br>Color</button>
+      <button class="mode-btn disabled">KIPP<br>Card</button>
+      <button class="mode-btn active" id="modeSmiley">KIPP<br>Smiley</button>
     </div>
 
-    <div id="stoppKippBlock" class="hidden">
-        <div class="stopp-kipp">STOPP KIPP</div>
-        <button class="restart-button" onclick="restartKipp()">KIPP START</button>
+    <div class="subtitle">Variante: KIPP Smiley – Demo</div>
+
+    <div class="card-area">
+      <div class="kombi-label">Aktuelle Kombi</div>
+
+      <div class="kombi-box">
+        <div class="kombi-tile">
+          <div class="kombi-title">Kopf</div>
+          <div class="kombi-icon" id="faceIcon">🙂</div>
+          <div class="kombi-code" id="faceLabel">Face 1</div>
+        </div>
+
+        <div class="kombi-tile">
+          <div class="kombi-title">Geste</div>
+          <div class="kombi-icon" id="handIcon">✋</div>
+          <div class="kombi-code" id="handLabel">Hand A</div>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="action-btn btn-self" id="btnSelf">
+          <span>Eigener Kipp</span>
+          <small>+3 Punkte</small>
+        </button>
+        <button class="action-btn btn-other" id="btnOther">
+          <span>Mitspieler Kipp</span>
+          <small>+1 Punkt</small>
+        </button>
+      </div>
+
+      <div class="score-row">
+        <div class="score-chip" id="scorePoints">Punkte: 0</div>
+        <div class="score-chip" id="scoreCombos">Kombis gekippt: 0 / 6</div>
+      </div>
+
+      <div class="stop-banner" id="stopBanner" style="display:none;">
+        KIPP STOPP – Runde beendet!
+      </div>
+      <div class="restart-row" id="restartRow" style="display:none;">
+        <button class="restart-btn" id="btnRestart">Neue Runde</button>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
-const faces = Array.from({ length: 12 }, (_, i) => "Gesicht " + (i + 1));
-const hands = Array.from({ length: 4 }, (_, i) => "Geste " + (i + 1));
+  <script>
+    // --- Datenbasis: 12 Köpfe, 4 Gesten (jetzt noch Emojis/Labels) ---
+    // Später kannst du hier statt Emojis Bildnamen einsetzen.
+    const faces = [
+      { icon: "😀", label: "Face 1" },
+      { icon: "😁", label: "Face 2" },
+      { icon: "😂", label: "Face 3" },
+      { icon: "😃", label: "Face 4" },
+      { icon: "😄", label: "Face 5" },
+      { icon: "😅", label: "Face 6" },
+      { icon: "😉", label: "Face 7" },
+      { icon: "😊", label: "Face 8" },
+      { icon: "😎", label: "Face 9" },
+      { icon: "🤓", label: "Face 10" },
+      { icon: "🤪", label: "Face 11" },
+      { icon: "🥳", label: "Face 12" }
+    ];
 
-let selectedCount = 0;
+    const hands = [
+      { icon: "✋", label: "Geste 1" },
+      { icon: "✊", label: "Geste 2" },
+      { icon: "☝️", label: "Geste 3" },
+      { icon: "👍", label: "Geste 4" }
+    ];
 
-function startVariant(name) {
-    // Platzhalter – später können wir hier andere Varianten einbauen.
-    alert("Variante '" + name + "' ist noch nicht implementiert.\nKIPP Smiley ist schon spielbar.");
-}
+    const MAX_COMBOS = 6;
 
-function startSmiley() {
-    document.getElementById("title").innerText = "KIPP Smiley";
-    document.getElementById("mainMenu").classList.add("hidden");
-    document.getElementById("smileyArea").classList.remove("hidden");
+    let currentFace = null;
+    let currentHand = null;
+    let lastFaceIndex = -1;
+    let lastHandIndex = -1;
+    let points = 0;
+    let comboCount = 0;
+    let roundFinished = false;
 
-    selectedCount = 0;
-    document.getElementById("stoppKippBlock").classList.add("hidden");
-    document.getElementById("smileyGrid").classList.remove("hidden");
-    buildSmileyGrid();
-}
+    const faceIconEl = document.getElementById("faceIcon");
+    const faceLabelEl = document.getElementById("faceLabel");
+    const handIconEl = document.getElementById("handIcon");
+    const handLabelEl = document.getElementById("handLabel");
 
-function restartKipp() {
-    // Komplett zurück zum Startbildschirm
-    document.getElementById("title").innerText = "KIPP CLUB";
-    document.getElementById("smileyArea").classList.add("hidden");
-    document.getElementById("mainMenu").classList.remove("hidden");
-}
+    const btnSelf = document.getElementById("btnSelf");
+    const btnOther = document.getElementById("btnOther");
+    const scorePointsEl = document.getElementById("scorePoints");
+    const scoreCombosEl = document.getElementById("scoreCombos");
+    const stopBannerEl = document.getElementById("stopBanner");
+    const restartRowEl = document.getElementById("restartRow");
+    const btnRestart = document.getElementById("btnRestart");
 
-function buildSmileyGrid() {
-    const grid = document.getElementById("smileyGrid");
-    grid.innerHTML = "";
-
-    const combos = [];
-    for (let i = 0; i < faces.length; i++) {
-        for (let j = 0; j < hands.length; j++) {
-            combos.push({ faceIndex: i, handIndex: j });
-        }
+    function randomIndex(max, lastIdx) {
+      if (max <= 1) return 0;
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * max);
+      } while (idx === lastIdx);
+      return idx;
     }
 
-    // zufällig mischen
-    shuffleArray(combos);
+    function pickNewCombination() {
+      const faceIdx = randomIndex(faces.length, lastFaceIndex);
+      const handIdx = randomIndex(hands.length, lastHandIndex);
 
-    // 6 Kombinationen nehmen
-    const selectedCombos = combos.slice(0, 6);
+      lastFaceIndex = faceIdx;
+      lastHandIndex = handIdx;
 
-    selectedCombos.forEach((combo, idx) => {
-        const card = document.createElement("div");
-        card.className = "smiley-card";
-        card.dataset.index = idx;
+      currentFace = faces[faceIdx];
+      currentHand = hands[handIdx];
 
-        // Platzhalter-Inhalt – später ersetzen wir das durch Bilder.
-        const text = document.createElement("div");
-        text.className = "smiley-text";
-        text.innerText = faces[combo.faceIndex] + " + " + hands[combo.handIndex];
+      // Anzeige aktualisieren
+      faceIconEl.textContent = currentFace.icon;
+      faceLabelEl.textContent = currentFace.label;
+      handIconEl.textContent = currentHand.icon;
+      handLabelEl.textContent = currentHand.label;
+    }
 
-        const overlay = document.createElement("div");
-        overlay.className = "topkipp-overlay hidden";
-        overlay.innerText = "TOP KIPP";
+    function updateScoreDisplay() {
+      scorePointsEl.textContent = "Punkte: " + points;
+      scoreCombosEl.textContent = "Kombis gekippt: " + comboCount + " / " + MAX_COMBOS;
+    }
 
-        card.appendChild(text);
-        card.appendChild(overlay);
+    function setButtonsEnabled(enabled) {
+      if (enabled) {
+        btnSelf.classList.remove("disabled");
+        btnOther.classList.remove("disabled");
+      } else {
+        btnSelf.classList.add("disabled");
+        btnOther.classList.add("disabled");
+      }
+      btnSelf.disabled = !enabled;
+      btnOther.disabled = !enabled;
+    }
 
-        card.addEventListener("click", () => {
-            toggleCard(card);
-        });
+    function finishRoundIfNeeded() {
+      if (comboCount >= MAX_COMBOS) {
+        roundFinished = true;
+        setButtonsEnabled(false);
+        stopBannerEl.style.display = "block";
+        restartRowEl.style.display = "flex";
+      }
+    }
 
-        grid.appendChild(card);
+    function handleKipp(pointsGain) {
+      if (roundFinished) return;
+
+      // Punkte & Kombi hochzählen
+      points += pointsGain;
+      comboCount += 1;
+      updateScoreDisplay();
+      finishRoundIfNeeded();
+
+      if (!roundFinished) {
+        pickNewCombination();
+      }
+    }
+
+    btnSelf.addEventListener("click", () => {
+      handleKipp(3);
     });
-}
 
-function toggleCard(card) {
-    if (card.classList.contains("selected")) {
-        // Option: wieder abwählen? In deiner Beschreibung war nur „anklicken -> TOP KIPP“,
-        // daher hier: einmal klicken reicht, kein Zurück.
-        return;
-    }
+    btnOther.addEventListener("click", () => {
+      handleKipp(1);
+    });
 
-    card.classList.add("selected");
-    const overlay = card.querySelector(".topkipp-overlay");
-    if (overlay) {
-        overlay.classList.remove("hidden");
-    }
+    btnRestart.addEventListener("click", () => {
+      points = 0;
+      comboCount = 0;
+      roundFinished = false;
+      updateScoreDisplay();
+      stopBannerEl.style.display = "none";
+      restartRowEl.style.display = "none";
+      setButtonsEnabled(true);
+      pickNewCombination();
+    });
 
-    selectedCount++;
-    if (selectedCount >= 6) {
-        allSelected();
-    }
-}
-
-function allSelected() {
-    // Wenn alle 6 „TOP KIPP“ sind:
-    document.getElementById("smileyGrid").classList.add("hidden");
-    document.getElementById("stoppKippBlock").classList.remove("hidden");
-}
-
-function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-}
-</script>
-
+    // Startzustand
+    (function init() {
+      points = 0;
+      comboCount = 0;
+      roundFinished = false;
+      updateScoreDisplay();
+      setButtonsEnabled(true);
+      pickNewCombination();
+    })();
+  </script>
 </body>
 </html>
