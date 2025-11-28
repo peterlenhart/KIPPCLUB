@@ -3,308 +3,641 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIPP CLUB – Smiley</title>
+  <title>FAIRY KIPP</title>
 
   <style>
+    :root {
+      --blue:    #0065ab;  /* 0/101/171 */
+      --violet:  #aa0078;  /* 170/0/120 */
+      --green:   #3ba52b;  /* 59/165/43 */
+      --orange:  #f29600;  /* 242/150/0 */
+      --lind:    #bfd4bc;  /* 191/212/188 */
+      --bg:      #f4f6fa;
+      --text:    #1f2430;
+    }
+
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      background: #121826;
-      color: #f5f5f5;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 55%, #dde3f0 100%);
+      color: var(--text);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 20px 12px;
     }
 
     .app {
       width: 100%;
-      max-width: 480px;
+      max-width: 520px;
+      padding: 20px 16px 32px;
+    }
+
+    .title {
       text-align: center;
+      margin-bottom: 8px;
     }
 
-    h1 {
-      margin: 0 0 4px;
-      font-size: 2.2rem;
-      letter-spacing: 0.05em;
+    .title-main {
+      font-size: 2.4rem;
       font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--violet);
+      text-shadow: 0 2px 0 rgba(0,0,0,0.09);
     }
 
-    .subtitle {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-      opacity: 0.85;
+    .title-sub {
+      font-size: 1.05rem;
       font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #555;
     }
 
-    /* Kartenfeld – EIN Rechteck mit Gesicht + Hand */
-    .card-wrapper {
+    .score-row {
       display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      width: min(70vw, 280px);
-      height: min(70vw, 280px);
-      max-width: 320px;
-      max-height: 320px;
-      background: linear-gradient(145deg, #1f2838, #151b28);
-      border-radius: 28px;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      gap: 18px;
-    }
-
-    .card-inner {
-      width: 90%;
-      height: 80%;
-      background: #0f172a;
-      border-radius: 22px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-evenly;
-      padding: 10px;
-    }
-
-    .smiley-face {
-      font-size: 4.2rem;
-      line-height: 1;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
-    }
-
-    .smiley-hand {
-      font-size: 3.2rem;
-      line-height: 1;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
-    }
-
-    /* Buttons Eigener Kipp / Mitspieler Kipp */
-    .buttons-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      margin-bottom: 18px;
+      margin: 16px 0 12px;
+      flex-wrap: wrap;
     }
 
-    .btn {
-      border: none;
-      border-radius: 20px;
-      padding: 14px 10px;
-      font-size: 1.1rem;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      cursor: pointer;
-      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease;
-    }
-
-    .btn-primary {
-      background: #10b981;
-      color: #022c22;
-      box-shadow: 0 8px 18px rgba(16, 185, 129, 0.4);
-    }
-
-    .btn-secondary {
-      background: #f59e0b;
-      color: #451a03;
-      box-shadow: 0 8px 18px rgba(245, 158, 11, 0.4);
-    }
-
-    .btn:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
-
-    /* Punkte / Kombi-Anzeige */
-    .score-area {
-      margin-top: 6px;
-      padding: 14px 14px 18px;
-      background: #0b1220;
+    .score-card {
+      flex: 1;
+      min-width: 150px;
+      background: #ffffffdd;
       border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 10px;
+      padding: 10px 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-    }
-
-    .score-big {
-      font-size: 2.3rem;
-      font-weight: 900;
-      color: #e5ff4a;
-      text-align: left;
-      line-height: 1.1;
     }
 
     .score-label {
       font-size: 0.9rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      opacity: 0.8;
+      letter-spacing: 0.08em;
+      color: #666;
     }
 
-    .score-small-block {
-      text-align: right;
-    }
-
-    .score-small-main {
-      font-size: 1.4rem;
+    .score-value {
+      margin-top: 2px;
+      font-size: 2.2rem;
       font-weight: 800;
     }
 
-    .score-small-sub {
-      font-size: 0.75rem;
-      opacity: 0.8;
-      margin-top: 2px;
+    .score-value.points {
+      color: var(--orange);
     }
 
-    /* Reset-Button klein darunter */
-    .reset-row {
+    .score-value.fairies {
+      color: var(--blue);
+    }
+
+    .score-note {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .fairy-end {
+      margin-top: 8px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--violet);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .btn-main {
+      width: 100%;
+      margin: 10px 0 14px;
+      padding: 14px 0;
+      border-radius: 999px;
+      border: none;
+      font-size: 1.3rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, var(--blue), var(--violet));
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      cursor: pointer;
+    }
+
+    .btn-main:disabled {
+      opacity: 0.4;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .story-box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 18px;
+      padding: 14px 14px 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .story-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .story-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+    }
+
+    .story-target {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--green);
+      text-align: right;
+    }
+
+    .story-text {
+      font-size: 1.1rem;
+      line-height: 1.35;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    .story-controls {
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-small {
+      flex: 0 0 auto;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      background: var(--green);
+      color: #fff;
+    }
+
+    .story-step-indicator {
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    .target-big {
       margin-top: 10px;
       text-align: center;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue);
     }
 
-    .reset-btn {
+    .target-big span {
+      font-weight: 800;
+    }
+
+    .points-area {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .btn-points {
       border: none;
-      background: none;
-      color: #9ca3af;
-      font-size: 0.85rem;
-      text-decoration: underline;
+      border-radius: 16px;
+      padding: 10px 6px;
+      font-size: 1rem;
+      font-weight: 800;
+      text-align: center;
       cursor: pointer;
-      padding: 4px 8px;
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
     }
 
-    .reset-btn:active {
-      color: #e5e7eb;
+    .btn-points span.small {
+      font-size: 0.8rem;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .btn-self {
+      background: var(--orange);
+    }
+
+    .btn-foreign {
+      background: var(--blue);
+    }
+
+    .btn-laid {
+      background: var(--green);
+    }
+
+    .btn-reset {
+      margin-top: 14px;
+      width: 100%;
+      padding: 10px 0;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(0,0,0,0.04);
+      color: #555;
+      cursor: pointer;
+    }
+
+    .hint {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #666;
+      text-align: center;
     }
 
     @media (min-width: 768px) {
       .app {
-        max-width: 540px;
+        max-width: 640px;
       }
-
-      .card {
-        width: 260px;
-        height: 260px;
+      .title-main {
+        font-size: 2.8rem;
+      }
+      .story-box {
+        min-height: 150px;
       }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <h1>KIPP CLUB</h1>
-    <div class="subtitle">KIPP Smiley</div>
+    <header class="title">
+      <div class="title-main">FAIRY KIPP</div>
+      <div class="title-sub">unendliche Kipps &amp; Geschichten</div>
+    </header>
 
-    <div class="card-wrapper">
-      <div class="card">
-        <div class="card-inner">
-          <div class="smiley-face" id="smileyFace">😀</div>
-          <div class="smiley-hand" id="smileyHand">👍</div>
+    <section class="score-row">
+      <div class="score-card">
+        <div class="score-label">Fairy-Punkte</div>
+        <div class="score-value points" id="scoreValue">0</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Erzählte Fairies</div>
+        <div class="score-value fairies" id="fairyCountValue">0</div>
+        <div class="score-note">max. 6 pro Partie</div>
+      </div>
+    </section>
+
+    <div id="fairyEnd" class="fairy-end" style="display:none;">
+      FAIRY END
+    </div>
+
+    <button id="btnNewFairy" class="btn-main">
+      Neue Fairy starten
+    </button>
+
+    <section class="story-box" id="storyBox" style="display:none;">
+      <div class="story-header">
+        <div class="story-label">Aktuelle Fairy</div>
+        <div class="story-target" id="storyTargetLabel">
+          &nbsp;
         </div>
       </div>
-    </div>
 
-    <div class="buttons-row">
-      <button class="btn btn-primary" id="btnOwn">Eigener Kipp</button>
-      <button class="btn btn-secondary" id="btnOther">Mitspieler Kipp</button>
-    </div>
-
-    <div class="score-area">
-      <div>
-        <div class="score-label">Punkte</div>
-        <div class="score-big" id="pointsDisplay">0</div>
+      <div class="story-text" id="storyText">
+        <!-- Satz für Satz -->
       </div>
-      <div class="score-small-block">
-        <div class="score-label">Kombis</div>
-        <div class="score-small-main" id="combosDisplay">0 / 6</div>
-        <div class="score-small-sub" id="roundInfo">Runde läuft …</div>
-      </div>
-    </div>
 
-    <div class="reset-row">
-      <button class="reset-btn" id="btnReset">Runde zurücksetzen</button>
+      <div class="story-controls">
+        <button class="btn-small" id="btnNextSentence">Weiter</button>
+        <div class="story-step-indicator" id="storyStepIndicator"></div>
+      </div>
+
+      <div class="target-big" id="targetBig" style="display:none;">
+        Gesucht: <span id="targetMotiv"></span> in <span id="targetColor"></span>
+      </div>
+    </section>
+
+    <section class="points-area">
+      <button class="btn-points btn-self" id="btnSelfHit">
+        +3 Punkte
+        <span class="small">Eigene Fairy gekippt</span>
+      </button>
+      <button class="btn-points btn-foreign" id="btnForeignHit">
+        +2 Punkte
+        <span class="small">Fremde Fairy gekippt</span>
+      </button>
+      <button class="btn-points btn-laid" id="btnLaidHit">
+        +1 Punkt
+        <span class="small">Fairy lag schon richtig</span>
+      </button>
+    </section>
+
+    <button class="btn-reset" id="btnReset">
+      Neues Spiel (Punkte & Fairies zurücksetzen)
+    </button>
+
+    <div class="hint">
+      Reihenfolge am Tisch, Punkte &amp; Fairy-Ende werden von euch gemeinsam
+      überwacht – die App verwaltet nur <b>deine</b> Punkte &amp; Geschichten.
     </div>
   </div>
 
   <script>
-    // 12 Gesichter, 4 Gesten – Platzhalter mit Emojis
-    const faces = ["😀","😃","😄","😁","😆","😅","😉","😊","😎","🤓","😮","🤪"];
-    const hands = ["👍","✌️","👌","👊"];
+    // --- Daten für Motive & Farben --------------------------------------
+    const MOTIVE = [
+      "Wasserball",
+      "Auto",
+      "Farbfleck",
+      "Buch",
+      "Gießkanne",
+      "Kerze",
+      "Blume",
+      "Fisch",
+      "Schmetterling",
+      "Schuh",
+      "Tasse",
+      "T-Shirt"
+    ];
 
-    let points = 0;
-    let combos = 0;
-    const combosPerRound = 6;
+    const COLORS = [
+      { name: "blau",    css: "var(--blue)"   },
+      { name: "violett", css: "var(--violet)" },
+      { name: "orange",  css: "var(--orange)" },
+      { name: "grün",    css: "var(--green)"  }
+    ];
 
-    const faceEl = document.getElementById("smileyFace");
-    const handEl = document.getElementById("smileyHand");
-    const pointsDisplay = document.getElementById("pointsDisplay");
-    const combosDisplay = document.getElementById("combosDisplay");
-    const roundInfo = document.getElementById("roundInfo");
-    const btnOwn = document.getElementById("btnOwn");
-    const btnOther = document.getElementById("btnOther");
-    const btnReset = document.getElementById("btnReset");
+    const PLACES = [
+      "tief im Märchenwald",
+      "auf einer versteckten Waldlichtung",
+      "auf einem alten Dachboden",
+      "in einer leisen Stadtgasse",
+      "am Rand eines funkelnden Sees",
+      "auf einer sonnigen Bergwiese",
+      "unter einem knorrigen Baum",
+      "im geheimen Hinterhof eines Zauberladens"
+    ];
 
-    function randomInt(max) {
-      return Math.floor(Math.random() * max);
-    }
+    const MOODS = [
+      "neugierige",
+      "mutige",
+      "träumende",
+      "etwas schüchterne",
+      "fröhliche",
+      "verspielte"
+    ];
 
-    function newCombo() {
-      const f = faces[randomInt(faces.length)];
-      const h = hands[randomInt(hands.length)];
-      faceEl.textContent = f;
-      handEl.textContent = h;
+    const MAGIC_EVENTS = [
+      "ein winziger Funke aus Sternenstaub",
+      "eine lächelnde Wolke",
+      "ein unsichtbarer Windhauch",
+      "eine glitzernde Staubspur",
+      "ein leiser Zauberflüstern",
+      "ein scheues Lichtwesen"
+    ];
+
+    const HELPERS = [
+      "ein kleines Eichhörnchen",
+      "eine alte Eule",
+      "ein freundlicher Frosch",
+      "ein leiser Nachtfalter",
+      "eine neugierige Maus",
+      "ein wandernder Käfer"
+    ];
+
+    const FEELINGS = [
+      "plötzlich ganz warm und mutig",
+      "ganz leicht und frei",
+      "zum ersten Mal richtig gesehen",
+      "ein bisschen aufgeregt und glücklich",
+      "still – und doch voller Freude",
+      "endlich angekommen"
+    ];
+
+    // --- Spielzustand ---------------------------------------------------
+    let score = 0;
+    let fairyCount = 0;
+    const maxFairies = 6;
+    let gameStoryLocked = false; // neue Fairy gesperrt
+    let fairyEndReached = false;
+
+    let currentStory = null; // {sentences, index, motiv, color}
+    let currentSentenceIndex = 0;
+
+    // --- DOM-Elemente ---------------------------------------------------
+    const scoreValueEl        = document.getElementById("scoreValue");
+    const fairyCountValueEl   = document.getElementById("fairyCountValue");
+    const fairyEndEl          = document.getElementById("fairyEnd");
+
+    const btnNewFairy         = document.getElementById("btnNewFairy");
+    const storyBoxEl          = document.getElementById("storyBox");
+    const storyTextEl         = document.getElementById("storyText");
+    const storyStepEl         = document.getElementById("storyStepIndicator");
+    const storyTargetLabelEl  = document.getElementById("storyTargetLabel");
+    const btnNextSentence     = document.getElementById("btnNextSentence");
+    const targetBigEl         = document.getElementById("targetBig");
+    const targetMotivEl       = document.getElementById("targetMotiv");
+    const targetColorEl       = document.getElementById("targetColor");
+
+    const btnSelfHit          = document.getElementById("btnSelfHit");
+    const btnForeignHit       = document.getElementById("btnForeignHit");
+    const btnLaidHit          = document.getElementById("btnLaidHit");
+    const btnReset            = document.getElementById("btnReset");
+
+    // --- Hilfsfunktionen ------------------------------------------------
+    function rand(list) {
+      return list[Math.floor(Math.random() * list.length)];
     }
 
     function updateScoreDisplay() {
-      pointsDisplay.textContent = points;
-      combosDisplay.textContent = combos + " / " + combosPerRound;
-      if (combos >= combosPerRound) {
-        roundInfo.textContent = "KIPP STOPP – Runde voll!";
+      scoreValueEl.textContent = score;
+    }
+
+    function updateFairyCountDisplay() {
+      fairyCountValueEl.textContent = fairyCount;
+      if (fairyCount >= maxFairies) {
+        fairyEndReached = true;
+        fairyEndEl.style.display = "block";
+        btnNewFairy.disabled = true;
       } else {
-        roundInfo.textContent = "Runde läuft …";
+        fairyEndReached = false;
+        fairyEndEl.style.display = "none";
+        btnNewFairy.disabled = false;
       }
     }
 
-    function handleKipp(pointsToAdd) {
-      if (combos >= combosPerRound) {
-        // Runde schon voll – optional trotzdem neue Kombi zulassen
-        newCombo();
-        return;
-      }
-      points += pointsToAdd;
-      combos += 1;
+    function resetGame() {
+      score = 0;
+      fairyCount = 0;
+      fairyEndReached = false;
+      currentStory = null;
+      currentSentenceIndex = 0;
+      gameStoryLocked = false;
+
       updateScoreDisplay();
-      newCombo();
+      updateFairyCountDisplay();
+      storyBoxEl.style.display = "none";
+      storyTargetLabelEl.textContent = "";
+      targetBigEl.style.display = "none";
+      targetMotivEl.textContent = "";
+      targetColorEl.textContent = "";
+      fairyEndEl.style.display = "none";
+      btnNewFairy.disabled = false;
     }
 
-    btnOwn.addEventListener("click", () => {
-      handleKipp(3); // Eigener Kipp = 3 Punkte
+    // erzeugt eine neue Fairy-Geschichte
+    function createFairyStory() {
+      const motiv = rand(MOTIVE);
+      const colorObj = rand(COLORS);
+      const place = rand(PLACES);
+      const mood = rand(MOODS);
+      const magicEvent = rand(MAGIC_EVENTS);
+      const helper = rand(HELPERS);
+      const feeling = rand(FEELINGS);
+
+      // 4–5 Sätze, Farbe erst im letzten Satz!
+      const sentences = [];
+
+      sentences.push(
+        `Irgendwo ${place} wartete ein kleiner ${motiv} ganz ohne Farbe auf sein erstes Abenteuer.`
+      );
+
+      sentences.push(
+        `An diesem Abend war die Luft besonders still, und der ${motiv} fühlte sich zum ersten Mal ${feeling}.`
+      );
+
+      sentences.push(
+        `Plötzlich tauchte ${helper} auf, sah den ${motiv} an und flüsterte: „Du bist viel zu ${mood}, um für immer grau zu bleiben.“`
+      );
+
+      sentences.push(
+        `Aus dem Nichts erschien ${magicEvent} und legte sich leise auf den ${motiv}.`
+      );
+
+      // letzter Satz: Farbe als allerletztes Wort
+      sentences.push(
+        `Als der Zauber sich setzte, strahlte der ${motiv} in der Farbe ${colorObj.name}.`
+      );
+
+      return {
+        motiv,
+        color: colorObj,
+        sentences,
+      };
+    }
+
+    function showStorySentence(index) {
+      if (!currentStory) return;
+      const total = currentStory.sentences.length;
+      currentSentenceIndex = index;
+
+      storyTextEl.textContent = currentStory.sentences[index];
+      storyStepEl.textContent = `Satz ${index + 1} von ${total}`;
+
+      if (index === total - 1) {
+        btnNextSentence.textContent = "Fertig";
+      } else {
+        btnNextSentence.textContent = "Weiter";
+      }
+    }
+
+    function finishStoryReveal() {
+      if (!currentStory) return;
+      // Farbiges Ziel anzeigen
+      targetBigEl.style.display = "block";
+      targetMotivEl.textContent = currentStory.motiv;
+      targetColorEl.textContent = currentStory.color.name;
+      targetColorEl.style.color = currentStory.color.css;
+
+      // Label oben aktualisieren
+      storyTargetLabelEl.textContent =
+        `Ziel: ${currentStory.motiv} in ${currentStory.color.name}`;
+
+      // Nach vollständigem Vorlesen darf wieder gekippt & gepunktet werden.
+      gameStoryLocked = false;
+    }
+
+    // --- Event-Handler --------------------------------------------------
+    btnNewFairy.addEventListener("click", () => {
+      if (fairyEndReached) return;
+      if (gameStoryLocked) return; // Sicherheit: erst Fairy fertig lesen
+
+      currentStory = createFairyStory();
+      currentSentenceIndex = 0;
+      gameStoryLocked = true;
+
+      fairyCount += 1;
+      updateFairyCountDisplay();
+
+      storyBoxEl.style.display = "flex";
+      targetBigEl.style.display = "none";
+      storyTargetLabelEl.textContent = "Fairy wird vorgelesen …";
+
+      showStorySentence(0);
     });
 
-    btnOther.addEventListener("click", () => {
-      handleKipp(1); // Mitspieler Kipp = 1 Punkt
+    btnNextSentence.addEventListener("click", () => {
+      if (!currentStory) return;
+      const total = currentStory.sentences.length;
+
+      if (currentSentenceIndex < total - 1) {
+        showStorySentence(currentSentenceIndex + 1);
+      } else {
+        // letzte Zeile war sichtbar -> Fairy vollständig
+        finishStoryReveal();
+      }
+    });
+
+    function addPoints(amount) {
+      score += amount;
+      updateScoreDisplay();
+    }
+
+    btnSelfHit.addEventListener("click", () => {
+      addPoints(3);
+    });
+
+    btnForeignHit.addEventListener("click", () => {
+      addPoints(2);
+    });
+
+    btnLaidHit.addEventListener("click", () => {
+      addPoints(1);
     });
 
     btnReset.addEventListener("click", () => {
-      points = 0;
-      combos = 0;
-      updateScoreDisplay();
-      newCombo();
+      if (confirm("Neues Spiel starten? Punkte & erzählte Fairies werden auf 0 gesetzt.")) {
+        resetGame();
+      }
     });
 
-    // Start
-    updateScoreDisplay();
-    newCombo();
+    // --- Initial --------------------------------------------------------
+    resetGame();
   </script>
 </body>
 </html>
