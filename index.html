@@ -4,16 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FAIRY KIPP</title>
-
   <style>
     :root {
-      --blue:    #0065ab;  /* 0/101/171 */
-      --violet:  #aa0078;  /* 170/0/120 */
-      --green:   #3ba52b;  /* 59/165/43 */
-      --orange:  #f29600;  /* 242/150/0 */
-      --lind:    #bfd4bc;  /* 191/212/188 */
-      --bg:      #f4f6fa;
-      --text:    #1f2430;
+      --blue: #0065ab;      /* 0/101/171 */
+      --violet: #aa0078;    /* 170/0/120 */
+      --green: #3ba52b;     /* 59/165/43 */
+      --orange: #f29600;    /* 242/150/0 */
+      --light-mint: #bfd4bc;/* 191/212/188 */
+      --bg-dark: #05070b;
+      --card-dark: #11141c;
+      --text-main: #f5f5f5;
+      --text-muted: #a5acb8;
+      --border-soft: #262b35;
+      --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.6);
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --transition-fast: 0.18s ease-out;
     }
 
     * {
@@ -23,354 +29,346 @@
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 55%, #dde3f0 100%);
-      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #141b24 0, var(--bg-dark) 52%);
+      color: var(--text-main);
       display: flex;
       justify-content: center;
+      align-items: stretch;
+      min-height: 100vh;
     }
 
     .app {
       width: 100%;
-      max-width: 520px;
-      padding: 20px 16px 32px;
+      max-width: 480px;
+      padding: 16px 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .title {
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .title-main {
-      font-size: 2.4rem;
+      font-size: 1.4rem;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--violet);
-      text-shadow: 0 2px 0 rgba(0,0,0,0.09);
+      color: var(--light-mint);
     }
 
-    .title-sub {
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #555;
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
-    .score-row {
+    .stats {
       display: flex;
-      gap: 10px;
-      margin: 16px 0 12px;
-      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .score-card {
-      flex: 1;
-      min-width: 150px;
-      background: #ffffffdd;
-      border-radius: 18px;
-      padding: 10px 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+    .stat-chip {
+      background: rgba(21, 27, 38, 0.95);
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      padding: 6px 10px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      align-items: flex-end;
+      min-width: 88px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
     }
 
-    .score-label {
-      font-size: 0.9rem;
+    .stat-label {
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #666;
+      color: var(--text-muted);
     }
 
-    .score-value {
-      margin-top: 2px;
-      font-size: 2.2rem;
-      font-weight: 800;
-    }
-
-    .score-value.points {
+    .stat-value {
+      font-size: 1.1rem;
+      font-weight: 700;
       color: var(--orange);
+      margin-top: 1px;
     }
 
-    .score-value.fairies {
-      color: var(--blue);
-    }
-
-    .score-note {
-      font-size: 0.8rem;
-      color: #666;
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       margin-top: 4px;
     }
 
-    .fairy-end {
-      margin-top: 8px;
-      text-align: center;
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: var(--violet);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+    .story-card {
+      flex: 1;
+      background: linear-gradient(135deg, #0f141c, #05070b);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
     }
 
-    .btn-main {
-      width: 100%;
-      margin: 10px 0 14px;
-      padding: 14px 0;
-      border-radius: 999px;
-      border: none;
-      font-size: 1.3rem;
-      font-weight: 800;
+    .story-card::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background:
+        radial-gradient(circle at 20% -10%, rgba(0, 101, 171, 0.23), transparent 55%),
+        radial-gradient(circle at 120% 120%, rgba(242, 150, 0, 0.22), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .story-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .story-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      background: linear-gradient(135deg, var(--blue), var(--violet));
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-      cursor: pointer;
+      color: var(--text-muted);
     }
 
-    .btn-main:disabled {
-      opacity: 0.4;
-      cursor: default;
-      box-shadow: none;
-    }
-
-    .story-box {
-      background: rgba(255,255,255,0.95);
-      border-radius: 18px;
-      padding: 14px 14px 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-      min-height: 140px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .story-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .story-label {
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #555;
-    }
-
-    .story-target {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--green);
-      text-align: right;
-    }
-
-    .story-text {
-      font-size: 1.1rem;
-      line-height: 1.35;
-      font-weight: 500;
-      margin-top: 6px;
-    }
-
-    .story-controls {
-      margin-top: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-small {
-      flex: 0 0 auto;
-      padding: 7px 14px;
+    .story-tag {
+      padding: 4px 10px;
       border-radius: 999px;
-      border: none;
-      font-size: 0.95rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      background: var(--green);
-      color: #fff;
+      border: 1px solid rgba(191, 212, 188, 0.5);
+      background: rgba(5, 7, 11, 0.7);
+      color: var(--light-mint);
     }
 
-    .story-step-indicator {
-      font-size: 0.8rem;
-      color: #777;
-    }
-
-    .target-big {
-      margin-top: 10px;
-      text-align: center;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--blue);
-    }
-
-    .target-big span {
-      font-weight: 800;
-    }
-
-    .points-area {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .btn-points {
-      border: none;
-      border-radius: 16px;
-      padding: 10px 6px;
-      font-size: 1rem;
-      font-weight: 800;
-      text-align: center;
-      cursor: pointer;
-      color: #fff;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    .story-progress {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       gap: 4px;
     }
 
-    .btn-points span.small {
-      font-size: 0.8rem;
-      font-weight: 600;
-      opacity: 0.9;
-    }
-
-    .btn-self {
-      background: var(--orange);
-    }
-
-    .btn-foreign {
-      background: var(--blue);
-    }
-
-    .btn-laid {
-      background: var(--green);
-    }
-
-    .btn-reset {
-      margin-top: 14px;
-      width: 100%;
-      padding: 10px 0;
+    .dot {
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: transparent;
+      opacity: 0.5;
+    }
+
+    .dot.active {
+      background: var(--orange);
+      border-color: transparent;
+      opacity: 1;
+    }
+
+    #storyText {
+      font-size: 0.98rem;
+      line-height: 1.45;
+      color: var(--text-main);
+      min-height: 132px;
+      white-space: pre-wrap;
+    }
+
+    .story-footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .color-pill {
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .color-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+    }
+
+    .main-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .btn {
+      border-radius: var(--radius-lg);
       border: none;
-      font-size: 0.95rem;
+      padding: 13px 14px;
+      font-size: 1rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      background: rgba(0,0,0,0.04);
-      color: #555;
       cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        background-color var(--transition-fast), opacity var(--transition-fast);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
     }
 
-    .hint {
-      margin-top: 8px;
+    .btn:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: none;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #ffffff;
+      box-shadow: 0 10px 22px rgba(0, 101, 171, 0.6);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      box-shadow: none;
+      cursor: default;
+    }
+
+    .btn-secondary {
+      background: #171c24;
+      color: var(--light-mint);
+      border: 1px solid var(--border-soft);
+    }
+
+    .btn-secondary-quiet {
+      background: #11141c;
+      color: var(--text-muted);
+      border: 1px solid #262b35;
+    }
+
+    .score-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    @media (min-width: 420px) {
+      .score-buttons {
+        flex-direction: row;
+      }
+
+      .btn {
+        padding-block: 12px;
+      }
+    }
+
+    .badge-value {
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .badge-muted {
+      color: var(--text-muted);
+      font-weight: 500;
       font-size: 0.8rem;
-      color: #666;
-      text-align: center;
-    }
-
-    @media (min-width: 768px) {
-      .app {
-        max-width: 640px;
-      }
-      .title-main {
-        font-size: 2.8rem;
-      }
-      .story-box {
-        min-height: 150px;
-      }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <header class="title">
-      <div class="title-main">FAIRY KIPP</div>
-      <div class="title-sub">unendliche Kipps &amp; Geschichten</div>
-    </header>
-
-    <section class="score-row">
-      <div class="score-card">
-        <div class="score-label">Fairy-Punkte</div>
-        <div class="score-value points" id="scoreValue">0</div>
+    <header>
+      <div class="title-block">
+        <div class="title">FAIRY KIPP</div>
+        <div class="subtitle">Kipp den Würfel – fang die Fairytale.</div>
       </div>
-      <div class="score-card">
-        <div class="score-label">Erzählte Fairies</div>
-        <div class="score-value fairies" id="fairyCountValue">0</div>
-        <div class="score-note">max. 6 pro Partie</div>
-      </div>
-    </section>
-
-    <div id="fairyEnd" class="fairy-end" style="display:none;">
-      FAIRY END
-    </div>
-
-    <button id="btnNewFairy" class="btn-main">
-      Neue Fairy starten
-    </button>
-
-    <section class="story-box" id="storyBox" style="display:none;">
-      <div class="story-header">
-        <div class="story-label">Aktuelle Fairy</div>
-        <div class="story-target" id="storyTargetLabel">
-          &nbsp;
+      <div class="stats">
+        <div class="stat-chip">
+          <span class="stat-label">Fairy-Punkte</span>
+          <span class="stat-value" id="pointsDisplay">0</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-label">Erzählte Fairies</span>
+          <span class="stat-value" id="storiesDisplay">0</span>
         </div>
       </div>
+    </header>
 
-      <div class="story-text" id="storyText">
-        <!-- Satz für Satz -->
-      </div>
+    <main>
+      <section class="story-card">
+        <div class="story-inner">
+          <div class="story-tag-row">
+            <span class="story-tag" id="storyTag">Tippe auf FAIRY, um zu starten</span>
+            <div class="story-progress" id="storyDots">
+              <!-- Punkte werden dynamisch gefüllt -->
+            </div>
+          </div>
+          <div id="storyText">
+            Willkommen bei FAIRY KIPP.  
+Tippe unten auf FAIRY, um eine neue Geschichte zu erhalten.
+          </div>
+        </div>
+        <div class="story-footer">
+          <span class="badge-muted" id="hintText">Du bist der Erzähler.</span>
+          <span class="color-pill">
+            <span class="color-dot"></span>
+            <span class="badge-muted">Blau · Violett · Grün · Orange</span>
+          </span>
+        </div>
+      </section>
 
-      <div class="story-controls">
-        <button class="btn-small" id="btnNextSentence">Weiter</button>
-        <div class="story-step-indicator" id="storyStepIndicator"></div>
-      </div>
+      <section class="main-actions">
+        <button id="fairyButton" class="btn btn-primary">
+          FAIRY
+        </button>
 
-      <div class="target-big" id="targetBig" style="display:none;">
-        Gesucht: <span id="targetMotiv"></span> in <span id="targetColor"></span>
-      </div>
-    </section>
+        <button id="nextSentenceButton" class="btn btn-secondary" style="display: none;">
+          Weiter
+        </button>
 
-    <section class="points-area">
-      <button class="btn-points btn-self" id="btnSelfHit">
-        +3 Punkte
-        <span class="small">Eigene Fairy gekippt</span>
-      </button>
-      <button class="btn-points btn-foreign" id="btnForeignHit">
-        +2 Punkte
-        <span class="small">Fremde Fairy gekippt</span>
-      </button>
-      <button class="btn-points btn-laid" id="btnLaidHit">
-        +1 Punkt
-        <span class="small">Fairy lag schon richtig</span>
-      </button>
-    </section>
-
-    <button class="btn-reset" id="btnReset">
-      Neues Spiel (Punkte & Fairies zurücksetzen)
-    </button>
-
-    <div class="hint">
-      Reihenfolge am Tisch, Punkte &amp; Fairy-Ende werden von euch gemeinsam
-      überwacht – die App verwaltet nur <b>deine</b> Punkte &amp; Geschichten.
-    </div>
+        <div id="scoreButtons" class="score-buttons" style="display: none;">
+          <button id="btnSelf" class="btn btn-primary">
+            Selbst gekippt <span class="badge-value">+3</span>
+          </button>
+          <button id="btnOther" class="btn btn-secondary">
+            Mitspieler gekippt <span class="badge-value">+2</span>
+          </button>
+          <button id="btnAuto" class="btn btn-secondary-quiet">
+            Schon gelegen <span class="badge-value">+1</span>
+          </button>
+        </div>
+      </section>
+    </main>
   </div>
 
   <script>
-    // --- Daten für Motive & Farben --------------------------------------
-    const MOTIVE = [
+    // Basiskonfiguration
+    const motives = [
       "Wasserball",
       "Auto",
       "Farbfleck",
@@ -385,259 +383,196 @@
       "T-Shirt"
     ];
 
-    const COLORS = [
-      { name: "blau",    css: "var(--blue)"   },
-      { name: "violett", css: "var(--violet)" },
-      { name: "orange",  css: "var(--orange)" },
-      { name: "grün",    css: "var(--green)"  }
+    const colors = ["Blau", "Violett", "Orange", "Grün"];
+
+    const moods = [
+      "neugierig",
+      "ein bisschen ängstlich",
+      "abenteuerlustig",
+      "träumerisch",
+      "sehr müde",
+      "ungewöhnlich mutig",
+      "ein wenig verloren",
+      "heimlich aufgeregt"
     ];
 
-    const PLACES = [
-      "tief im Märchenwald",
-      "auf einer versteckten Waldlichtung",
-      "auf einem alten Dachboden",
-      "in einer leisen Stadtgasse",
-      "am Rand eines funkelnden Sees",
-      "auf einer sonnigen Bergwiese",
-      "unter einem knorrigen Baum",
-      "im geheimen Hinterhof eines Zauberladens"
+    const places = [
+      "am Rand eines alten Waldes",
+      "auf einem stillen Dachboden",
+      "in einem kleinen Zauberladen",
+      "neben einem verwunschenen See",
+      "auf einem leeren Spielplatz",
+      "mitten in einer funkelnden Stadt",
+      "auf dem Fensterbrett eines Kinderzimmers",
+      "in einem vergessenen Regal der Schulbibliothek"
     ];
 
-    const MOODS = [
-      "neugierige",
-      "mutige",
-      "träumende",
-      "etwas schüchterne",
-      "fröhliche",
-      "verspielte"
+    const events = [
+      "hörte plötzlich ein leises Flüstern",
+      "bekam unerwartet Besuch von einer winzigen Fee",
+      "rollte ein Stück weiter und entdeckte etwas Seltsames",
+      "spürte, wie eine warme Brise durch den Raum zog",
+      "bemerkte, dass die Schatten um ihn herum leiser wurden",
+      "fand eine kleine, glitzernde Spur auf dem Boden",
+      "spürte, wie jemand vorsichtig danach griff",
+      "bemerkte, dass heute irgendetwas anders war als sonst"
     ];
 
-    const MAGIC_EVENTS = [
-      "ein winziger Funke aus Sternenstaub",
-      "eine lächelnde Wolke",
-      "ein unsichtbarer Windhauch",
-      "eine glitzernde Staubspur",
-      "ein leiser Zauberflüstern",
-      "ein scheues Lichtwesen"
+    const endings = [
+      "wusste, dass heute ein besonderer Abend war",
+      "fühlte sich zum ersten Mal nicht mehr allein",
+      "hatte plötzlich keine Angst mehr vor der Dunkelheit",
+      "spürte, wie ein kleines Lächeln über sein Gesicht wanderte",
+      "merkte, dass alle Gedanken plötzlich ganz leicht wurden",
+      "hörte in sich ein leises Kichern, das nach Abenteuer klang"
     ];
 
-    const HELPERS = [
-      "ein kleines Eichhörnchen",
-      "eine alte Eule",
-      "ein freundlicher Frosch",
-      "ein leiser Nachtfalter",
-      "eine neugierige Maus",
-      "ein wandernder Käfer"
-    ];
-
-    const FEELINGS = [
-      "plötzlich ganz warm und mutig",
-      "ganz leicht und frei",
-      "zum ersten Mal richtig gesehen",
-      "ein bisschen aufgeregt und glücklich",
-      "still – und doch voller Freude",
-      "endlich angekommen"
-    ];
-
-    // --- Spielzustand ---------------------------------------------------
-    let score = 0;
-    let fairyCount = 0;
-    const maxFairies = 6;
-    let gameStoryLocked = false; // neue Fairy gesperrt
-    let fairyEndReached = false;
-
-    let currentStory = null; // {sentences, index, motiv, color}
+    let currentStorySentences = [];
     let currentSentenceIndex = 0;
+    let points = 0;
+    let storiesTold = 0;
 
-    // --- DOM-Elemente ---------------------------------------------------
-    const scoreValueEl        = document.getElementById("scoreValue");
-    const fairyCountValueEl   = document.getElementById("fairyCountValue");
-    const fairyEndEl          = document.getElementById("fairyEnd");
+    const fairyButton = document.getElementById("fairyButton");
+    const nextSentenceButton = document.getElementById("nextSentenceButton");
+    const scoreButtons = document.getElementById("scoreButtons");
+    const storyText = document.getElementById("storyText");
+    const storyTag = document.getElementById("storyTag");
+    const storyDots = document.getElementById("storyDots");
+    const pointsDisplay = document.getElementById("pointsDisplay");
+    const storiesDisplay = document.getElementById("storiesDisplay");
+    const hintText = document.getElementById("hintText");
 
-    const btnNewFairy         = document.getElementById("btnNewFairy");
-    const storyBoxEl          = document.getElementById("storyBox");
-    const storyTextEl         = document.getElementById("storyText");
-    const storyStepEl         = document.getElementById("storyStepIndicator");
-    const storyTargetLabelEl  = document.getElementById("storyTargetLabel");
-    const btnNextSentence     = document.getElementById("btnNextSentence");
-    const targetBigEl         = document.getElementById("targetBig");
-    const targetMotivEl       = document.getElementById("targetMotiv");
-    const targetColorEl       = document.getElementById("targetColor");
+    const btnSelf = document.getElementById("btnSelf");
+    const btnOther = document.getElementById("btnOther");
+    const btnAuto = document.getElementById("btnAuto");
 
-    const btnSelfHit          = document.getElementById("btnSelfHit");
-    const btnForeignHit       = document.getElementById("btnForeignHit");
-    const btnLaidHit          = document.getElementById("btnLaidHit");
-    const btnReset            = document.getElementById("btnReset");
-
-    // --- Hilfsfunktionen ------------------------------------------------
-    function rand(list) {
-      return list[Math.floor(Math.random() * list.length)];
+    function randomItem(array) {
+      return array[Math.floor(Math.random() * array.length)];
     }
 
-    function updateScoreDisplay() {
-      scoreValueEl.textContent = score;
-    }
+    function buildStory() {
+      const motive = randomItem(motives);
+      const color = randomItem(colors);
+      const mood = randomItem(moods);
+      const place = randomItem(places);
+      const event = randomItem(events);
+      const ending = randomItem(endings);
 
-    function updateFairyCountDisplay() {
-      fairyCountValueEl.textContent = fairyCount;
-      if (fairyCount >= maxFairies) {
-        fairyEndReached = true;
-        fairyEndEl.style.display = "block";
-        btnNewFairy.disabled = true;
-      } else {
-        fairyEndReached = false;
-        fairyEndEl.style.display = "none";
-        btnNewFairy.disabled = false;
-      }
-    }
-
-    function resetGame() {
-      score = 0;
-      fairyCount = 0;
-      fairyEndReached = false;
-      currentStory = null;
-      currentSentenceIndex = 0;
-      gameStoryLocked = false;
-
-      updateScoreDisplay();
-      updateFairyCountDisplay();
-      storyBoxEl.style.display = "none";
-      storyTargetLabelEl.textContent = "";
-      targetBigEl.style.display = "none";
-      targetMotivEl.textContent = "";
-      targetColorEl.textContent = "";
-      fairyEndEl.style.display = "none";
-      btnNewFairy.disabled = false;
-    }
-
-    // erzeugt eine neue Fairy-Geschichte
-    function createFairyStory() {
-      const motiv = rand(MOTIVE);
-      const colorObj = rand(COLORS);
-      const place = rand(PLACES);
-      const mood = rand(MOODS);
-      const magicEvent = rand(MAGIC_EVENTS);
-      const helper = rand(HELPERS);
-      const feeling = rand(FEELINGS);
-
-      // 4–5 Sätze, Farbe erst im letzten Satz!
       const sentences = [];
 
       sentences.push(
-        `Irgendwo ${place} wartete ein kleiner ${motiv} ganz ohne Farbe auf sein erstes Abenteuer.`
+        `Es war einmal ein ${motive}, der ${mood} ${place} lag.`
       );
-
       sentences.push(
-        `An diesem Abend war die Luft besonders still, und der ${motiv} fühlte sich zum ersten Mal ${feeling}.`
+        `Schon den ganzen Tag über hatte der ${motive} das Gefühl, dass etwas Besonderes passieren würde.`
       );
-
       sentences.push(
-        `Plötzlich tauchte ${helper} auf, sah den ${motiv} an und flüsterte: „Du bist viel zu ${mood}, um für immer grau zu bleiben.“`
+        `Plötzlich ${event}, und der ${motive} hielt den Atem an.`
       );
-
       sentences.push(
-        `Aus dem Nichts erschien ${magicEvent} und legte sich leise auf den ${motiv}.`
+        `In diesem Moment ${ending}.`
       );
-
-      // letzter Satz: Farbe als allerletztes Wort
       sentences.push(
-        `Als der Zauber sich setzte, strahlte der ${motiv} in der Farbe ${colorObj.name}.`
+        `Als der Zauber verklang, leuchtete der ${motive} klar und deutlich in ${color}.`
       );
 
+      // 4–5 Sätze sind genug – wir nehmen hier bewusst 5.
+      // Wichtig: letztes Wort = Farbe
+      // (steht ohnehin am Satzende als "... in FARBE.")
       return {
-        motiv,
-        color: colorObj,
         sentences,
+        motive,
+        color
       };
     }
 
-    function showStorySentence(index) {
-      if (!currentStory) return;
-      const total = currentStory.sentences.length;
-      currentSentenceIndex = index;
-
-      storyTextEl.textContent = currentStory.sentences[index];
-      storyStepEl.textContent = `Satz ${index + 1} von ${total}`;
-
-      if (index === total - 1) {
-        btnNextSentence.textContent = "Fertig";
-      } else {
-        btnNextSentence.textContent = "Weiter";
+    function renderDots(total, activeIndex) {
+      storyDots.innerHTML = "";
+      for (let i = 0; i < total; i++) {
+        const d = document.createElement("div");
+        d.className = "dot" + (i <= activeIndex ? " active" : "");
+        storyDots.appendChild(d);
       }
     }
 
-    function finishStoryReveal() {
-      if (!currentStory) return;
-      // Farbiges Ziel anzeigen
-      targetBigEl.style.display = "block";
-      targetMotivEl.textContent = currentStory.motiv;
-      targetColorEl.textContent = currentStory.color.name;
-      targetColorEl.style.color = currentStory.color.css;
+    function showCurrentSentence() {
+      const total = currentStorySentences.length;
+      storyText.textContent = currentStorySentences[currentSentenceIndex];
+      renderDots(total, currentSentenceIndex);
 
-      // Label oben aktualisieren
-      storyTargetLabelEl.textContent =
-        `Ziel: ${currentStory.motiv} in ${currentStory.color.name}`;
-
-      // Nach vollständigem Vorlesen darf wieder gekippt & gepunktet werden.
-      gameStoryLocked = false;
+      if (currentSentenceIndex === total - 1) {
+        // letzte Zeile
+        nextSentenceButton.style.display = "none";
+        scoreButtons.style.display = "flex";
+        hintText.textContent =
+          "Jetzt entscheidet ihr: Wer hat die Fairy gekippt?";
+      } else {
+        nextSentenceButton.style.display = "inline-flex";
+        scoreButtons.style.display = "none";
+        hintText.textContent = "Lies die Fairy weiter.";
+      }
     }
 
-    // --- Event-Handler --------------------------------------------------
-    btnNewFairy.addEventListener("click", () => {
-      if (fairyEndReached) return;
-      if (gameStoryLocked) return; // Sicherheit: erst Fairy fertig lesen
-
-      currentStory = createFairyStory();
+    function startNewStory() {
+      const story = buildStory();
+      currentStorySentences = story.sentences;
       currentSentenceIndex = 0;
-      gameStoryLocked = true;
 
-      fairyCount += 1;
-      updateFairyCountDisplay();
+      storiesTold++;
+      storiesDisplay.textContent = storiesTold.toString();
 
-      storyBoxEl.style.display = "flex";
-      targetBigEl.style.display = "none";
-      storyTargetLabelEl.textContent = "Fairy wird vorgelesen …";
+      storyTag.textContent = `Neue Fairy mit ${story.motive}`;
+      hintText.textContent = "Du bist der Erzähler – lies die Fairy vor.";
+      showCurrentSentence();
 
-      showStorySentence(0);
-    });
-
-    btnNextSentence.addEventListener("click", () => {
-      if (!currentStory) return;
-      const total = currentStory.sentences.length;
-
-      if (currentSentenceIndex < total - 1) {
-        showStorySentence(currentSentenceIndex + 1);
-      } else {
-        // letzte Zeile war sichtbar -> Fairy vollständig
-        finishStoryReveal();
-      }
-    });
-
-    function addPoints(amount) {
-      score += amount;
-      updateScoreDisplay();
+      fairyButton.disabled = true;
     }
 
-    btnSelfHit.addEventListener("click", () => {
-      addPoints(3);
+    fairyButton.addEventListener("click", () => {
+      startNewStory();
     });
 
-    btnForeignHit.addEventListener("click", () => {
-      addPoints(2);
-    });
-
-    btnLaidHit.addEventListener("click", () => {
-      addPoints(1);
-    });
-
-    btnReset.addEventListener("click", () => {
-      if (confirm("Neues Spiel starten? Punkte & erzählte Fairies werden auf 0 gesetzt.")) {
-        resetGame();
+    nextSentenceButton.addEventListener("click", () => {
+      if (currentSentenceIndex < currentStorySentences.length - 1) {
+        currentSentenceIndex++;
+        showCurrentSentence();
       }
     });
 
-    // --- Initial --------------------------------------------------------
-    resetGame();
+    function finishStoryWithPoints(addPoints, reasonText) {
+      points += addPoints;
+      pointsDisplay.textContent = points.toString();
+
+      storyText.textContent =
+        reasonText + "\n\nTippe auf FAIRY, um die nächste Geschichte zu holen.";
+      storyTag.textContent = "Fairy abgeschlossen";
+      storyDots.innerHTML = "";
+      scoreButtons.style.display = "none";
+      nextSentenceButton.style.display = "none";
+      fairyButton.disabled = false;
+      hintText.textContent = "Nächste Fairy wartet auf dich.";
+    }
+
+    btnSelf.addEventListener("click", () => {
+      finishStoryWithPoints(
+        3,
+        "Du hast deine eigene Fairy gekippt. Das bringt dir 3 Fairy-Punkte."
+      );
+    });
+
+    btnOther.addEventListener("click", () => {
+      finishStoryWithPoints(
+        2,
+        "Ein Mitspieler hat deine Fairy gekippt. Das bringt dir 2 Fairy-Punkte."
+      );
+    });
+
+    btnAuto.addEventListener("click", () => {
+      finishStoryWithPoints(
+        1,
+        "Die Fairy lag schon aufgelegt richtig. Dafür erhältst du 1 Fairy-Punkt."
+      );
+    });
   </script>
 </body>
 </html>
