@@ -757,37 +757,33 @@
       const color = chooseRandom(colors);
 
       const systemMessage = {
-  role: "system",
-  content: 
-    "Du bist eine KI, die fehlerfreie, märchenhaft-poetische deutsche Sätze schreibt. " +
-    "Du kennst genau diese 12 Motive: Wasserball, Blume, Schuh, Kerze, Gießkanne, T-Shirt, Fisch, Tasse, Schmetterling, Farbfleck, Buch, Auto. " +
-    "Du kennst die vier Farben: blau, grün, orange, violett. " +
-    "Du verwendest IMMER genau ein zufällig ausgewähltes dieser Motive und genau eine Farbe dazu. " +
-    "Du schreibst ausgeschmückte Sätze mit 12 bis 16 Wörtern ohne Rechtschreibfehler, ohne Wiederholungen, ohne Kindersprache. " +
-    "Jede Fairy besteht aus GENAU 3 Sätzen, während du im letzten Satz erst das Motiv in Verbindung mit der Farbe nennst."
-};
+        role: "system",
+        content:
+          "Du bist eine KI, die fehlerfreie, märchenhaft-poetische deutsche Sätze schreibt. " +
+          "Du kennst genau diese 12 Motive: Wasserball, Blume, Schuh, Kerze, Gießkanne, T-Shirt, Fisch, Tasse, Schmetterling, Farbfleck, Buch, Auto. " +
+          "Du kennst die vier Farben: blau, grün, orange, violett. " +
+          "Du verwendest IMMER genau ein zufällig ausgewähltes dieser Motive und genau eine Farbe dazu. " +
+          "Du schreibst ausgeschmückte Sätze mit 12 bis 16 Wörtern ohne Rechtschreibfehler, ohne Wiederholungen, ohne Kindersprache. " +
+          "Jede Fairy besteht aus GENAU 3 Sätzen, während du im letzten Satz erst das Motiv in Verbindung mit der Farbe nennst."
+      };
 
-const userMessage = {
-  role: "user",
-  content: 
-    "Erstelle eine Fairy mit GENAU drei Sätzen. " +
-    "Alle drei Sätze sind märchenhaft ausgeschmückt und haben zwischen 12 und 16 Wörter. " +
-    
-    // Satz 1
-    "Satz 1: Eine poetische Metapher oder mystische Andeutung zum ausgewählten Motiv, aber ohne den Motivnamen direkt zu benennen. " +
-    
-    // Satz 2
-    "Satz 2: Eine nähere Beschreibung oder Stimmung, die das Motiv subtiler erkennen lässt – weiterhin OHNE den Motivnamen. " +
-    
-    // Satz 3
-    "Satz 3: Das Motiv und seine Farbe werden KLAR genannt." +
-    "Formulierungsbeispiel: 'und da hatte ich ihn endlich an der Angelschnur, ... den grünen Schuh." +
-    "In der Wortwahl bist du völlig frei. Sei gerne humorvoll, aber immer etwas fabelhaft. die Farb-Motiv-Kombination muss immer das Satzende bilden." +
-    "Beispiel: Sie fiel zu Boden, der Kaffee spritzte, und wundersamerweise blieb sie heil, die blaue Tasse." +
-  
-    // Regeln
-    "Bevor du die Sätze kreierst, suchst du dir aus den 12 vorgegebenen Motiven eines zufällig aus und eine zufällige Farbe dazu."
-};
+      const userMessage = {
+        role: "user",
+        content:
+          "Erstelle eine Fairy mit GENAU drei Sätzen. " +
+          "Alle drei Sätze sind märchenhaft ausgeschmückt und haben zwischen 12 und 16 Wörter. " +
+          // Satz 1
+          "Satz 1: Eine poetische Metapher oder mystische Andeutung zum ausgewählten Motiv, aber ohne den Motivnamen direkt zu benennen. " +
+          // Satz 2
+          "Satz 2: Eine nähere Beschreibung oder Stimmung, die das Motiv subtiler erkennen lässt – weiterhin OHNE den Motivnamen. " +
+          // Satz 3
+          "Satz 3: Das Motiv und seine Farbe werden KLAR genannt. " +
+          "Formulierungsbeispiel: 'und da hatte ich ihn endlich an der Angelschnur, ... den grünen Schuh.' " +
+          "In der Wortwahl bist du völlig frei. Sei gerne humorvoll, aber immer etwas fabelhaft. Die Farb-Motiv-Kombination muss immer das Satzende bilden. " +
+          "Beispiel: 'Sie fiel zu Boden, der Kaffee spritzte, und wundersamerweise blieb sie heil, die blaue Tasse.' " +
+          // Regeln
+          "Bevor du die Sätze kreierst, suchst du dir aus den 12 vorgegebenen Motiven eines zufällig aus und eine zufällige Farbe dazu."
+      };
 
       try {
         const response = await fetch(OPENAI_CHAT_URL, {
@@ -856,41 +852,44 @@ const userMessage = {
       }
     });
 
+    // *** HIER: neue Punkte-Logik ***
     fairyFundBtn.addEventListener("click", () => {
-      if (!currentFairyText) {
-        setFairyStatus(
-          "Erst eine Fairy starten, dann kannst du FAIRY FUND nutzen.",
-          true
-        );
-        return;
-      }
+      // 3 Punkte nur, wenn auf diesem Gerät eine eigene Fairy
+      // komplett offen ist (letzter Satz sichtbar)
+      const fairyIsFullyOpen =
+        currentFairyOwnedByThisDevice &&
+        currentFairyText &&
+        currentParts.length > 0 &&
+        currentPartIndex === currentParts.length - 1;
 
-      // Punktevergabe:
-      // Wenn Fairy von diesem Handy gestartet wurde -> +3
-      // Sonst -> +2
-      const add = currentFairyOwnedByThisDevice ? 3 : 2;
+      const add = fairyIsFullyOpen ? 3 : 2;
       score += add;
       updateScoreDisplay();
 
-      // Eine Fairy wurde „abgerechnet“
       narratedFairies += 1;
       if (narratedFairies > maxFairies) {
         narratedFairies = maxFairies;
       }
       updateFairyCountDisplay();
 
-      // Aktuelle Fairy ist „verbraucht“
+      // Fairy auf diesem Gerät ist danach verbraucht
       currentFairyText = "";
       currentParts = [];
       currentPartIndex = 0;
       currentFairyOwnedByThisDevice = false;
 
-      storyTextEl.textContent =
-        "Fairy verbraucht. Starte die nächste mit einem Tipp auf FAIRY.";
+      storyTextEl.textContent = fairyIsFullyOpen
+        ? "Deine Fairy ist eingekippt. Starte die nächste mit einem Tipp auf FAIRY."
+        : "Fremde Fairy eingekippt. Starte deine eigene mit einem Tipp auf FAIRY.";
       storyTextEl.classList.add("story-muted");
       nextPartBtn.classList.add("hidden");
       sentenceIndicator.textContent = "";
-      setFairyStatus("");
+
+      setFairyStatus(
+        fairyIsFullyOpen
+          ? "3 Punkte – eigene Fairy."
+          : "2 Punkte – fremde Fairy."
+      );
 
       if (narratedFairies >= maxFairies) {
         showEndScreen();
