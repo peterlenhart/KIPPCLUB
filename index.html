@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+u<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
@@ -759,12 +759,12 @@
       const systemMessage = {
   role: "system",
   content: 
-    "Du bist eine KI, die sehr kurze, klare, fehlerfreie, märchenhaft-poetische deutsche Sätze schreibt. " +
+    "Du bist eine KI, die fehlerfreie, märchenhaft-poetische deutsche Sätze schreibt. " +
     "Du kennst genau diese 12 Motive: Wasserball, Blume, Schuh, Kerze, Gießkanne, T-Shirt, Fisch, Tasse, Schmetterling, Farbfleck, Buch, Auto. " +
     "Du kennst die vier Farben: blau, grün, orange, violett. " +
-    "Du verwendest IMMER genau ein Motiv und genau eine Farbe. " +
-    "Du schreibst kurze Sätze ohne Rechtschreibfehler, ohne Wiederholungen, ohne Kindersprache. " +
-    "Jede Fairy besteht aus GENAU 3 Sätzen."
+    "Du verwendest IMMER genau ein zufällig ausgewähltes dieser Motive und genau eine Farbe dazu. " +
+    "Du schreibst ausgeschmückte Sätze mit 12 bis 16 Wörtern ohne Rechtschreibfehler, ohne Wiederholungen, ohne Kindersprache. " +
+    "Jede Fairy besteht aus GENAU 3 Sätzen, während du im letzten Satz erst das Motiv in Verbindung mit der Farbe nennst."
 };
 
 const userMessage = {
@@ -774,14 +774,14 @@ const userMessage = {
     "Alle drei Sätze sind märchenhaft ausgeschmückt und haben zwischen 12 und 16 Wörter. " +
     
     // Satz 1
-    "Satz 1: Eine poetische Metapher oder mystische Andeutung zum ausgewählten Motiv, aber ohne den Motivnamen. " +
+    "Satz 1: Eine poetische Metapher oder mystische Andeutung zum ausgewählten Motiv, aber ohne den Motivnamen direkt zu benennen. " +
     
     // Satz 2
     "Satz 2: Eine nähere Beschreibung oder Stimmung, die das Motiv subtiler erkennen lässt – weiterhin OHNE den Motivnamen. " +
     
     // Satz 3
-    "Satz 3: Das Motiv und seine Farbe werden KLAR genannt. Formuliere es so: 'Es war der [Motiv] in [Farbe].' " +
-    "Formulierungsbeispiel: 'Es war der Ball in violett.' " +
+    "Satz 3: Das Motiv und seine Farbe werden KLAR genannt." +
+    "Formulierungsbeispiel: 'und da hatte ich ihn endlich an der Angelschnur, ... den grünen Schuh." +
     
     // Regeln
     "Bevor du die Sätze kreierst, suchst du dir aus den 12 vorgegebenen Motiven eines zufällig aus und eine zufällige Farbe dazu."
