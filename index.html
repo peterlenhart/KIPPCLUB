@@ -2,10 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>FAIRY KIPP</title>
+  <title>FAIRY KIPP – Karten</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Fonts: verspieltes FAIRY + technisches KIPP -->
+  <!-- Schriften -->
   <link
     href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@500;700&display=swap"
     rel="stylesheet"
@@ -13,7 +13,6 @@
 
   <style>
     :root {
-      /* Deine Farben */
       --fk-blue: rgb(0, 101, 171);
       --fk-violet: rgb(170, 0, 120);
       --fk-green: rgb(59, 165, 43);
@@ -53,14 +52,11 @@
       padding: 14px 14px 18px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
-
-    /* Header */
 
     .header {
       text-align: center;
-      margin-bottom: 4px;
     }
 
     .logo-line {
@@ -92,8 +88,6 @@
       color: var(--fk-muted);
     }
 
-    /* Panels */
-
     .panel {
       background: var(--fk-panel);
       border-radius: 14px;
@@ -101,14 +95,13 @@
       padding: 10px 10px 12px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .panel-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 6px;
+      align-items: center;
       font-size: 0.8rem;
       color: var(--fk-muted);
     }
@@ -127,422 +120,168 @@
       color: var(--fk-blue);
     }
 
-    .pill-violet {
-      border-color: var(--fk-violet);
+    .status {
+      font-size: 0.8rem;
+      color: var(--fk-muted);
+    }
+
+    .status-strong {
       color: var(--fk-violet);
+      font-weight: 600;
     }
 
-    /* Buttons */
+    /* Karten */
 
-    .button-row {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 4px;
     }
 
-    button {
-      border: none;
+    .card {
+      position: relative;
+      border-radius: 12px;
+      border: 1px solid var(--fk-border);
+      background: radial-gradient(circle at top left, #262626 0, #111 60%);
+      padding: 10px;
+      min-height: 90px;
       cursor: pointer;
-      font-family: inherit;
-    }
-
-    .btn-main {
-      min-width: 160px;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background-color: var(--fk-orange);
-      color: #111;
-      box-shadow: 0 0 12px rgba(242, 150, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
         filter 0.08s ease-out;
     }
 
-    .btn-main:active {
+    .card:active {
       transform: translateY(1px) scale(0.98);
-      box-shadow: 0 0 3px rgba(242, 150, 0, 0.6);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
       filter: brightness(0.95);
     }
 
-    .btn-secondary {
-      min-width: 140px;
-      padding: 9px 16px;
+    .card.revealed {
+      border-color: var(--fk-green);
+      box-shadow: 0 0 12px rgba(59, 165, 43, 0.4);
+    }
+
+    .card-inner {
+      text-align: center;
+    }
+
+    .card-placeholder {
+      font-size: 1.3rem;
+      color: var(--fk-muted);
+      letter-spacing: 0.12em;
+    }
+
+    .color-square {
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background-color: var(--fk-blue);
-      color: #fdfdfd;
-      box-shadow: 0 0 12px rgba(0, 101, 171, 0.5);
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
-        filter 0.08s ease-out;
+      margin: 0 auto 6px;
+      border: 2px solid #000;
     }
 
-    .btn-secondary:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 0 3px rgba(0, 101, 171, 0.6);
-      filter: brightness(0.95);
+    .card-motif {
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
-    .btn-end {
-      background-color: var(--fk-violet);
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(170, 0, 120, 0.5);
+    .card-color {
+      font-size: 0.8rem;
+      color: var(--fk-muted);
     }
 
-    .btn-end:active {
-      box-shadow: 0 0 3px rgba(170, 0, 120, 0.6);
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--fk-muted);
     }
 
     .btn-ghost {
       align-self: center;
       margin-top: 4px;
-      padding: 5px 8px;
+      padding: 5px 10px;
       border-radius: 8px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       border: 1px solid transparent;
       background: transparent;
       color: var(--fk-violet);
       text-transform: uppercase;
       letter-spacing: 0.1em;
+      cursor: pointer;
     }
 
     .btn-ghost:active {
       border-color: var(--fk-violet);
       background: rgba(170, 0, 120, 0.1);
     }
-
-    .btn-small {
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      border: 1px solid var(--fk-violet);
-      background: var(--fk-violet);
-      color: #fff;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      display: block;
-      margin: 0 auto;
-    }
-
-    .btn-small:active {
-      filter: brightness(0.9);
-    }
-
-    /* Fairy text */
-
-    .story-box {
-      min-height: 130px;
-      border-radius: 10px;
-      border: 1px solid var(--fk-border);
-      padding: 10px 11px;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      background: radial-gradient(circle at top left, #252525 0, #111 55%);
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
-
-    .story-muted {
-      color: var(--fk-muted);
-      font-style: italic;
-      font-size: 0.85rem;
-    }
-
-    .story-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      color: var(--fk-muted);
-      margin-top: 4px;
-    }
-
-    .sentence-indicator {
-      color: var(--fk-violet);
-      font-size: 0.75rem;
-    }
-
-    .color-highlight {
-      color: var(--fk-green);
-      font-weight: 600;
-    }
-
-    /* Scoreboard */
-
-    .score-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .score-main {
-      flex: 2;
-      text-align: center;
-    }
-
-    .score-label {
-      font-size: 0.75rem;
-      color: var(--fk-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 2px;
-    }
-
-    .score-value {
-      font-size: 2.1rem;
-      font-weight: 700;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    }
-
-    .score-fairies {
-      flex: 1.4;
-      text-align: right;
-      font-size: 0.8rem;
-      color: var(--fk-muted);
-    }
-
-    .score-fairies strong {
-      color: var(--fk-orange);
-      font-weight: 700;
-    }
-
-    /* End screen */
-
-    .end-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.88);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 40;
-    }
-
-    .end-card {
-      width: 90%;
-      max-width: 420px;
-      background: #111;
-      border-radius: 18px;
-      border: 1px solid var(--fk-border);
-      padding: 18px 16px 16px;
-      text-align: center;
-      box-shadow: 0 0 24px rgba(0, 0, 0, 0.9);
-    }
-
-    .end-title {
-      font-family: "Pacifico", cursive;
-      font-size: 1.7rem;
-      color: var(--fk-orange);
-      text-shadow: 0 0 10px rgba(242, 150, 0, 0.8);
-      margin-bottom: 6px;
-    }
-
-    .end-score-label {
-      font-size: 0.9rem;
-      color: var(--fk-muted);
-      margin-top: 8px;
-    }
-
-    .end-score-value {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--fk-green);
-      margin: 2px 0 10px;
-    }
-
-    .end-sub {
-      font-size: 0.85rem;
-      color: var(--fk-muted);
-      margin-bottom: 10px;
-    }
-
-    /* API Key Banner */
-
-    .apikey-banner {
-      position: fixed;
-      top: 8px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      z-index: 50;
-      pointer-events: none;
-    }
-
-    .apikey-inner {
-      pointer-events: auto;
-      background: #151515;
-      border-radius: 999px;
-      border: 1px solid var(--fk-border);
-      padding: 6px 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      max-width: 480px;
-      width: calc(100% - 24px);
-      box-shadow: 0 0 14px rgba(0, 0, 0, 0.7);
-      font-size: 0.75rem;
-    }
-
-    .apikey-inner span {
-      white-space: nowrap;
-    }
-
-    .apikey-input {
-      flex: 1;
-      padding: 4px 6px;
-      border-radius: 999px;
-      border: 1px solid var(--fk-border);
-      background: #111;
-      color: var(--fk-text);
-      font-size: 0.8rem;
-      min-width: 0;
-    }
-
-    .apikey-btn {
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--fk-violet);
-      background: var(--fk-violet);
-      color: #fff;
-      font-size: 0.75rem;
-      cursor: pointer;
-    }
-
-    .apikey-btn:active {
-      filter: brightness(0.9);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .status-line {
-      font-size: 0.75rem;
-      color: var(--fk-muted);
-      min-height: 1em;
-      margin-top: 2px;
-      text-align: center;
-    }
-
-    .status-error {
-      color: #ff6b81;
-    }
-
-    @media (max-height: 620px) {
-      .story-box {
-        min-height: 105px;
-      }
-    }
   </style>
 </head>
 <body>
-  <!-- API-Key Banner -->
-  <div class="apikey-banner" id="apikey-banner">
-    <div class="apikey-inner">
-      <span>OpenAI&nbsp;API-Key:</span>
-      <input
-        id="apikey-input"
-        class="apikey-input"
-        type="password"
-        placeholder="sk-..."
-      />
-      <button class="apikey-btn" id="apikey-save-btn">OK</button>
-    </div>
-  </div>
-
   <div class="app">
     <header class="header">
       <div class="logo-line">
         <span class="logo-fairy">Fairy</span>
         <span class="logo-kipp">KIPP</span>
       </div>
-      <div class="tagline">Unendlich viele KIPP-Geschichten</div>
+      <div class="tagline">Karten zum Abkippen – 6 Motive pro Partie</div>
     </header>
 
-    <!-- Fairy Generator Panel -->
-    <section class="panel" id="fairy-panel">
-      <div class="panel-header">
-        <span class="pill pill-blue">Fairy</span>
-        <span id="fairy-status" class="status-line"></span>
-      </div>
-
-      <div class="button-row">
-        <button id="fairy-btn" class="btn-main">FAIRY TAIL</button>
-      </div>
-
-      <div class="story-box">
-        <div id="story-text" class="story-muted">
-          Tippe auf <strong>FAIRY TAIL</strong>, um eine neue Geschichte zu starten.
-        </div>
-      </div>
-
-      <div class="story-footer">
-        <button id="next-part-btn" class="btn-small hidden">WEITER</button>
-        <div class="sentence-indicator" id="sentence-indicator"></div>
-      </div>
-    </section>
-
-    <!-- Score & Fairy Buttons Panel -->
     <section class="panel">
       <div class="panel-header">
-        <span class="pill pill-violet">Punkte</span>
-        <span class="score-fairies">
-          Erzählte Fairys: <strong id="fairy-count">0</strong> / 6
+        <span class="pill pill-blue">Karten</span>
+        <span class="status">
+          Abgekippt: <span id="revealed-count" class="status-strong">0</span> / 6
         </span>
       </div>
 
-      <div class="score-row">
-        <div class="score-main">
-          <div class="score-label">Fairy-Punkte</div>
-          <div class="score-value" id="score-value">0</div>
-        </div>
+      <div class="cards-grid" id="cards-grid">
+        <!-- 6 Karten -->
+        <button class="card" data-index="0">
+          <div class="card-inner">
+            <div class="card-placeholder">KARTE</div>
+          </div>
+        </button>
+        <button class="card" data-index="1">
+          <div class="card-inner">
+            <div class="card-placeholder">KARTE</div>
+          </div>
+        </button>
+        <button class="card" data-index="2">
+          <div class="card-inner">
+            <div class="card-placeholder">KARTE</div>
+          </div>
+        </button>
+        <button class="card" data-index="3">
+          <div class="card-inner">
+            <div class="card-placeholder">KARTE</div>
+          </div>
+        </button>
+        <button class="card" data-index="4">
+          <div class="card-inner">
+            <div class="card-placeholder">KARTE</div>
+          </div>
+        </button>
+        <button class="card" data-index="5">
+          <div class="card-inner">
+            <div class="card-placeholder">KARTE</div>
+          </div>
+        </button>
       </div>
 
-      <div class="button-row" style="margin-top: 4px">
-        <button id="fairyend-btn" class="btn-secondary btn-end">FAIRY END</button>
-      </div>
-      <div class="button-row" style="margin-top: 4px">
-        <button id="fairyfund-btn" class="btn-secondary">FAIRY FUND</button>
+      <div class="footer-row">
+        <span id="status-text">Tippe auf ein verdecktes Kärtchen, um es aufzudecken.</span>
       </div>
     </section>
 
-    <button id="reset-btn" class="btn-ghost">
-      Neue Partie
-    </button>
-  </div>
-
-  <!-- End Screen -->
-  <div class="end-overlay" id="end-overlay">
-    <div class="end-card">
-      <div class="end-title">Fairy KIPP Ende</div>
-      <div class="end-score-label">Deine Fairy-Punkte</div>
-      <div class="end-score-value" id="end-score-value">0</div>
-      <div class="end-sub" id="end-sub">
-        Danke fürs KIPPEN, LAUSCHEN und FAIRY FINDEN.
-      </div>
-      <button id="end-newgame-btn" class="btn-secondary">Neue Partie</button>
-    </div>
+    <button id="reset-btn" class="btn-ghost">Neue Partie</button>
   </div>
 
   <script>
-    // -----------------------------
-    // Konfiguration
-    // -----------------------------
-    const OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions";
-    const OPENAI_MODEL = "gpt-4o-mini"; // bei Bedarf anpassen
-    const APIKEY_STORAGE_KEY = "fairykipp_openai_key";
-    const LAST_STORIES_KEY = "fairykipp_last_stories_v1";
-
     const motifs = [
       "Wasserball",
       "Auto",
@@ -560,420 +299,115 @@
 
     const colors = ["blau", "grün", "orange", "violett"];
 
-    // UI-Elemente
-    const fairyBtn = document.getElementById("fairy-btn");
-    const fairyStatus = document.getElementById("fairy-status");
-    const storyTextEl = document.getElementById("story-text");
-    const nextPartBtn = document.getElementById("next-part-btn");
-    const sentenceIndicator = document.getElementById("sentence-indicator");
-    const scoreValueEl = document.getElementById("score-value");
-    const fairyCountEl = document.getElementById("fairy-count");
-    const fairyEndBtn = document.getElementById("fairyend-btn");
-    const fairyFundBtn = document.getElementById("fairyfund-btn");
+    const colorMap = {
+      blau: "rgb(0, 101, 171)",
+      grün: "rgb(59, 165, 43)",
+      orange: "rgb(242, 150, 0)",
+      violett: "rgb(170, 0, 120)"
+    };
+
+    const cards = Array.from(document.querySelectorAll(".card"));
+    const revealedCountEl = document.getElementById("revealed-count");
+    const statusText = document.getElementById("status-text");
     const resetBtn = document.getElementById("reset-btn");
 
-    const endOverlay = document.getElementById("end-overlay");
-    const endScoreValue = document.getElementById("end-score-value");
-    const endNewGameBtn = document.getElementById("end-newgame-btn");
+    let combos = []; // 6 zufällige Kombinationen
+    let revealedCount = 0;
 
-    const apikeyBanner = document.getElementById("apikey-banner");
-    const apikeyInput = document.getElementById("apikey-input");
-    const apikeySaveBtn = document.getElementById("apikey-save-btn");
+    function createAllCombos() {
+      const all = [];
+      for (const color of colors) {
+        for (const motif of motifs) {
+          all.push({ color, motif });
+        }
+      }
+      return all;
+    }
 
-    // Spielzustand
-    let apiKey = null;
-    let currentFairyText = "";
-    let currentParts = [];
-    let currentPartIndex = 0;
-    let currentFairyOwnedByThisDevice = false; // bleibt für dich sichtbar, wird aber für Punkte nicht mehr verwendet
-    let score = 0;
-    let narratedFairies = 0;
-    const maxFairies = 6;
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
 
-    // Für die FAIRY END / FAIRY FUND Logik
-    let lastFairyEndUsed = false;
-    let lastFairyEndClosedStory = false;
+    function dealCards() {
+      const allCombos = shuffle(createAllCombos());
+      combos = allCombos.slice(0, 6); // 6 verschiedene Farb-Motiv-Kombis
 
-    // Zur Wiederholungs-Vermeidung
-    let lastStories = [];
+      revealedCount = 0;
+      revealedCountEl.textContent = "0";
+      statusText.textContent =
+        "Tippe auf ein verdecktes Kärtchen, um es aufzudecken.";
 
-    // -----------------------------
-    // Initialisierung
-    // -----------------------------
-    function loadApiKeyFromStorage() {
-      const stored = window.localStorage.getItem(APIKEY_STORAGE_KEY);
-      if (stored && stored.startsWith("sk-")) {
-        apiKey = stored;
-        apikeyBanner.classList.add("hidden");
+      cards.forEach((card, index) => {
+        card.classList.remove("revealed");
+        card.innerHTML = `
+          <div class="card-inner">
+            <div class="card-placeholder">KARTE</div>
+          </div>
+        `;
+        card.dataset.revealed = "false";
+        card.dataset.index = index.toString();
+      });
+    }
+
+    function revealCard(card) {
+      if (card.dataset.revealed === "true") return;
+
+      const index = parseInt(card.dataset.index, 10);
+      const combo = combos[index];
+
+      const inner = document.createElement("div");
+      inner.className = "card-inner";
+
+      const colorSquare = document.createElement("div");
+      colorSquare.className = "color-square";
+      colorSquare.style.backgroundColor = colorMap[combo.color];
+
+      const motifEl = document.createElement("div");
+      motifEl.className = "card-motif";
+      motifEl.textContent = combo.motif;
+
+      const colorEl = document.createElement("div");
+      colorEl.className = "card-color";
+      colorEl.textContent = combo.color.toUpperCase();
+
+      inner.appendChild(colorSquare);
+      inner.appendChild(motifEl);
+      inner.appendChild(colorEl);
+
+      card.innerHTML = "";
+      card.appendChild(inner);
+      card.classList.add("revealed");
+      card.dataset.revealed = "true";
+
+      revealedCount += 1;
+      revealedCountEl.textContent = revealedCount.toString();
+
+      if (revealedCount === 6) {
+        statusText.textContent =
+          "Alle 6 Karten sind abgekippt! Neue Partie starten?";
       } else {
-        apiKey = null;
-        apikeyBanner.classList.remove("hidden");
+        statusText.textContent =
+          "Kippt weiter – wählt das nächste Kärtchen.";
       }
     }
 
-    function saveApiKeyToStorage(key) {
-      apiKey = key;
-      window.localStorage.setItem(APIKEY_STORAGE_KEY, key);
-      apikeyBanner.classList.add("hidden");
-    }
-
-    function loadLastStories() {
-      try {
-        const raw = window.localStorage.getItem(LAST_STORIES_KEY);
-        if (raw) {
-          lastStories = JSON.parse(raw);
-        } else {
-          lastStories = [];
-        }
-      } catch (e) {
-        lastStories = [];
-      }
-    }
-
-    function saveLastStories() {
-      try {
-        const trimmed = lastStories.slice(-50);
-        window.localStorage.setItem(LAST_STORIES_KEY, JSON.stringify(trimmed));
-      } catch (e) {
-        // egal
-      }
-    }
-
-    function init() {
-      loadApiKeyFromStorage();
-      loadLastStories();
-      updateScoreDisplay();
-      updateFairyCountDisplay();
-      updateSentenceIndicator();
-    }
-
-    // -----------------------------
-    // Hilfsfunktionen
-    // -----------------------------
-    function updateScoreDisplay() {
-      scoreValueEl.textContent = String(score);
-    }
-
-    function updateFairyCountDisplay() {
-      fairyCountEl.textContent = String(narratedFairies);
-    }
-
-    function updateSentenceIndicator() {
-      if (!currentFairyText || currentParts.length === 0) {
-        sentenceIndicator.textContent = "";
-        return;
-      }
-      sentenceIndicator.textContent =
-        "Abschnitt " + (currentPartIndex + 1) + " von " + currentParts.length;
-    }
-
-    function showStoryPart(index) {
-      if (!currentFairyText || currentParts.length === 0) return;
-      if (index < 0 || index >= currentParts.length) return;
-
-      currentPartIndex = index;
-      storyTextEl.classList.remove("story-muted");
-      storyTextEl.textContent = currentParts[index];
-
-      if (currentParts.length > 1 && index < currentParts.length - 1) {
-        nextPartBtn.classList.remove("hidden");
-      } else {
-        nextPartBtn.classList.add("hidden");
-      }
-
-      updateSentenceIndicator();
-    }
-
-    function splitFairyIntoParts(text) {
-      // Zerlege in Sätze und gruppiere grob in 3 Teile
-      const sentences = text
-        .split(/(?<=[.!?])\s+/)
-        .map((s) => s.trim())
-        .filter((s) => s.length > 0);
-
-      if (sentences.length <= 2) {
-        return [text];
-      }
-
-      const total = sentences.length;
-      const partSize = Math.ceil(total / 3);
-
-      const parts = [];
-      for (let i = 0; i < total; i += partSize) {
-        const chunk = sentences.slice(i, i + partSize).join(" ");
-        parts.push(chunk);
-      }
-      return parts;
-    }
-
-    function chooseRandom(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    function storyAlreadySeen(text) {
-      return lastStories.includes(text.trim());
-    }
-
-    function rememberStory(text) {
-      const t = text.trim();
-      if (!t) return;
-      lastStories.push(t);
-      if (lastStories.length > 50) {
-        lastStories = lastStories.slice(-50);
-      }
-      saveLastStories();
-    }
-
-    function setFairyStatus(msg, isError = false) {
-      fairyStatus.textContent = msg || "";
-      fairyStatus.classList.toggle("status-error", isError);
-    }
-
-    function showEndScreen() {
-      endScoreValue.textContent = String(score);
-      endOverlay.style.display = "flex";
-    }
-
-    function resetGameState() {
-      score = 0;
-      narratedFairies = 0;
-      currentFairyText = "";
-      currentParts = [];
-      currentPartIndex = 0;
-      currentFairyOwnedByThisDevice = false;
-
-      lastFairyEndUsed = false;
-      lastFairyEndClosedStory = false;
-
-      storyTextEl.textContent =
-        "Tippe auf FAIRY TAIL, um eine neue Geschichte zu starten.";
-      storyTextEl.classList.add("story-muted");
-      nextPartBtn.classList.add("hidden");
-      sentenceIndicator.textContent = "";
-      setFairyStatus("");
-
-      updateScoreDisplay();
-      updateFairyCountDisplay();
-      endOverlay.style.display = "none";
-    }
-
-    // -----------------------------
-    // OpenAI-Aufruf
-    // -----------------------------
-    async function generateFairyFromOpenAI(retryCount = 0) {
-      if (!apiKey) {
-        setFairyStatus("Bitte zuerst API-Key oben eingeben.", true);
-        apikeyBanner.classList.remove("hidden");
-        return;
-      }
-
-      if (narratedFairies >= maxFairies) {
-        setFairyStatus("Diese Partie ist bereits beendet.", true);
-        return;
-      }
-
-      setFairyStatus("Fairy wird gezaubert …");
-      storyTextEl.textContent = "… KI webt eine neue Fairy …";
-      storyTextEl.classList.add("story-muted");
-      nextPartBtn.classList.add("hidden");
-      sentenceIndicator.textContent = "";
-
-      const motif = chooseRandom(motifs);
-      const color = chooseRandom(colors);
-
-      const systemMessage = {
-        role: "system",
-        content:
-          "Du bist eine KI, die fehlerfreie, märchenhaft-poetische deutsche Sätze schreibt. " +
-          "Du kennst genau diese 12 Motive: Wasserball, Blume, Schuh, Kerze, Gießkanne, T-Shirt, Fisch, Tasse, Schmetterling, Farbfleck, Buch, Auto. " +
-          "Du kennst die vier Farben: blau, grün, orange, violett. " +
-          "Du verwendest IMMER genau ein zufällig ausgewähltes dieser Motive und genau eine Farbe dazu. " +
-          "Du schreibst ausgeschmückte Sätze mit 12 bis 16 Wörtern ohne Rechtschreibfehler, ohne Wiederholungen, ohne Kindersprache. " +
-          "Jede Fairy besteht aus GENAU 3 Sätzen, während du im letzten Satz erst das Motiv in Verbindung mit der Farbe nennst."
-      };
-
-      const userMessage = {
-        role: "user",
-        content:
-          "Erstelle eine Fairy mit GENAU drei Sätzen. " +
-          "Alle drei Sätze sind märchenhaft ausgeschmückt und haben zwischen 12 und 16 Wörtern. " +
-          "Satz 1: Eine poetische Metapher oder mystische Andeutung zum ausgewählten Motiv, aber ohne den Motivnamen direkt zu benennen. " +
-          "Satz 2: Eine nähere Beschreibung oder Stimmung, die das Motiv subtiler erkennen lässt – weiterhin OHNE den Motivnamen. " +
-          "Satz 3: Das Motiv und seine Farbe werden KLAR genannt. " +
-          "Formulierungsbeispiel: 'und da hatte ich ihn endlich an der Angelschnur, ... den grünen Schuh.' " +
-          "In der Wortwahl bist du völlig frei. Sei gerne humorvoll, aber immer etwas fabelhaft. Die Farb-Motiv-Kombination muss immer das Satzende bilden. " +
-          "Beispiel: 'Sie fiel zu Boden, der Kaffee spritzte, und wundersamerweise blieb sie heil, die blaue Tasse.' " +
-          "Bevor du die Sätze kreierst, suchst du dir aus den 12 vorgegebenen Motiven eines zufällig aus und eine zufällige Farbe dazu. " +
-          "Ganz wichtig: Im dritten Satz steht die Farb-Motiv-Kombination als allerletztes; nach dieser Kombination folgt nur noch ein Punkt, KEINE weiteren Wörter."
-      };
-
-      try {
-        const response = await fetch(OPENAI_CHAT_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + apiKey
-          },
-          body: JSON.stringify({
-            model: OPENAI_MODEL,
-            messages: [systemMessage, userMessage],
-            temperature: 0.9,
-            max_tokens: 400
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error("HTTP-Fehler: " + response.status);
-        }
-
-        const data = await response.json();
-        const text =
-          data.choices?.[0]?.message?.content?.trim() ||
-          "Es huschte ein kleiner Fehler durch den Wald – die Fairy konnte nicht geladen werden.";
-
-        // Wiederholung vermeiden
-        if (storyAlreadySeen(text) && retryCount < 3) {
-          return await generateFairyFromOpenAI(retryCount + 1);
-        }
-
-        rememberStory(text);
-
-        currentFairyText = text;
-        currentParts = splitFairyIntoParts(text);
-        currentPartIndex = 0;
-        currentFairyOwnedByThisDevice = true; // Info, nur noch optisch interessant
-
-        // Neue Fairy gestartet => End/Fund-Status zurücksetzen
-        lastFairyEndUsed = false;
-        lastFairyEndClosedStory = false;
-
-        showStoryPart(0);
-        setFairyStatus("Neue Fairy ist aktiv.");
-      } catch (err) {
-        console.error(err);
-        setFairyStatus(
-          "Fehler beim Laden der Fairy (Internet oder API-Key prüfen).",
-          true
-        );
-        storyTextEl.textContent =
-          "Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internetverbindung und API-Key.";
-        storyTextEl.classList.remove("story-muted");
-      }
-    }
-
-    // -----------------------------
     // Event-Listener
-    // -----------------------------
-    fairyBtn.addEventListener("click", async () => {
-      await generateFairyFromOpenAI();
-    });
-
-    nextPartBtn.addEventListener("click", () => {
-      if (!currentFairyText || currentParts.length === 0) return;
-      const nextIndex = currentPartIndex + 1;
-      if (nextIndex < currentParts.length) {
-        showStoryPart(nextIndex);
-      } else {
-        nextPartBtn.classList.add("hidden");
-      }
-    });
-
-    // FAIRY END: schließt ggf. eigene Fairy und merkt den Zustand
-    fairyEndBtn.addEventListener("click", () => {
-      lastFairyEndUsed = true;
-
-      if (currentFairyText) {
-        // Hier wird eine offene Fairy beendet
-        lastFairyEndClosedStory = true;
-
-        currentFairyText = "";
-        currentParts = [];
-        currentPartIndex = 0;
-        currentFairyOwnedByThisDevice = false;
-
-        storyTextEl.textContent =
-          "Fairy beendet. Starte eine neue mit FAIRY TAIL.";
-        storyTextEl.classList.add("story-muted");
-        nextPartBtn.classList.add("hidden");
-        sentenceIndicator.textContent = "";
-        setFairyStatus("");
-      } else {
-        // Keine offene Fairy – dieser Klick zählt als „nur End“, aber ohne eigene Fairy
-        lastFairyEndClosedStory = false;
-        setFairyStatus(
-          "Fairy ist bereits beendet – du kannst jetzt FAIRY FUND verwenden."
-        );
-      }
-    });
-
-    // FAIRY FUND: Punktevergabe
-    fairyFundBtn.addEventListener("click", () => {
-      if (!lastFairyEndUsed) {
-        setFairyStatus(
-          "Erst FAIRY END drücken, dann FAIRY FUND.",
-          true
-        );
-        return;
-      }
-
-      // Punktevergabe:
-      // Wenn beim letzten FAIRY END hier eine Fairy geschlossen wurde -> +3
-      // Sonst -> +2
-      const add = lastFairyEndClosedStory ? 3 : 2;
-      score += add;
-      updateScoreDisplay();
-
-      // Eine Fairy wurde „abgerechnet“
-      narratedFairies += 1;
-      if (narratedFairies > maxFairies) {
-        narratedFairies = maxFairies;
-      }
-      updateFairyCountDisplay();
-
-      // Status für End/Fund zurücksetzen
-      lastFairyEndUsed = false;
-      lastFairyEndClosedStory = false;
-
-      // Hinweistext
-      storyTextEl.textContent =
-        "Fairy verbraucht. Starte die nächste mit FAIRY TAIL.";
-      storyTextEl.classList.add("story-muted");
-      nextPartBtn.classList.add("hidden");
-      sentenceIndicator.textContent = "";
-      setFairyStatus("");
-
-      if (narratedFairies >= maxFairies) {
-        showEndScreen();
-      }
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        revealCard(card);
+      });
     });
 
     resetBtn.addEventListener("click", () => {
-      resetGameState();
+      dealCards();
     });
 
-    endNewGameBtn.addEventListener("click", () => {
-      resetGameState();
-    });
-
-    apikeySaveBtn.addEventListener("click", () => {
-      const val = apikeyInput.value.trim();
-      if (!val || !val.startsWith("sk-")) {
-        alert("Bitte einen gültigen OpenAI-API-Key eingeben (beginnt mit 'sk-').");
-        return;
-      }
-      saveApiKeyToStorage(val);
-    });
-
-    apikeyInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        apikeySaveBtn.click();
-      }
-    });
-
-    // -----------------------------
     // Start
-    // -----------------------------
-    init();
+    dealCards();
   </script>
 </body>
 </html>
