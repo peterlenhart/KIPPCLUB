@@ -137,6 +137,7 @@
     .button-row {
       display: flex;
       justify-content: center;
+      gap: 8px;
     }
 
     button {
@@ -187,6 +188,16 @@
       filter: brightness(0.95);
     }
 
+    .btn-end {
+      background-color: var(--fk-violet);
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(170, 0, 120, 0.5);
+    }
+
+    .btn-end:active {
+      box-shadow: 0 0 3px rgba(170, 0, 120, 0.6);
+    }
+
     .btn-ghost {
       align-self: center;
       margin-top: 4px;
@@ -206,18 +217,20 @@
     }
 
     .btn-small {
-      padding: 4px 10px;
+      padding: 6px 14px;
       border-radius: 999px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       border: 1px solid var(--fk-violet);
-      background: transparent;
-      color: var(--fk-violet);
+      background: var(--fk-violet);
+      color: #fff;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      display: block;
+      margin: 0 auto;
     }
 
     .btn-small:active {
-      background: rgba(170, 0, 120, 0.1);
+      filter: brightness(0.9);
     }
 
     /* Fairy text */
@@ -253,6 +266,7 @@
 
     .sentence-indicator {
       color: var(--fk-violet);
+      font-size: 0.75rem;
     }
 
     .color-highlight {
@@ -463,12 +477,12 @@
       </div>
 
       <div class="button-row">
-        <button id="fairy-btn" class="btn-main">FAIRY</button>
+        <button id="fairy-btn" class="btn-main">FAIRY TAIL</button>
       </div>
 
       <div class="story-box">
         <div id="story-text" class="story-muted">
-          Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.
+          Tippe auf <strong>FAIRY TAIL</strong>, um eine neue Geschichte zu starten.
         </div>
       </div>
 
@@ -478,7 +492,7 @@
       </div>
     </section>
 
-    <!-- Score & Fairy Fund Panel -->
+    <!-- Score & Fairy Buttons Panel -->
     <section class="panel">
       <div class="panel-header">
         <span class="pill pill-violet">Punkte</span>
@@ -495,6 +509,9 @@
       </div>
 
       <div class="button-row" style="margin-top: 4px">
+        <button id="fairyend-btn" class="btn-secondary btn-end">FAIRY END</button>
+      </div>
+      <div class="button-row" style="margin-top: 4px">
         <button id="fairyfund-btn" class="btn-secondary">FAIRY FUND</button>
       </div>
     </section>
@@ -507,7 +524,7 @@
   <!-- End Screen -->
   <div class="end-overlay" id="end-overlay">
     <div class="end-card">
-      <div class="end-title">Fairy End</div>
+      <div class="end-title">Fairy KIPP Ende</div>
       <div class="end-score-label">Deine Fairy-Punkte</div>
       <div class="end-score-value" id="end-score-value">0</div>
       <div class="end-sub" id="end-sub">
@@ -551,6 +568,7 @@
     const sentenceIndicator = document.getElementById("sentence-indicator");
     const scoreValueEl = document.getElementById("score-value");
     const fairyCountEl = document.getElementById("fairy-count");
+    const fairyEndBtn = document.getElementById("fairyend-btn");
     const fairyFundBtn = document.getElementById("fairyfund-btn");
     const resetBtn = document.getElementById("reset-btn");
 
@@ -567,10 +585,14 @@
     let currentFairyText = "";
     let currentParts = [];
     let currentPartIndex = 0;
-    let currentFairyOwnedByThisDevice = false; // Hat dieses Handy FAIRY gedrückt?
+    let currentFairyOwnedByThisDevice = false; // bleibt für dich sichtbar, wird aber für Punkte nicht mehr verwendet
     let score = 0;
     let narratedFairies = 0;
     const maxFairies = 6;
+
+    // Für die FAIRY END / FAIRY FUND Logik
+    let lastFairyEndUsed = false;
+    let lastFairyEndClosedStory = false;
 
     // Zur Wiederholungs-Vermeidung
     let lastStories = [];
@@ -720,8 +742,11 @@
       currentPartIndex = 0;
       currentFairyOwnedByThisDevice = false;
 
+      lastFairyEndUsed = false;
+      lastFairyEndClosedStory = false;
+
       storyTextEl.textContent =
-        "Tippe auf FAIRY, um eine neue Geschichte zu starten.";
+        "Tippe auf FAIRY TAIL, um eine neue Geschichte zu starten.";
       storyTextEl.classList.add("story-muted");
       nextPartBtn.classList.add("hidden");
       sentenceIndicator.textContent = "";
@@ -771,18 +796,15 @@
         role: "user",
         content:
           "Erstelle eine Fairy mit GENAU drei Sätzen. " +
-          "Alle drei Sätze sind märchenhaft ausgeschmückt und haben zwischen 12 und 16 Wörter. " +
-          // Satz 1
+          "Alle drei Sätze sind märchenhaft ausgeschmückt und haben zwischen 12 und 16 Wörtern. " +
           "Satz 1: Eine poetische Metapher oder mystische Andeutung zum ausgewählten Motiv, aber ohne den Motivnamen direkt zu benennen. " +
-          // Satz 2
           "Satz 2: Eine nähere Beschreibung oder Stimmung, die das Motiv subtiler erkennen lässt – weiterhin OHNE den Motivnamen. " +
-          // Satz 3
           "Satz 3: Das Motiv und seine Farbe werden KLAR genannt. " +
           "Formulierungsbeispiel: 'und da hatte ich ihn endlich an der Angelschnur, ... den grünen Schuh.' " +
           "In der Wortwahl bist du völlig frei. Sei gerne humorvoll, aber immer etwas fabelhaft. Die Farb-Motiv-Kombination muss immer das Satzende bilden. " +
           "Beispiel: 'Sie fiel zu Boden, der Kaffee spritzte, und wundersamerweise blieb sie heil, die blaue Tasse.' " +
-          // Regeln
-          "Bevor du die Sätze kreierst, suchst du dir aus den 12 vorgegebenen Motiven eines zufällig aus und eine zufällige Farbe dazu."
+          "Bevor du die Sätze kreierst, suchst du dir aus den 12 vorgegebenen Motiven eines zufällig aus und eine zufällige Farbe dazu. " +
+          "Ganz wichtig: Im dritten Satz steht die Farb-Motiv-Kombination als allerletztes; nach dieser Kombination folgt nur noch ein Punkt, KEINE weiteren Wörter."
       };
 
       try {
@@ -819,7 +841,11 @@
         currentFairyText = text;
         currentParts = splitFairyIntoParts(text);
         currentPartIndex = 0;
-        currentFairyOwnedByThisDevice = true; // dieses Handy hat FAIRY ausgelöst
+        currentFairyOwnedByThisDevice = true; // Info, nur noch optisch interessant
+
+        // Neue Fairy gestartet => End/Fund-Status zurücksetzen
+        lastFairyEndUsed = false;
+        lastFairyEndClosedStory = false;
 
         showStoryPart(0);
         setFairyStatus("Neue Fairy ist aktiv.");
@@ -852,44 +878,69 @@
       }
     });
 
-    // *** HIER: neue Punkte-Logik ***
-    fairyFundBtn.addEventListener("click", () => {
-      // 3 Punkte nur, wenn auf diesem Gerät eine eigene Fairy
-      // komplett offen ist (letzter Satz sichtbar)
-      const fairyIsFullyOpen =
-        currentFairyOwnedByThisDevice &&
-        currentFairyText &&
-        currentParts.length > 0 &&
-        currentPartIndex === currentParts.length - 1;
+    // FAIRY END: schließt ggf. eigene Fairy und merkt den Zustand
+    fairyEndBtn.addEventListener("click", () => {
+      lastFairyEndUsed = true;
 
-      const add = fairyIsFullyOpen ? 3 : 2;
+      if (currentFairyText) {
+        // Hier wird eine offene Fairy beendet
+        lastFairyEndClosedStory = true;
+
+        currentFairyText = "";
+        currentParts = [];
+        currentPartIndex = 0;
+        currentFairyOwnedByThisDevice = false;
+
+        storyTextEl.textContent =
+          "Fairy beendet. Starte eine neue mit FAIRY TAIL.";
+        storyTextEl.classList.add("story-muted");
+        nextPartBtn.classList.add("hidden");
+        sentenceIndicator.textContent = "";
+        setFairyStatus("");
+      } else {
+        // Keine offene Fairy – dieser Klick zählt als „nur End“, aber ohne eigene Fairy
+        lastFairyEndClosedStory = false;
+        setFairyStatus(
+          "Fairy ist bereits beendet – du kannst jetzt FAIRY FUND verwenden."
+        );
+      }
+    });
+
+    // FAIRY FUND: Punktevergabe
+    fairyFundBtn.addEventListener("click", () => {
+      if (!lastFairyEndUsed) {
+        setFairyStatus(
+          "Erst FAIRY END drücken, dann FAIRY FUND.",
+          true
+        );
+        return;
+      }
+
+      // Punktevergabe:
+      // Wenn beim letzten FAIRY END hier eine Fairy geschlossen wurde -> +3
+      // Sonst -> +2
+      const add = lastFairyEndClosedStory ? 3 : 2;
       score += add;
       updateScoreDisplay();
 
+      // Eine Fairy wurde „abgerechnet“
       narratedFairies += 1;
       if (narratedFairies > maxFairies) {
         narratedFairies = maxFairies;
       }
       updateFairyCountDisplay();
 
-      // Fairy auf diesem Gerät ist danach verbraucht
-      currentFairyText = "";
-      currentParts = [];
-      currentPartIndex = 0;
-      currentFairyOwnedByThisDevice = false;
+      // Status für End/Fund zurücksetzen
+      lastFairyEndUsed = false;
+      lastFairyEndClosedStory = false;
 
-      storyTextEl.textContent = fairyIsFullyOpen
-        ? "Deine Fairy ist eingekippt. Starte die nächste mit einem Tipp auf FAIRY."
-        : "Fremde Fairy eingekippt. Starte deine eigene mit einem Tipp auf FAIRY.";
+      // Hinweistext
+      storyTextEl.textContent =
+        "Fairy verbraucht. Starte die nächste mit FAIRY TAIL.";
       storyTextEl.classList.add("story-muted");
       nextPartBtn.classList.add("hidden");
       sentenceIndicator.textContent = "";
-
-      setFairyStatus(
-        fairyIsFullyOpen
-          ? "3 Punkte – eigene Fairy."
-          : "2 Punkte – fremde Fairy."
-      );
+      setFairyStatus("");
 
       if (narratedFairies >= maxFairies) {
         showEndScreen();
