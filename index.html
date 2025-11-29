@@ -1,155 +1,441 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAIRY KIPP</title>
+  <meta charset="UTF-8" />
+  <title>Fairy KIPP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg-dark: #000000;
+      --panel-dark: #111111;
+      --panel-mid: #181818;
+      --fairy-orange: #f9a51e;
+      --violet: rgb(164, 27, 133);
+      --blue: rgb(0, 107, 179);
+      --green: rgb(0, 166, 82);
+      --text-main: #f5f5f5;
+      --text-muted: #cccccc;
+      --error: #ff5577;
+      --radius: 16px;
+    }
 
-<style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-        background: #0e0e0e;
-        color: white;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #202020 0, #000000 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px 8px 40px;
     }
 
-    h1 {
-        font-size: 32px;
-        margin-top: 20px;
-        color: #f7b42c;
+    .app {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 24px;
+      padding: 20px 16px 24px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+      border: 1px solid #222;
     }
 
-    .container {
-        margin: 20px;
-        padding: 20px;
-        border-radius: 14px;
-        background: #1a1a1a;
-        box-shadow: 0px 0px 12px rgba(0,0,0,0.5);
+    /* HEADER */
+
+    .title {
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
     }
 
-    #fairyText {
-        min-height: 140px;
-        padding: 20px;
-        font-size: 20px; /* größere Schrift */
-        line-height: 1.4;
-        text-align: left;
-        border-radius: 8px;
-        background: #111;
-        border: 1px solid #333;
-        color: #fff;
+    .title-main {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--fairy-orange);
+      text-shadow: 0 0 10px rgba(249, 165, 30, 0.8), 0 0 20px rgba(249, 165, 30, 0.4);
+      font-family: "Pacifico", "Segoe Script", system-ui, sans-serif;
     }
 
-    .mainButton {
-        background: #f7b42c;
-        padding: 18px 40px;
-        font-size: 26px;
-        color: black;
-        border: none;
-        border-radius: 12px;
-        margin-top: 25px;
-        font-weight: bold;
-        cursor: pointer;
+    .title-main span.kipp {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 800;
+      color: var(--blue);
+      text-shadow: none;
+      margin-left: 6px;
     }
 
-    /* ➜ Dein neuer WEITER-Button */
-    .nextButton {
-        background: rgb(164,27,133); /* DEIN VIOLETT */
-        color: white;
-        padding: 16px 38px;
-        font-size: 24px;
-        border: none;
-        border-radius: 10px;
-        font-weight: bold;
-        margin-top: 25px;
-        cursor: pointer;
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
     }
 
-    .pointsBox {
-        margin-top: 40px;
-        font-size: 26px;
-        color: #ff33cc;
+    /* PANELS */
+
+    .panel {
+      background: var(--panel-mid);
+      border-radius: 20px;
+      padding: 16px 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 0 1px #222;
     }
-</style>
+
+    /* FAIRY BUTTON */
+
+    .fairy-button {
+      width: 100%;
+      padding: 14px 10px;
+      margin-bottom: 14px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      border-radius: 18px;
+      border: none;
+      background: var(--fairy-orange);
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      box-shadow: 0 0 18px rgba(249, 165, 30, 0.75);
+    }
+
+    .fairy-button:active {
+      transform: scale(0.97);
+      box-shadow: 0 0 8px rgba(249, 165, 30, 0.5);
+    }
+
+    .fairy-button:disabled {
+      opacity: 0.6;
+      box-shadow: none;
+    }
+
+    /* FAIRY TEXT */
+
+    .fairy-box {
+      background: #101010;
+      border-radius: 16px;
+      padding: 14px 14px 16px;
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fairy-text {
+      font-size: 1.05rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .fairy-text span.highlight {
+      color: var(--fairy-orange);
+      font-weight: 600;
+    }
+
+    .error-text {
+      color: var(--error);
+    }
+
+    /* WEITER-BUTTON */
+
+    .weiter-wrapper {
+      margin-top: 12px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .weiter-button {
+      min-width: 120px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: none;
+      background: var(--violet);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .weiter-button:disabled {
+      opacity: 0.45;
+    }
+
+    .weiter-button:active {
+      transform: scale(0.97);
+    }
+
+    /* SCORE */
+
+    .score-panel {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .score-label {
+      font-size: 1rem;
+      color: var(--violet);
+      font-weight: 700;
+    }
+
+    .score-value {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--fairy-orange);
+    }
+
+    .score-small {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+  </style>
+
+  <!-- Google Fonts: Script für "Fairy" (optional, aber hübsch) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 
 <body>
+  <div class="app">
+    <header class="title">
+      <div class="title-main">
+        Fairy<span class="kipp">KIPP</span>
+      </div>
+      <div class="subtitle">Unendlich viele KIPP-Geschichten</div>
+    </header>
 
-<h1>Fairy KIPP</h1>
-<div class="container">
-    <button class="mainButton" id="generateFairy">FAIRY</button>
+    <main>
+      <section class="panel" id="fairy-panel">
+        <button id="fairyBtn" class="fairy-button">FAIRY</button>
 
-    <div id="fairyText">Tippe auf FAIRY, um zu starten.</div>
+        <div class="fairy-box">
+          <p id="fairyText" class="fairy-text">
+            Tippe auf <span class="highlight">FAIRY</span>, um eine neue Geschichte zu starten.
+          </p>
+        </div>
 
-    <button class="nextButton" id="nextPart" style="display:none;">WEITER</button>
+        <div class="weiter-wrapper">
+          <button id="weiterBtn" class="weiter-button" disabled>WEITER</button>
+        </div>
+      </section>
 
-    <div class="pointsBox">
-        Fairy-Punkte: <span id="points">0</span>
-    </div>
-</div>
+      <section class="panel" id="score-panel">
+        <div class="score-panel">
+          <div class="score-label">Fairy-Punkte:</div>
+          <div class="score-value" id="scoreValue">0</div>
+        </div>
+        <div class="score-panel" style="margin-top: 6px;">
+          <div class="score-small">
+            Erzählte Fairies: <span id="fairyCount">0</span> / 6
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 
-<script>
-//
-// ------------- FAIRY-SYSTEM – GPT-5-Mini über dein geheimes Backend -------------
-// ------------- Du musst NICHTS mehr eingeben, keine API-Keys -------------------
-//
+  <script>
+    // ==============================
+    // KONFIGURATION
+    // ==============================
 
-let fairyParts = [];
-let partIndex = 0;
-let points = 0;
+    // ❗ WICHTIG: HIER DEIN API-KEY EINFÜGEN (zwischen die Anführungszeichen).
+    // Du kannst ihn jederzeit in der OpenAI-Plattform neu erzeugen.
+    const OPENAI_API_KEY = ""; // <-- hier einfügen, z.B. "sk-abc123..."
 
-async function loadFairy() {
+    const OPENAI_ENDPOINT = "https://api.openai.com/v1/responses";
+    const MODEL_NAME = "gpt-5.1-mini"; // kostengünstiges Modell
 
-    document.getElementById("fairyText").innerHTML = "Die Fairy erscheint... bitte warten.";
+    // Anzahl der Sätze pro Fairy
+    const FAIRY_SENTENCES_TOTAL = 3;
 
-    try {
-        const response = await fetch("https://terlenhart-fairy-proxy.vercel.app/fairy");  
+    // ==============================
+    // DOM-ELEMENTE
+    // ==============================
+
+    const fairyBtn = document.getElementById("fairyBtn");
+    const weiterBtn = document.getElementById("weiterBtn");
+    const fairyTextEl = document.getElementById("fairyText");
+    const scoreValueEl = document.getElementById("scoreValue");
+    const fairyCountEl = document.getElementById("fairyCount");
+
+    let currentFairySentences = [];
+    let currentSentenceIndex = 0;
+    let score = 0;
+    let fairyCount = 0;
+
+    // ==============================
+    // HILFSFUNKTIONEN
+    // ==============================
+
+    function setError(message) {
+      fairyTextEl.textContent = message;
+      fairyTextEl.classList.add("error-text");
+      weiterBtn.disabled = true;
+    }
+
+    function resetError() {
+      fairyTextEl.classList.remove("error-text");
+    }
+
+    function updateScoreDisplay() {
+      scoreValueEl.textContent = score.toString();
+      fairyCountEl.textContent = fairyCount.toString();
+    }
+
+    function showCurrentSentence() {
+      if (currentSentenceIndex < currentFairySentences.length) {
+        fairyTextEl.textContent = currentFairySentences[currentSentenceIndex];
+        resetError();
+        if (currentSentenceIndex === currentFairySentences.length - 1) {
+          weiterBtn.textContent = "FERTIG";
+        } else {
+          weiterBtn.textContent = "WEITER";
+        }
+        weiterBtn.disabled = false;
+      }
+    }
+
+    // ==============================
+    // PROMPT-KONSTRUKTION
+    // ==============================
+
+    function buildFairyPrompt() {
+      return `
+Du bist eine knappe, poetische Erzählerin für ein Brettspiel.
+
+Aufgabe:
+- Erzeuge genau DREI sehr kurze Sätze auf Deutsch.
+- Sie bilden zusammen eine kleine "Kipp-Geschichte" rund um eine geheime Farbe (orange, blau, grün oder violett).
+- Die Sätze sollen mystisch, leicht verspielt und familienfreundlich sein.
+- Jeder Satz darf ungefähr 8–18 Wörter haben (maximal zwei Zeilen auf dem Handy).
+- Die ersten ZWEI Sätze beschreiben nur Stimmung und Hinweise – die Farbe darf NICHT direkt genannt werden.
+- Im DRITTEN Satz kommt die Auflösung: Die Farbe soll klar genannt werden (z.B. "… dann weißt du, dass es die blaue Fairy ist.").
+
+Wichtig:
+- Verwende nur eine der vier Farben: orange, blau, grün, violett.
+- Die Stimmung darf märchenhaft, geheimnisvoll oder humorvoll sein, aber immer freundlich.
+- Verwende KEINE Gewalt, keinen Horror und nichts Düsteres für Kinder.
+
+Gib die Antwort als JSON-Array mit genau drei Einträgen zurück, z.B.:
+["Erster kurzer Satz ...", "Zweiter kurzer Satz ...", "Dritter Satz mit der Farbe ..."].
+      `.trim();
+    }
+
+    // ==============================
+    // OPENAI-ANFRAGE
+    // ==============================
+
+    async function fetchNewFairy() {
+      if (!OPENAI_API_KEY) {
+        setError("Kein API-Key hinterlegt. Bitte im Code OPENAI_API_KEY eintragen.");
+        return;
+      }
+
+      fairyBtn.disabled = true;
+      weiterBtn.disabled = true;
+      fairyTextEl.textContent = "Die Fairy sammelt gerade Funken für eine neue Geschichte ...";
+
+      try {
+        const response = await fetch(OPENAI_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${OPENAI_API_KEY}`
+          },
+          body: JSON.stringify({
+            model: MODEL_NAME,
+            input: buildFairyPrompt(),
+            max_output_tokens: 320,
+            temperature: 0.9
+          })
+        });
+
+        if (!response.ok) {
+          console.error("OpenAI HTTP-Fehler:", response.status, await response.text());
+          throw new Error("Netzwerkfehler");
+        }
+
         const data = await response.json();
 
-        //
-        // GPT-Antwort in 1–2-Satz-Blöcke zerlegen:
-        //
-        let text = data.fairy.replace(/\n+/g, " ").trim();
+        let raw = "";
+        if (data.output && data.output[0] && data.output[0].content && data.output[0].content[0]) {
+          raw = data.output[0].content[0].text || "";
+        } else if (data.choices && data.choices[0] && data.choices[0].message) {
+          // Fallback für ältere Strukturen
+          raw = data.choices[0].message.content || "";
+        }
 
-        fairyParts = text.match(/[^.!?]+[.!?]/g) || [text];
+        // Versuch, JSON-Array zu parsen
+        let sentences;
+        try {
+          const start = raw.indexOf("[");
+          const end = raw.lastIndexOf("]");
+          const jsonText = start >= 0 && end > start ? raw.slice(start, end + 1) : raw;
+          sentences = JSON.parse(jsonText);
+        } catch (e) {
+          console.warn("Konnte JSON nicht direkt parsen, fallback auf Zeilen-Trennung.", e);
+          sentences = raw
+            .split("\n")
+            .map(s => s.replace(/^[-*]\s*/, "").trim())
+            .filter(Boolean);
+        }
 
-        // Begrenzen auf 1–2 Sätze pro Abschnitt:
-        fairyParts = fairyParts.map((part) => part.trim()).filter((p) => p.length > 0);
+        if (!Array.isArray(sentences) || sentences.length === 0) {
+          throw new Error("Leere Antwort");
+        }
 
-        // Start beim ersten Abschnitt:
-        partIndex = 0;
-        showPart();
+        // Maximal drei Sätze nutzen
+        currentFairySentences = sentences.slice(0, FAIRY_SENTENCES_TOTAL);
+        if (currentFairySentences.length < 3) {
+          // Notfalls auffüllen, damit die Struktur stimmt
+          while (currentFairySentences.length < 3) {
+            currentFairySentences.push(currentFairySentences[currentFairySentences.length - 1]);
+          }
+        }
 
-    } catch (e) {
-        document.getElementById("fairyText").innerHTML =
-            "Die Fairy hat sich im Nebel verirrt. Bitte Internet prüfen.";
+        currentSentenceIndex = 0;
+        fairyCount += 1;
+        score += 2; // z.B. zwei Punkte pro erzählter Fairy
+        updateScoreDisplay();
+        showCurrentSentence();
+      } catch (err) {
+        console.error("Fehler beim Laden der Fairy:", err);
+        setError("Die Fairy hat sich im Nebel verirrt. Bitte Internet oder API-Key prüfen.");
+      } finally {
+        fairyBtn.disabled = false;
+      }
     }
-}
 
-function showPart() {
-    document.getElementById("fairyText").innerHTML = fairyParts[partIndex];
+    // ==============================
+    // EVENT-HANDLER
+    // ==============================
 
-    // Weiter-Button nur anzeigen, wenn weiterer Abschnitt existiert:
-    document.getElementById("nextPart").style.display =
-        partIndex < fairyParts.length - 1 ? "inline-block" : "none";
+    fairyBtn.addEventListener("click", () => {
+      fetchNewFairy();
+    });
 
-    // Punkte erhöhen, wenn letzter Abschnitt erreicht wird:
-    if (partIndex === fairyParts.length - 1) {
-        points++;
-        document.getElementById("points").innerText = points;
-    }
-}
+    weiterBtn.addEventListener("click", () => {
+      if (currentFairySentences.length === 0) return;
+      if (currentSentenceIndex < currentFairySentences.length - 1) {
+        currentSentenceIndex += 1;
+        showCurrentSentence();
+      } else {
+        // Fairy fertig – Weiter-Button wieder deaktivieren
+        weiterBtn.disabled = true;
+        fairyTextEl.textContent = "Bereit für die nächste Fairy. Tippe wieder auf FAIRY.";
+      }
+    });
 
-document.getElementById("generateFairy").addEventListener("click", loadFairy);
-
-document.getElementById("nextPart").addEventListener("click", () => {
-    if (partIndex < fairyParts.length - 1) {
-        partIndex++;
-        showPart();
-    }
-});
-</script>
-
+    // Initialer Zustand
+    updateScoreDisplay();
+  </script>
 </body>
 </html>
