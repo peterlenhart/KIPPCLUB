@@ -2,551 +2,575 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Fairy KIPP – Unendlich viele KIPP-Geschichten</title>
+  <title>Fairy KIPP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Google Fonts für "Fairy" (Handscript) + "KIPP" (technisch) -->
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  >
   <style>
     :root {
-      --bg-dark: #050505;
-      --panel-dark: #111111;
-      --panel-mid: #181818;
-      --panel-border: #2b2b2b;
-
-      /* deine Vierfarben – bitte bei Bedarf exakt anpassen */
-      --fairy-orange: #f9961e; /* leuchtendes Orange für Fairy-Button und Logo */
-      --fairy-violet: rgb(164, 27, 133); /* dein Violett */
-      --fairy-blue: rgb(0, 107, 179);
-      --fairy-green: rgb(0, 166, 82);
-
+      --bg: #050505;
+      --card: #141414;
+      --card-soft: #1f1f1f;
+      --orange: #ffa726;
+      --violet: #a41b85; /* dein Violett */
+      --violet-dark: #7c1064;
       --text-main: #ffffff;
-      --text-muted: #c0c0c0;
-      --text-pink: #ff4fcf;
-      --error-red: #ff4f6b;
-
-      --radius-large: 20px;
-      --radius-medium: 14px;
-      --shadow-soft: 0 0 35px rgba(0,0,0,0.7);
+      --text-soft: #c7c7c7;
+      --error: #ff6b81;
+      --blue: #1580ff;
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #1a1a1a 0, #000000 45%, #000000 100%);
-      color: var(--text-main);
+      margin: 0;
       min-height: 100vh;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #1a1a1a 0, #000 55%, #000 100%);
+      color: var(--text-main);
       display: flex;
       justify-content: center;
-      padding: 18px 8px 24px;
     }
 
     .app {
       width: 100%;
-      max-width: 480px;
-      background: linear-gradient(150deg, #090909 0, #050505 40%, #0a0a0a 100%);
-      border-radius: 26px;
-      box-shadow: var(--shadow-soft);
-      padding: 18px 16px 20px;
-      border: 1px solid #222;
+      max-width: 540px;
+      padding: 24px 16px 40px;
     }
 
-    /* Kopfbereich */
-    .header {
+    .title {
       text-align: center;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
-    .logo-line {
-      display: flex;
-      justify-content: center;
-      align-items: baseline;
-      gap: 6px;
-      margin-bottom: 2px;
+    .title-main {
+      font-size: 42px;
+      line-height: 1;
     }
 
-    .logo-fairy {
-      font-family: 'Pacifico', cursive;
-      font-size: 34px;
-      letter-spacing: 0.04em;
-      color: var(--fairy-orange);
-      text-shadow: 0 0 10px rgba(249,150,30,0.65);
+    .title-main span.fairy {
+      font-family: "Pacifico", cursive;
+      color: var(--orange);
+      text-shadow: 0 0 18px rgba(255, 167, 38, 0.7);
+      margin-right: 4px;
     }
 
-    .logo-kipp {
-      font-family: 'Roboto', sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
+    .title-main span.kipp {
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #1fa0ff;
       text-transform: uppercase;
-      color: var(--fairy-blue);
     }
 
     .subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
+      font-size: 15px;
+      color: var(--text-soft);
+      margin-top: 8px;
     }
 
-    /* API-Key-Leiste oben */
-    .apikey-bar {
-      margin: 10px 0 14px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: #111;
-      border: 1px solid #333;
+    .card {
+      background: radial-gradient(circle at top, #262626 0, var(--card) 45%, #050505 100%);
+      border-radius: 26px;
+      padding: 18px 16px 22px;
+      box-shadow:
+        0 24px 50px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(255, 255, 255, 0.03);
+      margin-bottom: 18px;
+    }
+
+    .api-row {
       display: flex;
-      align-items: center;
       gap: 8px;
+      align-items: center;
+      background: #050505;
+      border-radius: 999px;
+      padding: 6px 8px 6px 16px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+      margin-bottom: 18px;
     }
 
-    .apikey-label {
-      font-size: 11px;
-      color: var(--text-muted);
+    .api-row-label {
+      font-size: 12px;
+      color: var(--text-soft);
       white-space: nowrap;
     }
 
-    .apikey-input {
+    #apiKeyInput {
       flex: 1;
       border: none;
       outline: none;
       background: transparent;
       color: var(--text-main);
-      font-size: 12px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
     }
 
-    .apikey-input::placeholder {
-      color: #555;
+    #apiKeyInput::placeholder {
+      color: rgba(255, 255, 255, 0.2);
     }
 
-    .apikey-btn {
-      border: none;
-      outline: none;
+    .pill-button {
       border-radius: 999px;
-      padding: 6px 11px;
-      font-size: 11px;
-      font-weight: 600;
+      border: none;
+      padding: 8px 18px;
+      font-weight: 700;
+      font-size: 13px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      background: var(--fairy-violet);
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--violet), var(--violet-dark));
       color: #fff;
-      box-shadow: 0 0 10px rgba(164,27,133,0.7);
-    }
-
-    .apikey-btn:active {
-      transform: scale(0.97);
-      box-shadow: 0 0 3px rgba(164,27,133,0.9);
-    }
-
-    /* Haupt-Panel */
-    .panel {
-      background: radial-gradient(circle at top, #191919 0, #101010 40%, #050505 100%);
-      border-radius: 24px;
-      padding: 16px 14px 16px;
-      border: 1px solid var(--panel-border);
-      box-shadow: inset 0 0 25px rgba(0,0,0,0.6);
-      margin-bottom: 14px;
-    }
-
-    /* Fairy-Button */
-    .fairy-btn {
-      width: 100%;
-      border: none;
-      outline: none;
-      border-radius: 999px;
-      padding: 16px 10px;
-      margin-bottom: 14px;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-align: center;
-      background: radial-gradient(circle at top, #fbb040 0, #f9961e 35%, #f57c00 100%);
-      color: #111;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.5);
       box-shadow:
-        0 14px 26px rgba(0,0,0,0.9),
-        0 0 24px rgba(249,150,30,0.8);
+        0 8px 18px rgba(164, 27, 133, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
     }
 
-    .fairy-btn:active {
-      transform: translateY(1px);
-      box-shadow:
-        0 8px 14px rgba(0,0,0,0.85),
-        0 0 12px rgba(249,150,30,0.75);
-    }
-
-    /* Text-Card */
-    .fairy-card {
-      margin-top: 4px;
-      background: #141414;
-      border-radius: 18px;
-      border: 1px solid #2a2a2a;
-      padding: 16px 14px 14px;
-      min-height: 120px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .fairy-text {
-      font-size: 17px;          /* größer für ältere Augen */
-      line-height: 1.45;
-      color: #f0f0f0;
-    }
-
-    .fairy-hint {
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* Weiter-Button */
-    .actions-row {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 10px;
-    }
-
-    .next-btn {
-      border: none;
-      outline: none;
-      border-radius: 999px;
-      padding: 8px 22px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      background: var(--fairy-violet);
-      color: #ffffff;
-      box-shadow: 0 0 14px rgba(164,27,133,0.9);
-    }
-
-    .next-btn:disabled {
-      opacity: 0.4;
+    .pill-button:disabled {
+      opacity: 0.55;
+      cursor: default;
       box-shadow: none;
     }
 
-    .next-btn:active:not(:disabled) {
-      transform: translateY(1px);
-      box-shadow: 0 0 6px rgba(164,27,133,0.9);
+    .fairy-button {
+      width: 100%;
+      border-radius: 100px;
+      padding: 18px 16px;
+      border: none;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-indent: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: radial-gradient(circle at top, #ffd27f 0, var(--orange) 45%, #ff9100 100%);
+      color: #3b2100;
+      box-shadow:
+        0 16px 38px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+      margin-bottom: 18px;
     }
 
-    /* Punkte-Panel */
-    .score-panel {
-      background: #101010;
+    .fairy-button:disabled {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.8);
+    }
+
+    .story-box {
+      background: rgba(0, 0, 0, 0.76);
       border-radius: 22px;
-      border: 1px solid #262626;
-      padding: 12px 14px 13px;
+      padding: 16px 14px 18px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+      min-height: 120px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      justify-content: space-between;
+      gap: 10px;
     }
 
-    .score-header {
+    #storyText {
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .story-hint {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .story-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 4px;
+    }
+
+    .story-footer button {
+      min-width: 130px;
+    }
+
+    .story-footer button span {
+      font-size: 13px;
+    }
+
+    .story-footer button.disabled-vis {
+      opacity: 0.35;
+      box-shadow: none;
+      cursor: default;
+    }
+
+    /* Punkte-Karte */
+
+    .points-card {
+      background: var(--card-soft);
+      border-radius: 22px;
+      padding: 16px 16px 20px;
+      box-shadow:
+        0 16px 34px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .points-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      margin-bottom: 8px;
     }
 
-    .score-title {
-      font-size: 14px;
+    .points-title {
+      font-size: 18px;
       font-weight: 700;
-      color: var(--text-pink);
+      color: var(--violet);
+      text-shadow: 0 0 12px rgba(164, 27, 133, 0.7);
     }
 
-    .score-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .score-big {
-      margin-top: 6px;
-      font-size: 34px;        /* deutlich größer */
-      font-weight: 800;
-      color: var(--fairy-orange);
-      text-align: left;
-      text-shadow: 0 0 10px rgba(249,150,30,0.7);
-    }
-
-    .score-detail {
+    .points-sub {
       font-size: 13px;
-      color: var(--text-muted);
+      color: var(--text-soft);
     }
 
-    /* Fehlermeldung */
-    .error {
-      margin-top: 8px;
-      font-size: 12px;
-      color: var(--error-red);
+    .points-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+      margin-bottom: 10px;
     }
 
-    /* kleine Helfer */
-    .hidden { display: none; }
+    #pointsValue {
+      font-size: 40px;
+      font-weight: 800;
+      color: #ffc947;
+      text-shadow: 0 0 20px rgba(255, 201, 71, 0.85);
+    }
 
+    #fairiesCount {
+      font-size: 16px;
+      color: var(--text-main);
+    }
+
+    .points-hint {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.45;
+    }
+
+    .status-line {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--error);
+      min-height: 17px;
+    }
+
+    .status-line.ok {
+      color: #8bc34a;
+    }
+
+    /* kleine Anpassungen für sehr kleine Bildschirme */
     @media (max-width: 380px) {
-      .logo-fairy { font-size: 30px; }
-      .logo-kipp { font-size: 24px; letter-spacing: 0.12em; }
-      .fairy-text { font-size: 16px; }
-      .score-big { font-size: 30px; }
+      .title-main {
+        font-size: 36px;
+      }
+
+      .fairy-button {
+        font-size: 22px;
+        letter-spacing: 0.18em;
+      }
+
+      #storyText {
+        font-size: 16px;
+      }
+
+      #pointsValue {
+        font-size: 34px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <header class="header">
-      <div class="logo-line">
-        <div class="logo-fairy">Fairy</div>
-        <div class="logo-kipp">KIPP</div>
+    <header class="title">
+      <div class="title-main">
+        <span class="fairy">Fairy</span>
+        <span class="kipp">KIPP</span>
       </div>
       <div class="subtitle">Unendlich viele KIPP-Geschichten</div>
     </header>
 
-    <!-- API-Key-Leiste -->
-    <div class="apikey-bar">
-      <span class="apikey-label">OpenAI API-Key:</span>
-      <input
-        id="apikey-input"
-        class="apikey-input"
-        type="password"
-        autocomplete="off"
-        placeholder="sk-… (einmalig einfügen)"
-      />
-      <button id="apikey-save" class="apikey-btn">OK</button>
-    </div>
+    <section class="card">
+      <!-- API-Key-Zeile -->
+      <div class="api-row">
+        <div class="api-row-label">OpenAI&nbsp;API-Key:</div>
+        <input
+          id="apiKeyInput"
+          type="password"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="sk-••••••••••••••••••••••••"
+        />
+        <button id="apiKeySaveBtn" class="pill-button">OK</button>
+      </div>
 
-    <!-- Haupt-Panel mit Fairy-Button und Text -->
-    <section class="panel">
-      <button id="fairy-btn" class="fairy-btn">FAIRY</button>
+      <!-- FAIRY-Button -->
+      <button id="fairyBtn" class="fairy-button">FAIRY</button>
 
-      <div class="fairy-card">
-        <div id="fairy-text" class="fairy-text">
+      <!-- Story-Box -->
+      <div class="story-box">
+        <div id="storyText">
           Tippe auf FAIRY, um eine neue Geschichte zu starten.
         </div>
-        <div id="fairy-hint" class="fairy-hint">
+        <div class="story-hint" id="storyHint">
           Die Fairy kommt in drei kurzen Sätzen. Drück nach jedem Satz auf WEITER.
         </div>
-      </div>
-
-      <div class="actions-row">
-        <button id="next-btn" class="next-btn" disabled>WEITER</button>
-      </div>
-
-      <div id="error" class="error hidden"></div>
-    </section>
-
-    <!-- Punkte-Bereich -->
-    <section class="score-panel">
-      <div class="score-header">
-        <div class="score-title">Fairy-Punkte</div>
-        <div class="score-sub">
-          Erzählte Fairies:
-          <span id="fairy-count">0</span>
-          / 6
+        <div class="story-footer">
+          <button id="weiterBtn" class="pill-button disabled-vis" disabled>
+            <span>WEITER</span>
+          </button>
         </div>
       </div>
-      <div id="score-big" class="score-big">0</div>
-      <div class="score-detail">
-        Jede erzählte Fairy bringt einen Punkt. Sammle so viele wie möglich.
+
+      <div id="statusLine" class="status-line"></div>
+    </section>
+
+    <!-- Punkte-Karte -->
+    <section class="points-card">
+      <div class="points-header">
+        <div class="points-title">Fairy-Punkte</div>
+        <div class="points-sub">
+          Erzählte Fairies: <span id="fairiesCount">0 / 6</span>
+        </div>
+      </div>
+
+      <div class="points-row">
+        <div id="pointsValue">0</div>
+      </div>
+
+      <div class="points-hint">
+        Jede erzählte Fairy bringt einen Punkt. Sammle so viele wie möglich – dann
+        ist es Zeit für eine neue KIPP-Runde.
       </div>
     </section>
   </div>
 
   <script>
-    // ***** Grundkonfiguration *****
-    const MODEL_NAME = "gpt-5-mini";   // günstiges Modell für viele kurze Geschichten
-    const FAIRY_MAX_SENTENCES = 3;     // wir wollen genau 3 Sätze pro Fairy
-    const SENTENCES_PER_STEP = 1;      // 1 Satz pro WEITER-Klick
+    // ------- Grund-Konstanten -------
+    const STORAGE_KEY = "fairykipp_api_key";
+    const MAX_FAIRIES_PER_GAME = 6;
+    const MODEL_NAME = "gpt-5-mini"; // Modellname aus deiner OpenAI-Konsole
 
-    let openAIApiKey = "";
-    let fullFairyText = "";
-    let sentences = [];
+    // ------- DOM -------
+    const apiKeyInput = document.getElementById("apiKeyInput");
+    const apiKeySaveBtn = document.getElementById("apiKeySaveBtn");
+    const fairyBtn = document.getElementById("fairyBtn");
+    const weiterBtn = document.getElementById("weiterBtn");
+    const storyText = document.getElementById("storyText");
+    const storyHint = document.getElementById("storyHint");
+    const statusLine = document.getElementById("statusLine");
+    const pointsValue = document.getElementById("pointsValue");
+    const fairiesCount = document.getElementById("fairiesCount");
+
+    // ------- State -------
+    let apiKey = "";
+    let currentSentences = [];
     let currentSentenceIndex = 0;
-    let fairyCount = 0;
+    let points = 0;
+    let toldFairies = 0;
+    let isLoadingFairy = false;
 
-    const apikeyInput = document.getElementById("apikey-input");
-    const apikeySaveBtn = document.getElementById("apikey-save");
-    const fairyBtn = document.getElementById("fairy-btn");
-    const fairyTextEl = document.getElementById("fairy-text");
-    const fairyHintEl = document.getElementById("fairy-hint");
-    const nextBtn = document.getElementById("next-btn");
-    const errorEl = document.getElementById("error");
-    const fairyCountEl = document.getElementById("fairy-count");
-    const scoreBigEl = document.getElementById("score-big");
-
-    // ***** API-Key in localStorage merken *****
-    function loadStoredKey() {
-      try {
-        const stored = localStorage.getItem("fairy_kipp_apikey");
-        if (stored) {
-          openAIApiKey = stored;
-          apikeyInput.value = "••••••••••"; // nicht im Klartext anzeigen
-        }
-      } catch (e) {
-        console.warn("Konnte API-Key nicht aus localStorage lesen.", e);
+    // ------- Helfer -------
+    function loadApiKeyFromStorage() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        apiKey = stored;
+        apiKeyInput.value = stored;
+        statusLine.textContent = "API-Key aus dem Speicher geladen.";
+        statusLine.classList.add("ok");
       }
     }
 
-    function saveKeyFromInput() {
-      const value = apikeyInput.value.trim();
-      if (!value || value === "••••••••••") {
-        showError("Bitte einen gültigen OpenAI API-Key eingeben.");
+    function saveApiKey() {
+      const value = apiKeyInput.value.trim();
+      if (!value) {
+        apiKey = "";
+        localStorage.removeItem(STORAGE_KEY);
+        statusLine.textContent = "Kein API-Key eingetragen.";
+        statusLine.classList.remove("ok");
         return;
       }
-      openAIApiKey = value;
-      try {
-        localStorage.setItem("fairy_kipp_apikey", value);
-      } catch (e) {
-        console.warn("Konnte API-Key nicht speichern.", e);
-      }
-      showError(""); // Fehlermeldung zurücksetzen
-      apikeyInput.value = "••••••••••";
+      apiKey = value;
+      localStorage.setItem(STORAGE_KEY, value);
+      statusLine.textContent = "API-Key gespeichert. Du kannst jetzt FAIRYs laden.";
+      statusLine.classList.add("ok");
     }
 
-    apikeySaveBtn.addEventListener("click", saveKeyFromInput);
+    function resetStoryState() {
+      currentSentences = [];
+      currentSentenceIndex = 0;
+      weiterBtn.disabled = true;
+      weiterBtn.classList.add("disabled-vis");
+    }
 
-    // ***** Hilfsfunktionen *****
-    function showError(msg) {
-      if (!msg) {
-        errorEl.textContent = "";
-        errorEl.classList.add("hidden");
+    function showError(message) {
+      statusLine.textContent = message;
+      statusLine.classList.remove("ok");
+    }
+
+    function updatePointsUI() {
+      pointsValue.textContent = points.toString();
+      fairiesCount.textContent = toldFairies + " / " + MAX_FAIRIES_PER_GAME;
+    }
+
+    function setLoadingFairy(loading) {
+      isLoadingFairy = loading;
+      fairyBtn.disabled = loading;
+      if (loading) {
+        fairyBtn.textContent = "LÄDT …";
       } else {
-        errorEl.textContent = msg;
-        errorEl.classList.remove("hidden");
+        fairyBtn.textContent = "FAIRY";
       }
     }
 
-    function updateScore() {
-      fairyCountEl.textContent = fairyCount.toString();
-      scoreBigEl.textContent = fairyCount.toString();
-    }
-
-    // Text in Einzelsätze zerlegen (einfach, aber robust genug)
-    function splitIntoSentences(text) {
-      return text
-        .replace(/\s+/g, " ")
-        .trim()
-        .split(/(?<=[.!?])\s+/)
-        .filter(s => s.length > 0);
-    }
-
-    // ***** Prompt für kurze KIPP-Fairy *****
-    function buildFairyPrompt() {
-      return `
-Du bist eine kreative Märchenerzählerin für ein Familien-Kipp-Spiel mit Kindern ab sieben Jahren.
-
-Schreibe eine sehr kurze, dreiteilige KIPP-Fairy auf Deutsch:
-- maximal **drei Sätze insgesamt**
-- Satz 1: eine stimmungsvolle, leicht magische Metapher oder Bild, ohne das Kipp-Symbol zu nennen
-- Satz 2: ein weiterer kurzer Hinweis, der das Bild klarer macht, aber das Symbol noch nicht direkt verrät
-- Satz 3: eine klare Auflösung, die das Symbol, die Farbe oder den Gegenstand eindeutig nennt
-- jeder Satz soll kurz sein (maximal 18 Wörter)
-- keine grausamen, ängstigenden oder zu kitschigen Formulierungen
-- Zielgruppe: gemischte Familienrunde, humorvoll verspielt, aber nicht zu kindlich
-
-Gib nur den reinen Text mit genau drei Sätzen zurück, keine Aufzählungszeichen, keine Anführungszeichen, keine Erklärungen.
-      `.trim();
-    }
-
-    // ***** Aufruf der OpenAI-API *****
-    async function fetchNewFairy() {
-      if (!openAIApiKey || openAIApiKey === "••••••••••") {
-        showError("Kein API-Key hinterlegt. Bitte oben deinen OpenAI API-Key eintragen und OK tippen.");
+    // ------- OpenAI-Aufruf -------
+    async function fetchFairyFromOpenAI() {
+      if (!apiKey) {
+        showError("Kein API-Key hinterlegt. Bitte oben eintragen und OK drücken.");
         return;
       }
 
-      showError("");
-      fairyBtn.disabled = true;
-      nextBtn.disabled = true;
-      fairyTextEl.textContent = "Die Fairy sammelt ihre Funken im Wald … bitte kurz warten.";
-      fairyHintEl.textContent = "";
+      if (toldFairies >= MAX_FAIRIES_PER_GAME) {
+        showError("Diese Runde hat schon 6 Fairies. Starte eine neue Partie auf dem Spielplan.");
+        return;
+      }
+
+      resetStoryState();
+      setLoadingFairy(true);
+      storyText.textContent = "Die Fairy wird gerade erzählt …";
+      storyHint.textContent = "Einen Augenblick Geduld.";
 
       try {
-        const response = await fetch("https://api.openai.com/v1/responses", {
+        const prompt =
+          "Du bist der Fairy-Erzähler für ein Brettspiel namens KIPP.\n" +
+          "Erfinde eine einzige, sehr kurze KIPP-Geschichte auf Deutsch.\n" +
+          "Gib GENAU 3 Sätze aus, getrennt durch '###'.\n" +
+          "Regeln:\n" +
+          "1. Satz: kurze, bildhafte Szene mit einem Gegenstand aus der Kinderwelt, ohne seine Farbe zu nennen.\n" +
+          "2. Satz: weiterer kurzer Hinweis, immer noch ohne die gesuchte Farbe wörtlich zu nennen.\n" +
+          "3. Satz: sehr kurzer Lösungssatz, der eindeutig eine der Spielfarben nennt: ORANGE, GELB, GRÜN oder VIOLETT (in Großbuchstaben).\n" +
+          "Jeder Satz maximal 15 Wörter. Kein Extra-Text, nur diese 3 Sätze mit '###' dazwischen.";
+
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + openAIApiKey
+            Authorization: "Bearer " + apiKey
           },
           body: JSON.stringify({
             model: MODEL_NAME,
-            input: buildFairyPrompt(),
-            max_output_tokens: 220
+            messages: [
+              {
+                role: "system",
+                content:
+                  "Du erzählst sehr kurze, klare Fairytales für ein KIPP-Brettspiel. " +
+                  "Du befolgst strikt alle Anweisungen des Nutzers und hältst dich kurz."
+              },
+              { role: "user", content: prompt }
+            ],
+            temperature: 0.8,
+            max_tokens: 160
           })
         });
 
         if (!response.ok) {
-          throw new Error("API-Fehler: " + response.status + " " + response.statusText);
+          console.error("OpenAI HTTP-Fehler:", response.status, await response.text());
+          throw new Error("OpenAI-Antwort war nicht erfolgreich.");
         }
 
         const data = await response.json();
-        const out = data.output?.[0]?.content?.[0]?.text || data.output_text || "";
+        const content = data.choices?.[0]?.message?.content ?? "";
 
-        if (!out || out.length < 10) {
-          throw new Error("Leere Antwort der Fairy.");
+        if (!content) {
+          throw new Error("Leere Antwort vom Modell.");
         }
 
-        fullFairyText = out.trim();
-        sentences = splitIntoSentences(fullFairyText);
+        const parts = content.split("###").map((s) => s.trim()).filter(Boolean);
 
-        if (sentences.length === 0) {
-          throw new Error("Die Fairy hat heute keine Sätze gefunden.");
+        if (parts.length !== 3) {
+          console.warn("Antwort nicht exakt 3 Teile, erhalten:", parts);
+          throw new Error(
+            "Die Fairy hat sich verhaspelt. Versuch es bitte noch einmal."
+          );
         }
 
-        // Nur maximal FAIRY_MAX_SENTENCES Sätze verwenden
-        sentences = sentences.slice(0, FAIRY_MAX_SENTENCES);
+        currentSentences = parts;
         currentSentenceIndex = 0;
 
-        // Ersten Satz anzeigen
-        fairyTextEl.textContent = sentences[0];
-        fairyHintEl.textContent = "Drück WEITER, um den nächsten Fairy-Satz zu hören.";
-        nextBtn.disabled = sentences.length <= 1;
-
-        fairyBtn.disabled = false;
+        storyText.textContent = currentSentences[0];
+        storyHint.textContent = "Drück auf WEITER, um den nächsten Satz zu sehen.";
+        weiterBtn.disabled = false;
+        weiterBtn.classList.remove("disabled-vis");
+        statusLine.textContent = "";
+        statusLine.classList.remove("ok");
       } catch (err) {
         console.error(err);
-        fairyBtn.disabled = false;
-        fairyTextEl.textContent = "Die Fairy hat sich im Nebel verirrt.";
-        fairyHintEl.textContent = "";
+        storyText.textContent =
+          "Die Fairy hat sich im Nebel verirrt.";
+        storyHint.textContent = "Bitte Internetverbindung und API-Key prüfen.";
         showError("Fehler beim Laden der Fairy (Internet oder API-Key prüfen).");
+        resetStoryState();
+      } finally {
+        setLoadingFairy(false);
       }
     }
 
-    // WEITER → nächsten Satz anzeigen oder Fairy beenden
-    function showNextSentence() {
-      if (!sentences || sentences.length === 0) return;
-
-      currentSentenceIndex += SENTENCES_PER_STEP;
-      if (currentSentenceIndex >= sentences.length) {
-        // Fairy fertig erzählt
-        fairyHintEl.textContent = "Die Fairy ist zu Ende – du kannst eine neue Fairy starten.";
-        nextBtn.disabled = true;
-        fairyCount += 1;
-        updateScore();
+    // ------- WEITER drücken -------
+    function handleWeiterClick() {
+      if (!currentSentences.length) return;
+      if (currentSentenceIndex >= currentSentences.length - 1) {
+        // Wir waren bereits beim letzten Satz, nichts mehr tun
         return;
       }
 
-      fairyTextEl.textContent = sentences[currentSentenceIndex];
-      if (currentSentenceIndex >= sentences.length - 1) {
-        fairyHintEl.textContent = "Der nächste Satz bringt die Auflösung.";
-      } else {
-        fairyHintEl.textContent = "Noch ein Hinweis – drück wieder auf WEITER.";
-      }
+      currentSentenceIndex += 1;
 
-      nextBtn.disabled = currentSentenceIndex >= sentences.length - 1;
+      storyText.textContent = currentSentences[currentSentenceIndex];
+
+      if (currentSentenceIndex === currentSentences.length - 1) {
+        // Lösungssatz – Punkt geben
+        toldFairies += 1;
+        points += 1;
+        updatePointsUI();
+        storyHint.textContent =
+          "Das war die Auflösung. Starte bei Bedarf eine neue Fairy mit dem KIPP-Würfel.";
+        weiterBtn.disabled = true;
+        weiterBtn.classList.add("disabled-vis");
+      }
     }
 
-    fairyBtn.addEventListener("click", fetchNewFairy);
-    nextBtn.addEventListener("click", showNextSentence);
+    // ------- Events anschließen -------
+    apiKeySaveBtn.addEventListener("click", saveApiKey);
+    apiKeyInput.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter") {
+        ev.preventDefault();
+        saveApiKey();
+      }
+    });
 
-    // Start-Setup
-    loadStoredKey();
-    updateScore();
+    fairyBtn.addEventListener("click", () => {
+      if (isLoadingFairy) return;
+      fetchFairyFromOpenAI();
+    });
+
+    weiterBtn.addEventListener("click", handleWeiterClick);
+
+    // ------- Start -------
+    loadApiKeyFromStorage();
+    updatePointsUI();
   </script>
 </body>
 </html>
