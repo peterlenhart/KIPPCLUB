@@ -757,43 +757,37 @@
       const color = chooseRandom(colors);
 
       const systemMessage = {
-        role: "system",
-        content:
-          "Du bist eine KI, die kurze, stimmige deutschsprachige Fairytales für ein Gesellschaftsspiel schreibt. " +
-          "Du kennst genau diese 12 Motive: Wasserball, Auto, Farbfleck, Buch, Gießkanne, Kerze, Blume, Fisch, Schmetterling, Schuh, Tasse, T-Shirt. " +
-          "Du kennst die Farben: blau, grün, orange, violett. " +
-          "Der Text soll mystisch, poetisch, leicht verspielt sein – aber gut verständlich und für Kinder ab 8 Jahren geeignet. " +
-          "Schreibe in der DU-Form oder in der ER/SIE-Form, aber immer in der dritten Person Singular oder als Beobachter. " +
-          "Keine direkte Ansprache an 'Kinder', keine Metakommentare über das Spiel."
-      };
+  role: "system",
+  content: 
+    "Du bist eine KI, die sehr kurze, klare, fehlerfreie, märchenhaft-poetische deutsche Sätze schreibt. " +
+    "Du kennst genau diese 12 Motive: Wasserball, Krone, Apfel, Stern, Herz, Würfel, Mond, Schlüssel, Tropfen, Blatt, Feder, Glocke. " +
+    "Du kennst die vier Farben: blau, grün, orange, violett. " +
+    "Du verwendest IMMER genau ein Motiv und genau eine Farbe. " +
+    "Du schreibst kurze Sätze ohne Rechtschreibfehler, ohne Wiederholungen, ohne Kindersprache. " +
+    "Jede Fairy besteht aus GENAU 3 Sätzen."
+};
 
-      const userMessage = {
-        role: "user",
-        content:
-          "Schreibe eine kurze, in sich stimmige Fairytale in deutscher Sprache, etwa 4 bis 6 Sätze lang. " +
-          "Sie soll mystisch-poetisch und leicht verspielt sein und in einer Wald- oder Traum-Atmosphäre spielen. " +
-          "Es soll genau EIN Motiv aus dieser Liste real und konkret vorkommen: " +
-          motifs.join(", ") +
-          ". In dieser Fairy soll ausdrücklich dieses Motiv vorkommen: \"" +
-          motif +
-          "\". " +
-          "Du darfst zusätzlich beliebige andere Dinge verwenden (Nebel, Pfad, Licht, Flüstern, Fabelwesen usw.), aber KEIN weiteres Motiv aus der Liste konkret benennen. " +
-          "Am Ende des letzten Satzes muss klar und eindeutig stehen, welches Motiv und welche Farbe relevant sind. " +
-          "Formuliere das Ende z.B. so: '... ein " +
-          motif +
-          " in " +
-          color +
-          ".' oder '... ein " +
-          motif +
-          " in strahlendem " +
-          color +
-          ".' " +
-          "WICHTIG: Das letzte Wort des Textes MUSS eine dieser Farben sein: blau, grün, orange oder violett. " +
-          "Verwende den Begriff '" +
-          motif +
-          "' nur so oft, wie es natürlich wirkt (1-2 Mal), und schreibe ansonsten bildhaft und abwechslungsreich. " +
-          "Vermeide ständige Wiederholungen wie 'leuchtend'. Verwende unterschiedliche Adjektive."
-      };
+const userMessage = {
+  role: "user",
+  content: 
+    "Erstelle eine Fairy mit GENAU drei Sätzen. " +
+    "Alle drei Sätze müssen kurz sein. " +
+    
+    // Satz 1
+    "Satz 1: Eine poetische Metapher oder mystische Andeutung zum ausgewählten Motiv, aber ohne den Motivnamen. " +
+    
+    // Satz 2
+    "Satz 2: Eine nähere Beschreibung oder Stimmung, die das Motiv subtiler erkennen lässt – weiterhin OHNE den Motivnamen. " +
+    
+    // Satz 3
+    "Satz 3: Das Motiv und seine Farbe werden KLAR genannt. Formuliere es so: 'Es war der [Motiv] in [Farbe].' " +
+    "Formulierungsbeispiel: 'Es war der Schlüssel in violett.' " +
+    
+    // Regeln
+    "Keine langen Erklärungen. Keine Listen. Keine unnötigen Wörter. " +
+    "Jeder Satz maximal 12–16 Wörter. Der Auflösungssatz maximal 10–12 Wörter. " +
+    "Wähle ein zufälliges Motiv und eine zufällige Farbe."
+};
 
       try {
         const response = await fetch(OPENAI_CHAT_URL, {
