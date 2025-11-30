@@ -2,412 +2,309 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>FAIRY KIPP – Karten</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Schriften -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@500;700&display=swap"
-    rel="stylesheet"
-  />
+  <title>KIPP CLUB – Smiley</title>
 
   <style>
-    :root {
-      --fk-blue: rgb(0, 101, 171);
-      --fk-violet: rgb(170, 0, 120);
-      --fk-green: rgb(59, 165, 43);
-      --fk-orange: rgb(242, 150, 0);
-      --fk-bg: #111111;
-      --fk-panel: #1b1b1b;
-      --fk-text: #f5f5f5;
-      --fk-muted: #bbbbbb;
-      --fk-border: #333333;
-    }
-
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      background: radial-gradient(circle at top, #222 0, #000 55%, #000 100%);
-      color: var(--fk-text);
-      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      min-height: 100vh;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #121826;
+      color: #f5f5f5;
       display: flex;
       justify-content: center;
-      align-items: stretch;
-      padding: 12px;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px 12px;
     }
 
     .app {
       width: 100%;
       max-width: 480px;
-      background: var(--fk-bg);
-      border-radius: 18px;
-      border: 1px solid var(--fk-border);
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
-      padding: 14px 14px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .header {
       text-align: center;
     }
 
-    .logo-line {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 6px;
-    }
-
-    .logo-fairy {
-      font-family: "Pacifico", cursive;
-      font-size: 1.8rem;
+    h1 {
+      margin: 0 0 4px;
+      font-size: 2.2rem;
       letter-spacing: 0.05em;
-      color: var(--fk-orange);
-      text-shadow: 0 0 6px rgba(242, 150, 0, 0.8);
+      font-weight: 800;
     }
 
-    .logo-kipp {
-      font-family: "Montserrat", sans-serif;
-      font-weight: 700;
-      font-size: 1.4rem;
-      letter-spacing: 0.2em;
-      color: var(--fk-blue);
-      text-transform: uppercase;
-    }
-
-    .tagline {
-      margin-top: 4px;
-      font-size: 0.8rem;
-      color: var(--fk-muted);
-    }
-
-    .panel {
-      background: var(--fk-panel);
-      border-radius: 14px;
-      border: 1px solid var(--fk-border);
-      padding: 10px 10px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--fk-muted);
-    }
-
-    .pill {
-      border-radius: 999px;
-      padding: 3px 9px;
-      border: 1px solid var(--fk-border);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .pill-blue {
-      border-color: var(--fk-blue);
-      color: var(--fk-blue);
-    }
-
-    .status {
-      font-size: 0.8rem;
-      color: var(--fk-muted);
-    }
-
-    .status-strong {
-      color: var(--fk-violet);
+    .subtitle {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      opacity: 0.85;
       font-weight: 600;
     }
 
-    /* Karten */
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 4px;
+    /* Kartenfeld – EIN Rechteck mit Gesicht + Hand */
+    .card-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
     }
 
     .card {
-      position: relative;
-      border-radius: 12px;
-      border: 1px solid var(--fk-border);
-      background: radial-gradient(circle at top left, #262626 0, #111 60%);
-      padding: 10px;
-      min-height: 90px;
-      cursor: pointer;
+      width: min(70vw, 280px);
+      height: min(70vw, 280px);
+      max-width: 320px;
+      max-height: 320px;
+      background: linear-gradient(145deg, #1f2838, #151b28);
+      border-radius: 28px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
-        filter 0.08s ease-out;
-    }
-
-    .card:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
-      filter: brightness(0.95);
-    }
-
-    .card.revealed {
-      border-color: var(--fk-green);
-      box-shadow: 0 0 12px rgba(59, 165, 43, 0.4);
+      align-items: center;
+      padding: 20px;
+      gap: 18px;
     }
 
     .card-inner {
+      width: 90%;
+      height: 80%;
+      background: #0f172a;
+      border-radius: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      padding: 10px;
+    }
+
+    .smiley-face {
+      font-size: 4.2rem;
+      line-height: 1;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+    }
+
+    .smiley-hand {
+      font-size: 3.2rem;
+      line-height: 1;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+    }
+
+    /* Buttons Eigener Kipp / Mitspieler Kipp */
+    .buttons-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 20px;
+      padding: 14px 10px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease;
+    }
+
+    .btn-primary {
+      background: #10b981;
+      color: #022c22;
+      box-shadow: 0 8px 18px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-secondary {
+      background: #f59e0b;
+      color: #451a03;
+      box-shadow: 0 8px 18px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    /* Punkte / Kombi-Anzeige */
+    .score-area {
+      margin-top: 6px;
+      padding: 14px 14px 18px;
+      background: #0b1220;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .score-big {
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: #e5ff4a;
+      text-align: left;
+      line-height: 1.1;
+    }
+
+    .score-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.8;
+    }
+
+    .score-small-block {
+      text-align: right;
+    }
+
+    .score-small-main {
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .score-small-sub {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    /* Reset-Button klein darunter */
+    .reset-row {
+      margin-top: 10px;
       text-align: center;
     }
 
-    .card-placeholder {
-      font-size: 1.3rem;
-      color: var(--fk-muted);
-      letter-spacing: 0.12em;
-    }
-
-    .color-square {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      margin: 0 auto 6px;
-      border: 2px solid #000;
-    }
-
-    .card-motif {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .card-color {
-      font-size: 0.8rem;
-      color: var(--fk-muted);
-    }
-
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--fk-muted);
-    }
-
-    .btn-ghost {
-      align-self: center;
-      margin-top: 4px;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--fk-violet);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+    .reset-btn {
+      border: none;
+      background: none;
+      color: #9ca3af;
+      font-size: 0.85rem;
+      text-decoration: underline;
       cursor: pointer;
+      padding: 4px 8px;
     }
 
-    .btn-ghost:active {
-      border-color: var(--fk-violet);
-      background: rgba(170, 0, 120, 0.1);
+    .reset-btn:active {
+      color: #e5e7eb;
+    }
+
+    @media (min-width: 768px) {
+      .app {
+        max-width: 540px;
+      }
+
+      .card {
+        width: 260px;
+        height: 260px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <header class="header">
-      <div class="logo-line">
-        <span class="logo-fairy">Fairy</span>
-        <span class="logo-kipp">KIPP</span>
-      </div>
-      <div class="tagline">Karten zum Abkippen – 6 Motive pro Partie</div>
-    </header>
+    <h1>KIPP CLUB</h1>
+    <div class="subtitle">KIPP Smiley</div>
 
-    <section class="panel">
-      <div class="panel-header">
-        <span class="pill pill-blue">Karten</span>
-        <span class="status">
-          Abgekippt: <span id="revealed-count" class="status-strong">0</span> / 6
-        </span>
+    <div class="card-wrapper">
+      <div class="card">
+        <div class="card-inner">
+          <div class="smiley-face" id="smileyFace">😀</div>
+          <div class="smiley-hand" id="smileyHand">👍</div>
+        </div>
       </div>
+    </div>
 
-      <div class="cards-grid" id="cards-grid">
-        <!-- 6 Karten -->
-        <button class="card" data-index="0">
-          <div class="card-inner">
-            <div class="card-placeholder">KARTE</div>
-          </div>
-        </button>
-        <button class="card" data-index="1">
-          <div class="card-inner">
-            <div class="card-placeholder">KARTE</div>
-          </div>
-        </button>
-        <button class="card" data-index="2">
-          <div class="card-inner">
-            <div class="card-placeholder">KARTE</div>
-          </div>
-        </button>
-        <button class="card" data-index="3">
-          <div class="card-inner">
-            <div class="card-placeholder">KARTE</div>
-          </div>
-        </button>
-        <button class="card" data-index="4">
-          <div class="card-inner">
-            <div class="card-placeholder">KARTE</div>
-          </div>
-        </button>
-        <button class="card" data-index="5">
-          <div class="card-inner">
-            <div class="card-placeholder">KARTE</div>
-          </div>
-        </button>
+    <div class="buttons-row">
+      <button class="btn btn-primary" id="btnOwn">Eigener Kipp</button>
+      <button class="btn btn-secondary" id="btnOther">Mitspieler Kipp</button>
+    </div>
+
+    <div class="score-area">
+      <div>
+        <div class="score-label">Punkte</div>
+        <div class="score-big" id="pointsDisplay">0</div>
       </div>
-
-      <div class="footer-row">
-        <span id="status-text">Tippe auf ein verdecktes Kärtchen, um es aufzudecken.</span>
+      <div class="score-small-block">
+        <div class="score-label">Kombis</div>
+        <div class="score-small-main" id="combosDisplay">0 / 6</div>
+        <div class="score-small-sub" id="roundInfo">Runde läuft …</div>
       </div>
-    </section>
+    </div>
 
-    <button id="reset-btn" class="btn-ghost">Neue Partie</button>
+    <div class="reset-row">
+      <button class="reset-btn" id="btnReset">Runde zurücksetzen</button>
+    </div>
   </div>
 
   <script>
-    const motifs = [
-      "Wasserball",
-      "Auto",
-      "Farbfleck",
-      "Buch",
-      "Gießkanne",
-      "Kerze",
-      "Blume",
-      "Fisch",
-      "Schmetterling",
-      "Schuh",
-      "Tasse",
-      "T-Shirt"
-    ];
+    // 12 Gesichter, 4 Gesten – Platzhalter mit Emojis
+    const faces = ["😀","😃","😄","😁","😆","😅","😉","😊","😎","🤓","😮","🤪"];
+    const hands = ["👍","✌️","👌","👊"];
 
-    const colors = ["blau", "grün", "orange", "violett"];
+    let points = 0;
+    let combos = 0;
+    const combosPerRound = 6;
 
-    const colorMap = {
-      blau: "rgb(0, 101, 171)",
-      grün: "rgb(59, 165, 43)",
-      orange: "rgb(242, 150, 0)",
-      violett: "rgb(170, 0, 120)"
-    };
+    const faceEl = document.getElementById("smileyFace");
+    const handEl = document.getElementById("smileyHand");
+    const pointsDisplay = document.getElementById("pointsDisplay");
+    const combosDisplay = document.getElementById("combosDisplay");
+    const roundInfo = document.getElementById("roundInfo");
+    const btnOwn = document.getElementById("btnOwn");
+    const btnOther = document.getElementById("btnOther");
+    const btnReset = document.getElementById("btnReset");
 
-    const cards = Array.from(document.querySelectorAll(".card"));
-    const revealedCountEl = document.getElementById("revealed-count");
-    const statusText = document.getElementById("status-text");
-    const resetBtn = document.getElementById("reset-btn");
-
-    let combos = []; // 6 zufällige Kombinationen
-    let revealedCount = 0;
-
-    function createAllCombos() {
-      const all = [];
-      for (const color of colors) {
-        for (const motif of motifs) {
-          all.push({ color, motif });
-        }
-      }
-      return all;
+    function randomInt(max) {
+      return Math.floor(Math.random() * max);
     }
 
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
+    function newCombo() {
+      const f = faces[randomInt(faces.length)];
+      const h = hands[randomInt(hands.length)];
+      faceEl.textContent = f;
+      handEl.textContent = h;
     }
 
-    function dealCards() {
-      const allCombos = shuffle(createAllCombos());
-      combos = allCombos.slice(0, 6); // 6 verschiedene Farb-Motiv-Kombis
-
-      revealedCount = 0;
-      revealedCountEl.textContent = "0";
-      statusText.textContent =
-        "Tippe auf ein verdecktes Kärtchen, um es aufzudecken.";
-
-      cards.forEach((card, index) => {
-        card.classList.remove("revealed");
-        card.innerHTML = `
-          <div class="card-inner">
-            <div class="card-placeholder">KARTE</div>
-          </div>
-        `;
-        card.dataset.revealed = "false";
-        card.dataset.index = index.toString();
-      });
-    }
-
-    function revealCard(card) {
-      if (card.dataset.revealed === "true") return;
-
-      const index = parseInt(card.dataset.index, 10);
-      const combo = combos[index];
-
-      const inner = document.createElement("div");
-      inner.className = "card-inner";
-
-      const colorSquare = document.createElement("div");
-      colorSquare.className = "color-square";
-      colorSquare.style.backgroundColor = colorMap[combo.color];
-
-      const motifEl = document.createElement("div");
-      motifEl.className = "card-motif";
-      motifEl.textContent = combo.motif;
-
-      const colorEl = document.createElement("div");
-      colorEl.className = "card-color";
-      colorEl.textContent = combo.color.toUpperCase();
-
-      inner.appendChild(colorSquare);
-      inner.appendChild(motifEl);
-      inner.appendChild(colorEl);
-
-      card.innerHTML = "";
-      card.appendChild(inner);
-      card.classList.add("revealed");
-      card.dataset.revealed = "true";
-
-      revealedCount += 1;
-      revealedCountEl.textContent = revealedCount.toString();
-
-      if (revealedCount === 6) {
-        statusText.textContent =
-          "Alle 6 Karten sind abgekippt! Neue Partie starten?";
+    function updateScoreDisplay() {
+      pointsDisplay.textContent = points;
+      combosDisplay.textContent = combos + " / " + combosPerRound;
+      if (combos >= combosPerRound) {
+        roundInfo.textContent = "KIPP STOPP – Runde voll!";
       } else {
-        statusText.textContent =
-          "Kippt weiter – wählt das nächste Kärtchen.";
+        roundInfo.textContent = "Runde läuft …";
       }
     }
 
-    // Event-Listener
-    cards.forEach((card) => {
-      card.addEventListener("click", () => {
-        revealCard(card);
-      });
+    function handleKipp(pointsToAdd) {
+      if (combos >= combosPerRound) {
+        // Runde schon voll – optional trotzdem neue Kombi zulassen
+        newCombo();
+        return;
+      }
+      points += pointsToAdd;
+      combos += 1;
+      updateScoreDisplay();
+      newCombo();
+    }
+
+    btnOwn.addEventListener("click", () => {
+      handleKipp(3); // Eigener Kipp = 3 Punkte
     });
 
-    resetBtn.addEventListener("click", () => {
-      dealCards();
+    btnOther.addEventListener("click", () => {
+      handleKipp(1); // Mitspieler Kipp = 1 Punkt
+    });
+
+    btnReset.addEventListener("click", () => {
+      points = 0;
+      combos = 0;
+      updateScoreDisplay();
+      newCombo();
     });
 
     // Start
-    dealCards();
+    updateScoreDisplay();
+    newCombo();
   </script>
 </body>
 </html>
