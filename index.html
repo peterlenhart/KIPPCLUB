@@ -5,136 +5,155 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KIPP CLUB</title>
 
-  <style>
-    :root {
-      --bg-main: #040712;
-      --card-bg: #101522;
-      --text-main: #ffffff;
-      --accent-smiley: #ffb11a;
-      --accent-fairy: #19c46a;
-    }
+  <!-- Favicon: KIPP-CLUB-Icon -->
+  <link rel="icon" type="image/png" href="kipp-club-icon.png" />
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <style>
+    * { box-sizing: border-box; }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #151b2e 0, #040712 55%, #020309 100%);
-      color: var(--text-main);
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #121826;
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
       min-height: 100vh;
+      padding: 20px 12px;
     }
 
     .app {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 24px 16px 32px;
+      width: 100%;
       max-width: 480px;
-      margin: 0 auto;
-    }
-
-    /* Überschrift */
-
-    .header {
       text-align: center;
-      margin-bottom: 28px;
+      position: relative;
     }
 
-    .title {
+    /* Überschrift wie bei KIPP SMILEY */
+    h1 {
+      margin: 0 0 20px;
+      font-size: 1.9rem;
+      letter-spacing: 0.05em;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.35em;
-      font-size: clamp(32px, 7vw, 40px);
     }
 
-    /* Logo + Claim */
-
-    .logo-area {
-      text-align: center;
-    }
-
-    .logo-wrapper {
-      margin-top: 26px;
+    /* Karte / Ausschnittfenster – wie bei KIPP SMILEY */
+    .card-wrapper {
       display: flex;
       justify-content: center;
+      margin-bottom: 20px;
     }
 
-    .logo-wrapper img {
-      display: block;
-      width: 180px;
-      max-width: 70vw;
-      height: auto;
-    }
-
-    .claim {
-      margin-top: 26px;
-      font-size: clamp(16px, 4vw, 20px);
-    }
-
-    /* Buttons unten */
-
-    .game-buttons {
-      margin-top: auto;          /* schiebt die Buttons nach unten */
+    .card {
+      width: min(90vw, 360px);
+      height: min(90vw, 360px);
+      max-width: 380px;
+      max-height: 380px;
+      background: linear-gradient(145deg, #1f2838, #151b28);
+      border-radius: 28px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
       display: flex;
-      gap: 16px;
-      margin-top: 40px;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
     }
 
-    .game-card {
-      flex: 1;
-      background: var(--card-bg);
-      border-radius: 24px;
-      padding: 14px 10px 18px;
+    .card-inner {
+      width: 92%;
+      height: 82%;
+      background: #0f172a;
+      border-radius: 22px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-decoration: none;
-      color: var(--text-main);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+      overflow: hidden;
     }
 
-    .game-card img {
+    .club-icon {
       display: block;
-      width: 72px;
+      width: 70%;
+      max-width: 220px;
       height: auto;
     }
 
-    .game-name {
+    /* Bereich unter der Karte – wir verwenden den Score-Container-Stil */
+
+    .score-area {
+      margin-top: 6px;
+      padding: 20px 14px 22px;
+      background: #0b1220;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,0.3);
+      text-align: center;
+    }
+
+    .claim {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    /* Button-Reihe – exakt wie start/close bei KIPP SMILEY */
+
+    .start-row {
       margin-top: 10px;
-      padding: 8px 12px 7px;
-      border-radius: 999px;
-      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .start-btn {
+      flex: 1;
+      border-radius: 16px;
+      padding: 10px 6px;
+      font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      cursor: pointer;
+      border: 2px solid transparent;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    .game-name.smiley {
-      background: var(--accent-smiley);
-      color: #1a1304;
+    /* Farben für die zwei Spiele */
+    .game-smiley {
+      background: #f59e0b;
+      color: #451a03;
+      border-color: #d97706;
     }
 
-    .game-name.fairy {
-      background: var(--accent-fairy);
-      color: #02140a;
+    .game-fairy {
+      background: #22c55e;
+      color: #022c22;
+      border-color: #16a34a;
     }
 
-    /* Kleine Anpassungen für sehr schmale Geräte */
+    .game-icon {
+      display: block;
+      width: 32px;
+      height: auto;
+    }
 
     @media (max-width: 360px) {
-      .title {
-        letter-spacing: 0.25em;
+      .card {
+        width: min(92vw, 340px);
+        height: min(92vw, 340px);
       }
 
-      .game-card img {
-        width: 64px;
+      .club-icon {
+        width: 75%;
+        max-width: 200px;
       }
 
-      .game-name {
-        font-size: 12px;
+      .claim {
+        font-size: 0.98rem;
       }
     }
   </style>
@@ -142,31 +161,37 @@
 
 <body>
   <div class="app">
-    <!-- Kopfbereich -->
-    <header class="header">
-      <h1 class="title">KIPP CLUB</h1>
-    </header>
 
-    <!-- Logo + Claim -->
-    <main class="logo-area">
-      <div class="logo-wrapper">
-        <img src="kipp-club-icon.png" alt="KIPP CLUB Icon" />
+    <!-- Titel -->
+    <h1>KIPP CLUB</h1>
+
+    <!-- Logo im Ausschnittfenster -->
+    <div class="card-wrapper">
+      <div class="card">
+        <div class="card-inner">
+          <!-- DEIN PNG, ohne zusätzliche weiße Fläche -->
+          <img src="kipp-club-icon.png" alt="KIPP CLUB Icon" class="club-icon" />
+        </div>
       </div>
+    </div>
+
+    <!-- Claim + Spielauswahl (Buttons wie „starten/schließen“) -->
+    <div class="score-area">
       <p class="claim">„Kommt auf ein paar Kipps vorbei!“</p>
-    </main>
 
-    <!-- Buttons zu den Spielen -->
-    <section class="game-buttons">
-      <a href="kipp-smiley.html" class="game-card">
-        <img src="kipp-smiley-icon.png" alt="KIPP SMILEY Icon" />
-        <div class="game-name smiley">KIPP SMILEY</div>
-      </a>
+      <div class="start-row">
+        <a href="kipp-smiley.html" class="start-btn game-smiley">
+          <img src="kipp-smiley-icon.png" alt="KIPP SMILEY Icon" class="game-icon" />
+          <span>KIPP SMILEY</span>
+        </a>
 
-      <a href="kipp-fairy.html" class="game-card">
-        <img src="kipp-fairy-icon.png" alt="KIPP FAIRY Icon" />
-        <div class="game-name fairy">KIPP FAIRY</div>
-      </a>
-    </section>
+        <a href="kipp-fairy.html" class="start-btn game-fairy">
+          <img src="kipp-fairy-icon.png" alt="KIPP FAIRY Icon" class="game-icon" />
+          <span>KIPP FAIRY</span>
+        </a>
+      </div>
+    </div>
+
   </div>
 </body>
 </html>
