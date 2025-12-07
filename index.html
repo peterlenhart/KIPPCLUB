@@ -1,124 +1,203 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>KIPP CLUB</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KIPP CLUB</title>
+  <style>
+    * { box-sizing: border-box; }
 
-<style>
     body {
-        margin: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Arial;
-        background: #0f172a;
-        color: #f1f5f9;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 28px 12px;
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 12px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
     }
 
     h1 {
-        font-size: 2.6rem;
-        font-weight: 900;
-        margin-bottom: 10px;
-        color: #e2e8f0;
-        letter-spacing: 0.5px;
+      margin: 0 0 10px;
+      font-size: 2rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
     }
 
-    .slogan {
-        font-size: 1.05rem;
-        line-height: 1.45;
-        max-width: 360px;
-        margin-bottom: 26px;
-        color: #cbd5e1;
+    .tagline {
+      font-size: 1rem;
+      margin-bottom: 6px;
     }
 
-    .sub {
-        font-size: 1rem;
-        margin-bottom: 28px;
-        color: #94a3b8;
+    .subline {
+      font-size: 0.95rem;
+      color: #cbd5f5;
+      margin-bottom: 26px;
     }
 
-    .btn-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 26px;
-        width: 100%;
-        max-width: 360px;
+    .game-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
     .game-btn {
-        background: #1e293b;
-        border-radius: 20px;
-        padding: 18px 14px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: 0.25s;
+      background: #020617;
+      border-radius: 22px;
+      padding: 14px 8px 12px;
+      border: 1px solid rgba(148,163,184,0.5);
+      box-shadow:
+        0 0 0 1px rgba(15,23,42,0.9),
+        0 14px 30px rgba(0,0,0,0.8);
+      text-decoration: none;
+      color: #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
     }
 
-    .game-btn:hover {
-        border-color: #38bdf8;
-        background: #243447;
+    .game-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow:
+        0 0 0 1px rgba(15,23,42,1),
+        0 6px 16px rgba(0,0,0,0.9);
     }
 
-    .game-btn svg {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 10px;
+    .game-btn span {
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
     }
 
-    .label {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #f1f5f9;
+    /* Icon-Rahmen, gleiche Größe für beide */
+    .icon-wrap {
+      width: 120px;
+      height: 120px;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 10%, #1f2937 0, #020617 60%, #000 100%);
+      position: relative;
+      overflow: hidden;
     }
-</style>
+
+    /* sanfter Glow, leicht unterschiedlich – aber gleich stark */
+    .icon-wrap.smiley::before,
+    .icon-wrap.book::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle, rgba(251,191,36,0.18), transparent 60%);
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .icon-wrap.book::before {
+      background: radial-gradient(circle, rgba(52,211,153,0.22), transparent 65%);
+    }
+
+    svg {
+      display: block;
+      width: 76%;
+      height: 76%;
+    }
+
+    /* Kleiner Hinweis unten */
+    .hint {
+      margin-top: 20px;
+      font-size: 0.78rem;
+      color: #6b7280;
+    }
+  </style>
 </head>
-
 <body>
 
-<h1>KIPP CLUB</h1>
+<div class="app">
+  <h1>KIPP CLUB</h1>
 
-<p class="slogan">
-    „Kommt auf ein paar Kipps vorbei, und kippen wir ’ne Runde.“
-</p>
+  <div class="tagline">
+    „Kommt auf ein paar Kipps vorbei, und kippen wir ’ne Runde!“
+  </div>
+  <div class="subline">
+    Viel Spannung, Spaß und Kopfzerbrechen mit KIPP SMILEY und KIPP FAIRY.
+  </div>
 
-<p class="sub">
-    Viel Spannung, Spaß und Kopfzerbrechen<br>
-    mit KIPP SMILEY und KIPP FAIRY.
-</p>
-
-<div class="btn-grid">
-
-    <!-- KIPP SMILEY BUTTON -->
-    <div class="game-btn" onclick="window.location.href='kipp-smiley.html'">
-        <!-- Smiley-Logo als SVG (vektorisiert, gestochen scharf) -->
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="60" cy="60" r="55" fill="#facc15" stroke="#eab308" stroke-width="6"/>
-            <circle cx="42" cy="48" r="8" fill="#000"/>
-            <circle cx="78" cy="48" r="8" fill="#000"/>
-            <path d="M40 75 Q60 95 80 75" stroke="#000" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <div class="game-grid">
+    <!-- KIPP SMILEY -->
+    <a href="kipp-smiley.html" class="game-btn">
+      <div class="icon-wrap smiley">
+        <!-- Nerd-Smiley als SVG -->
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Grundkreis -->
+          <circle cx="60" cy="60" r="52" fill="#fbbf24" stroke="#f97316" stroke-width="6" />
+          <!-- Mund -->
+          <path d="M36 70c5 10 13 16 24 16s19-6 24-16"
+                fill="none" stroke="#92400e" stroke-width="6"
+                stroke-linecap="round" stroke-linejoin="round" />
+          <!-- Zähne -->
+          <rect x="49" y="70" width="22" height="18" rx="3" ry="3" fill="#f9fafb" />
+          <line x1="60" y1="70" x2="60" y2="88" stroke="#e5e7eb" stroke-width="2" />
+          <!-- Brillenrahmen -->
+          <rect x="24" y="32" width="72" height="26" rx="12" ry="12"
+                fill="#020617" />
+          <rect x="30" y="36" width="20" height="18" rx="8" ry="8" fill="#f9fafb" opacity="0.05" />
+          <rect x="70" y="36" width="20" height="18" rx="8" ry="8" fill="#f9fafb" opacity="0.05" />
+          <!-- Augen -->
+          <circle cx="40" cy="45" r="6.5" fill="#1f2933" />
+          <circle cx="80" cy="45" r="6.5" fill="#1f2933" />
+          <!-- Nasensteg -->
+          <rect x="56" y="42" width="8" height="4" rx="2" ry="2" fill="#020617" />
         </svg>
-        <div class="label">KIPP SMILEY</div>
-    </div>
+      </div>
+      <span>KIPP SMILEY</span>
+    </a>
 
-    <!-- KIPP FAIRY BUTTON -->
-    <div class="game-btn" onclick="window.location.href='kipp-fairy.html'">
-        <!-- Buch-Logo als SVG (grün, mystisch schimmernd) -->
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-            <rect x="18" y="25" width="84" height="70" rx="6" fill="#22c55e" stroke="#16a34a" stroke-width="6"/>
-            <path d="M30 35 H90" stroke="#065f46" stroke-width="5" />
-            <path d="M30 50 H90" stroke="#065f46" stroke-width="5" />
-            <path d="M30 65 H80" stroke="#065f46" stroke-width="5" />
-            <path d="M30 80 H75" stroke="#065f46" stroke-width="5" />
+    <!-- KIPP FAIRY -->
+    <a href="kipp-fairy.html" class="game-btn">
+      <div class="icon-wrap book">
+        <!-- Grünes Buch als SVG -->
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Schattenfläche -->
+          <path d="M26 78c0 10 4 15 16 18l32 8c6 2 11-2 11-8V42c0-6-4-11-10-12L45 24C34 22 26 28 26 38z"
+                fill="#020617"/>
+          <!-- Buchkörper -->
+          <path d="M30 74c0 9 4 14 14 16l30 8c5 1 9-2 9-7V40c0-5-3-9-8-10L44 24C36 22 30 26 30 34z"
+                fill="#22c55e" stroke="#020617" stroke-width="4" stroke-linejoin="round"/>
+          <!-- Buchrücken -->
+          <path d="M72 28l10 3c5 1 8 5 8 10v44c0 6-4 9-9 8l-9-2"
+                fill="#16a34a" stroke="#020617" stroke-width="4" stroke-linejoin="round"/>
+          <!-- Deckel-Kante -->
+          <path d="M30 36c0-8 6-12 14-10l32 7"
+                fill="none" stroke="#15803d" stroke-width="3"/>
+          <!-- Seiten -->
+          <path d="M36 80l29 7c6 1 9-1 9-6V70L36 63z"
+                fill="#f9fafb" stroke="#020617" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M40 82l16 4M40 76l24 6"
+                fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round"/>
+          <!-- Etikett -->
+          <rect x="44" y="34" width="22" height="14" rx="2" ry="2"
+                fill="#0f172a" stroke="#020617" stroke-width="2"/>
         </svg>
-        <div class="label">KIPP FAIRY</div>
-    </div>
+      </div>
+      <span>KIPP FAIRY</span>
+    </a>
+  </div>
 
+  <div class="hint">
+    Tippe einfach auf eines der beiden Spiele, um direkt in die App zu springen.
+  </div>
 </div>
 
 </body>
