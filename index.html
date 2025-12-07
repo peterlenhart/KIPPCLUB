@@ -12,9 +12,9 @@
 
     body {
       margin: 0;
-      padding: 20px 12px;
+      padding: 16px 12px;
       min-height: 100vh;
-      background: #0b1220;
+      background: #020617; /* wie deine Spielseiten */
       color: #f1f5f9;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       display: flex;
@@ -25,51 +25,58 @@
     .app {
       width: 100%;
       max-width: 480px;
-      min-height: calc(100vh - 40px); /* 40px = body padding oben+unten */
+      min-height: calc(100vh - 32px); /* Body-Padding abgezogen */
       display: flex;
       flex-direction: column;
     }
 
     h1 {
-      margin: 8px 0 22px;
+      margin: 4px 0 10px;
       font-size: 2.1rem;
       font-weight: 900;
       letter-spacing: 0.14em;
       text-align: center;
     }
 
+    /* großer Haupt-Container wie ein Spiel-Screen */
     .card-wrapper {
       flex: 1;
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
+      width: 100%;
+      margin-top: 8px;
+      margin-bottom: 8px;
     }
 
     .card {
       width: 100%;
-      background: linear-gradient(145deg, #111827, #020617);
+      background: #020617;
       border-radius: 28px;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
-      padding: 24px 16px 26px;
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      padding: 18px 14px 18px;
       display: flex;
-      justify-content: center;
     }
 
     .card-inner {
-      width: 100%;
-      background: #020617;
       border-radius: 22px;
-      padding: 22px 18px 22px;
+      background: #020617;
+      border: 1px solid #111827;
+      padding: 22px 18px 20px;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 26px;  /* etwas mehr Abstand, damit die Buttons optisch weiter unten liegen */
-      text-align: center;
     }
 
     .club-text {
+      flex: 1; /* nimmt den ganzen Platz bis zu den Buttons ein */
       font-size: 1.02rem;
       line-height: 1.55;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
     }
 
     .club-text strong {
@@ -77,11 +84,10 @@
     }
 
     .buttons-row {
-      width: 100%;
+      margin-top: 20px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 6px;
+      gap: 14px;
     }
 
     .btn-game {
@@ -94,30 +100,29 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.65);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.7);
       transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
     }
 
     .btn-game:active {
       transform: scale(0.96);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.7);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.75);
       filter: brightness(0.95);
     }
 
-    /* Einfache Vollfarben (keine Verläufe) wie in deinen Spiel-Buttons */
+    /* Vollfarben wie in deinen Spiel-Buttons, keine Verläufe */
     .btn-smiley {
-      background: #fbbf24;  /* Smiley-Gelb/Orange */
-      color: #1e1b04;
+      background: #facc15; /* Smiley-Gelb/Orange */
+      color: #1f2937;
     }
 
     .btn-fairy {
-      background: #22c55e;  /* Fairy-Grün */
+      background: #22c55e; /* Fairy-Grün */
       color: #022c22;
     }
 
     .hint {
-      margin-top: 18px;
-      margin-bottom: 4px;
+      margin-top: 4px;
       font-size: 0.9rem;
       color: #94a3b8;
       text-align: center;
@@ -135,13 +140,17 @@
         <div class="card-inner">
 
           <div class="club-text">
-            „Kommt auf ein paar Kipps vorbei, und kippen wir ’ne Runde!“<br><br>
-            Viel Spannung, Spaß und Kopfzerbrechen mit
-            <strong>KIPP SMILEY</strong> und <strong>KIPP FAIRY</strong>.
+            <div>
+              „Kommt auf ein paar Kipps vorbei, und kippen wir ’ne Runde!“
+            </div>
+            <div>
+              Viel Spannung, Spaß und Kopfzerbrechen mit
+              <strong>KIPP SMILEY</strong> und <strong>KIPP FAIRY</strong>.
+            </div>
           </div>
 
           <div class="buttons-row">
-            <!-- Dateinamen hier ggf. an deine echten HTML-Dateien anpassen -->
+            <!-- Dateinamen an deine Dateien anpassen -->
             <a class="btn-game btn-smiley" href="kipp-smiley.html">
               KIPP SMILEY
             </a>
