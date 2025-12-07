@@ -4,169 +4,247 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KIPP CLUB</title>
-
   <style>
+    :root {
+      --bg: #050b18;
+      --card: #0c1524;
+      --text: #ffffff;
+      --accent-orange: #ffbf2f;
+      --accent-green: #27c76f;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.5);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      padding: 16px 12px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #121c30 0, #050b18 55%, #020510 100%);
+      color: var(--text);
       min-height: 100vh;
-      background: #020617; /* wie deine Spielseiten */
-      color: #f1f5f9;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
     }
 
     .app {
-      width: 100%;
-      max-width: 480px;
-      min-height: calc(100vh - 32px); /* Body-Padding abgezogen */
+      min-height: 100vh;
+      padding: 24px 16px 32px;
       display: flex;
       flex-direction: column;
     }
 
-    h1 {
-      margin: 4px 0 10px;
-      font-size: 2.1rem;
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      text-align: center;
-    }
-
-    /* großer Haupt-Container wie ein Spiel-Screen */
-    .card-wrapper {
-      flex: 1;
-      display: flex;
-      width: 100%;
-      margin-top: 8px;
-      margin-bottom: 8px;
-    }
-
-    .card {
-      width: 100%;
-      background: #020617;
-      border-radius: 28px;
-      box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.85),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-      padding: 18px 14px 18px;
-      display: flex;
-    }
-
-    .card-inner {
-      border-radius: 22px;
-      background: #020617;
-      border: 1px solid #111827;
-      padding: 22px 18px 20px;
-      width: 100%;
+    .top-area {
+      flex: 1 0 50%;
       display: flex;
       flex-direction: column;
-    }
-
-    .club-text {
-      flex: 1; /* nimmt den ganzen Platz bis zu den Buttons ein */
-      font-size: 1.02rem;
-      line-height: 1.55;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
+      justify-content: flex-start;
       gap: 16px;
+      margin-top: 8px;
     }
 
-    .club-text strong {
+    .title {
+      letter-spacing: 0.22em;
       font-weight: 800;
+      font-size: 1.6rem;
+      text-align: center;
     }
 
-    .buttons-row {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    @media (min-width: 420px) {
+      .title {
+        font-size: 1.8rem;
+      }
+    }
+
+    .logo-card {
+      margin-top: 10px;
+      background: linear-gradient(145deg, #0b1423, #050a14);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 20px 22px;
+      max-width: 420px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 14px;
     }
 
-    .btn-game {
-      border: none;
-      border-radius: 999px;
-      padding: 14px 10px;
-      font-size: 1.05rem;
-      font-weight: 800;
-      text-decoration: none;
+    .club-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 26px;
+      background: radial-gradient(circle at 20% 0, #f2d59b 0, #d4943a 40%, #6e4214 100%);
       display: flex;
-      justify-content: center;
       align-items: center;
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.7);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    .btn-game:active {
-      transform: scale(0.96);
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.75);
-      filter: brightness(0.95);
+    .club-logo img {
+      width: 88%;
+      height: 88%;
+      object-fit: contain;
+      display: block;
     }
 
-    /* Vollfarben wie in deinen Spiel-Buttons, keine Verläufe */
-    .btn-smiley {
-      background: #facc15; /* Smiley-Gelb/Orange */
-      color: #1f2937;
+    .tagline {
+      text-align: center;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #e7edf8;
+      padding: 0 6px;
     }
 
-    .btn-fairy {
-      background: #22c55e; /* Fairy-Grün */
-      color: #022c22;
+    .tagline strong {
+      font-weight: 700;
+    }
+
+    .bottom-area {
+      margin-top: 24px;
+      padding-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .game-row {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    @media (max-width: 380px) {
+      .game-row {
+        flex-direction: column;
+      }
+    }
+
+    .game-btn {
+      flex: 1;
+      background: linear-gradient(145deg, #0f1829, #04070f);
+      border-radius: var(--radius-md);
+      padding: 10px 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease,
+                  border-color 0.12s ease;
+    }
+
+    .game-btn:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.65);
+    }
+
+    .game-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .game-icon img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .game-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      color: #0a0a0a;
+      padding: 6px 10px 5px;
+      border-radius: 999px;
+      align-self: stretch;
+      margin-top: 2px;
+    }
+
+    .label-smiley {
+      background: linear-gradient(145deg, #ffbf2f, #ff9f1c);
+    }
+
+    .label-fairy {
+      background: linear-gradient(145deg, #27c76f, #1aa755);
     }
 
     .hint {
-      margin-top: 4px;
-      font-size: 0.9rem;
-      color: #94a3b8;
+      font-size: 0.82rem;
+      color: #a2afc4;
       text-align: center;
+      max-width: 360px;
+      margin-top: 4px;
     }
   </style>
 </head>
-
 <body>
   <div class="app">
+    <div class="top-area">
+      <div class="title">KIPP CLUB</div>
 
-    <h1>KIPP CLUB</h1>
-
-    <div class="card-wrapper">
-      <div class="card">
-        <div class="card-inner">
-
-          <div class="club-text">
-            <div>
-              „Kommt auf ein paar Kipps vorbei, und kippen wir ’ne Runde!“
-            </div>
-            <div>
-              Viel Spannung, Spaß und Kopfzerbrechen mit
-              <strong>KIPP SMILEY</strong> und <strong>KIPP FAIRY</strong>.
-            </div>
-          </div>
-
-          <div class="buttons-row">
-            <!-- Dateinamen an deine Dateien anpassen -->
-            <a class="btn-game btn-smiley" href="kipp-smiley.html">
-              KIPP SMILEY
-            </a>
-            <a class="btn-game btn-fairy" href="kipp-fairy.html">
-              KIPP FAIRY
-            </a>
-          </div>
-
+      <div class="logo-card">
+        <div class="club-logo">
+          <!-- KIPP CLUB Icon -->
+          <img src="kipp-club-icon.png" alt="KIPP CLUB Logo">
         </div>
+
+        <p class="tagline">
+          „Kommt auf ein paar Kips vorbei!“
+        </p>
       </div>
     </div>
 
-    <p class="hint">
-      Tippe auf eines der beiden Spiele, um zu starten.
-    </p>
+    <div class="bottom-area">
+      <div class="game-row">
+        <!-- KIPP SMILEY -->
+        <button class="game-btn" id="btn-smiley">
+          <div class="game-icon" style="background: radial-gradient(circle at 30% 0, #ffe598 0, #ffbf2f 40%, #ff9f1c 100%);">
+            <img src="kipp-smiley-icon.png" alt="KIPP SMILEY Icon">
+          </div>
+          <div class="game-label label-smiley">KIPP SMILEY</div>
+        </button>
 
+        <!-- KIPP FAIRY -->
+        <button class="game-btn" id="btn-fairy">
+          <div class="game-icon" style="background: radial-gradient(circle at 30% 0, #b6ffd6 0, #27c76f 40%, #1aa755 100%);">
+            <img src="kipp-fairy-icon.png" alt="KIPP FAIRY Icon">
+          </div>
+          <div class="game-label label-fairy">KIPP FAIRY</div>
+        </button>
+      </div>
+
+      <p class="hint">
+        Tippe auf eines der beiden Spiele, um zu starten.
+      </p>
+    </div>
   </div>
+
+  <script>
+    // Ziel-Seiten an deine Dateinamen anpassen, falls nötig:
+    document.getElementById("btn-smiley").addEventListener("click", function () {
+      window.location.href = "kipp-smiley.html";
+    });
+
+    document.getElementById("btn-fairy").addEventListener("click", function () {
+      window.location.href = "kipp-fairy.html";
+    });
+  </script>
 </body>
 </html>
