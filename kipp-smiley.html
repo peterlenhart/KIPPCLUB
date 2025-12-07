@@ -1195,9 +1195,11 @@ resetConfirm.onclick = () => {
   updateUndoButton();
 };
 
-/* schließen-Button */
+/* schließen-Button: zurück zur Startseite (index.html) */
 document.getElementById("btnClose").onclick = () => {
-  if (window.confirm("App wirklich schließen?")) window.close();
+  if (window.confirm("Zur Startseite (KIPP CLUB) zurückkehren?")) {
+    window.location.href = "index.html";
+  }
 };
 
 /* Kopf / Hand anklickbar */
