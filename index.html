@@ -12,11 +12,11 @@
 
     body {
       margin: 0;
-      padding: 20px;
+      padding: 20px 12px;
       min-height: 100vh;
-      background: #0f172a;
+      background: #0b1220;
       color: #f1f5f9;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -29,59 +29,84 @@
     }
 
     h1 {
-      margin-top: 10px;
-      margin-bottom: 18px;
-      font-size: 2rem;
+      margin: 8px 0 18px;
+      font-size: 2.1rem;
       font-weight: 900;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
     }
 
-    .slogan {
-      font-size: 1.05rem;
-      line-height: 1.45;
-      margin-bottom: 26px;
-      padding: 0 10px;
+    .card-wrapper {
+      display: flex;
+      justify-content: center;
     }
 
-    .btn-grid {
+    .card {
+      width: 100%;
+      background: linear-gradient(145deg, #111827, #020617);
+      border-radius: 28px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
+      padding: 18px 14px 20px;
+    }
+
+    .card-inner {
+      background: #020617;
+      border-radius: 22px;
+      padding: 20px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .club-text {
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
+
+    .club-text strong {
+      font-weight: 800;
+    }
+
+    .buttons-row {
       width: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 10px;
-      margin-bottom: 20px;
+      gap: 14px;
+      margin-top: 4px;
     }
 
     .btn-game {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 10px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-decoration: none;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 18px 12px;
-      border-radius: 18px;
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #0f172a;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.45);
-      transition: transform 0.15s ease;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.65);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      color: #022c22;
     }
 
     .btn-game:active {
-      transform: scale(0.97);
+      transform: scale(0.96);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.7);
     }
 
-    .smiley-btn {
+    .btn-smiley {
       background: linear-gradient(135deg, #fde047, #f59e0b);
       color: #1e1b04;
     }
 
-    .fairy-btn {
-      background: linear-gradient(135deg, #86efac, #16a34a);
+    .btn-fairy {
+      background: linear-gradient(135deg, #6ee7b7, #22c55e);
       color: #022c22;
     }
 
     .hint {
-      margin-top: 12px;
+      margin-top: 18px;
       font-size: 0.9rem;
       color: #94a3b8;
     }
@@ -93,24 +118,27 @@
 
     <h1>KIPP CLUB</h1>
 
-    <p class="slogan">
-      „Kommt auf ein paar Kipps vorbei, und kippen wir ’ne Runde!“<br><br>
-      Viel Spannung, Spaß und Kopfzerbrechen mit<br>
-      <strong>KIPP SMILEY</strong> und <strong>KIPP FAIRY</strong>.
-    </p>
+    <div class="card-wrapper">
+      <div class="card">
+        <div class="card-inner">
 
-    <div class="btn-grid">
+          <div class="club-text">
+            „Kommt auf ein paar Kipps vorbei, und kippen wir ’ne Runde!“<br><br>
+            Viel Spannung, Spaß und Kopfzerbrechen mit
+            <strong>KIPP SMILEY</strong> und <strong>KIPP FAIRY</strong>.
+          </div>
 
-      <!-- ORANGE BUTTON -->
-      <a class="btn-game smiley-btn" href="kipp-smiley.html">
-        KIPP SMILEY
-      </a>
+          <div class="buttons-row">
+            <a class="btn-game btn-smiley" href="kipp-smiley.html">
+              KIPP SMILEY
+            </a>
+            <a class="btn-game btn-fairy" href="kipp-fairy.html">
+              KIPP FAIRY
+            </a>
+          </div>
 
-      <!-- GRÜNER BUTTON -->
-      <a class="btn-game fairy-btn" href="kipp-fairy.html">
-        KIPP FAIRY
-      </a>
-
+        </div>
+      </div>
     </div>
 
     <p class="hint">
