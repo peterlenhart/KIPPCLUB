@@ -252,6 +252,13 @@
       white-space: nowrap;
     }
 
+    .tail-line {
+      margin-top: 8px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
     .story-footer {
       display: flex;
       justify-content: center;
@@ -456,6 +463,7 @@
 
       <div class="button-row">
         <button id="fairy-btn" class="btn-main">FAIRY</button>
+        <button id="fairy-end-btn" class="btn-small hidden">FAIRY END</button>
         <button id="reveal-motif-btn" class="btn-small hidden">MOTIV</button>
       </div>
 
@@ -464,6 +472,7 @@
           Tippe auf <strong>FAIRY</strong>, um eine neue Fabel zu starten.
         </div>
         <div id="story-motif" class="motif-big hidden"></div>
+        <div id="story-tail" class="tail-line hidden"></div>
       </div>
 
       <div class="story-footer">
@@ -556,10 +565,12 @@
     // UI-Elemente
     // -----------------------------
     const fairyBtn = document.getElementById("fairy-btn");
+    const fairyEndBtn = document.getElementById("fairy-end-btn");
     const revealMotifBtn = document.getElementById("reveal-motif-btn");
     const fairyStatus = document.getElementById("fairy-status");
     const storyTextEl = document.getElementById("story-text");
     const storyMotifEl = document.getElementById("story-motif");
+    const storyTailEl = document.getElementById("story-tail");
     const sentenceIndicator = document.getElementById("sentence-indicator");
 
     const scoreValueEl = document.getElementById("score-value");
@@ -594,6 +605,12 @@
     let score = 0;
     let narratedFairies = 0;
     const maxFairies = 6;
+
+    // neu für Fairy End
+    let tailWords = "";
+    let tailColorCss = "";
+    let tailReady = false;
+    let tailShown = false;
 
     // -----------------------------
     // Hilfsfunktionen
@@ -636,6 +653,11 @@
       currentMotifDisplay = "";
       currentFairyOwnedByThisDevice = false;
 
+      tailWords = "";
+      tailColorCss = "";
+      tailReady = false;
+      tailShown = false;
+
       storyTextEl.textContent =
         "Tippe auf FAIRY, um eine neue Fabel zu starten.";
       storyTextEl.classList.add("story-muted");
@@ -643,9 +665,16 @@
       storyMotifEl.textContent = "";
       storyMotifEl.classList.add("hidden");
       storyMotifEl.style.color = "";
+      storyMotifEl.style.whiteSpace = "nowrap";
+
+      storyTailEl.textContent = "";
+      storyTailEl.classList.add("hidden");
+      storyTailEl.style.color = "";
 
       sentenceIndicator.textContent = "";
       setFairyStatus("");
+
+      fairyEndBtn.classList.add("hidden");
 
       updateScoreDisplay();
       updateFairyCountDisplay();
@@ -712,7 +741,7 @@
       }
     }
 
-    // färbt das Farb-Adjektiv am Satzende + Motivzeile
+    // frühere Highlight-Funktion bleibt für Fallback erhalten
     function highlightTailColor(text, adjective, motifElement) {
       const cssColor = getCssColorForAdj(adjective);
       if (!cssColor) {
@@ -761,7 +790,18 @@
       storyMotifEl.textContent = "";
       storyMotifEl.classList.add("hidden");
       storyMotifEl.style.color = "";
+      storyMotifEl.style.whiteSpace = "nowrap";
+
+      storyTailEl.textContent = "";
+      storyTailEl.classList.add("hidden");
+      storyTailEl.style.color = "";
+
       sentenceIndicator.textContent = "";
+      fairyEndBtn.classList.add("hidden");
+      tailWords = "";
+      tailColorCss = "";
+      tailReady = false;
+      tailShown = false;
 
       // 1. Motiv, Verb, Farbe auswählen
       const motifObj = chooseMotifNoImmediateRepeat();
@@ -830,7 +870,7 @@
           if (retryCount < 3) {
             return await generateFairyFromOpenAI(retryCount + 1);
           } else {
-            // Fallback – einfache Not-Fabel
+            // Fallback – einfache Not-Fabel (alte Logik, hier keine Abtrennung)
             const base =
               'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!';
             const tailWithoutMotif =
@@ -863,7 +903,7 @@
         // Text bis inkl. letztem Satzzeichen behalten
         let baseText = text.slice(0, lastPunctIdx + 1).trimRight();
 
-        // Unser festes Satzende + Tetragramm (ohne Motiv)
+        // Unser festes Satzende + Tetragramm-Start (ohne Motivwort im Satz)
         const tailWithoutMotif =
           verb + " " + motifObj.article + " " + color;
         const storyLine = baseText + "“ , " + tailWithoutMotif;
@@ -874,24 +914,36 @@
         currentMotifDisplay = motifUpper;
         currentFairyOwnedByThisDevice = true;
 
-        // Motiv groß
-        storyMotifEl.textContent = motifUpper;
-        storyMotifEl.classList.remove("hidden");
+        // Zwei eingefärbte Wörter: Farbwort + Motivwort
+        tailWords = (color + " " + motifObj.noun).trim();
+        tailColorCss = getCssColorForAdj(color) || "";
+        tailReady = true;
+        tailShown = false;
+
+        // Anzeige: nur der Haupttext, ohne die Farb-Endung
+        const tokens = storyLine.split(" ");
+        if (tokens.length > 0) {
+          // letztes Wort ist das Farbwort, das wir abtrennen
+          tokens.pop();
+        }
+        const baseStory = tokens.join(" ");
+
+        storyTextEl.classList.remove("story-muted");
+        storyTextEl.textContent = baseStory;
+
+        storyMotifEl.textContent = "";
+        storyMotifEl.classList.add("hidden");
+        storyMotifEl.style.color = "";
         storyMotifEl.style.whiteSpace =
           motifObj.noun.toLowerCase() === "schmetterling" ? "normal" : "nowrap";
 
-        // Farbe im Text + Motiv einfärben
-        const highlightedText = highlightTailColor(
-          storyLine,
-          color,
-          storyMotifEl
-        );
+        storyTailEl.textContent = "";
+        storyTailEl.classList.add("hidden");
+        storyTailEl.style.color = "";
 
-        storyTextEl.classList.remove("story-muted");
-        storyTextEl.innerHTML = highlightedText;
-
+        fairyEndBtn.classList.remove("hidden");
         sentenceIndicator.textContent = "";
-        setFairyStatus("Neue Fabel ist aktiv.");
+        setFairyStatus("Neue Fabel ist aktiv. Tippe auf FAIRY END für das farbige Ende.");
       } catch (err) {
         console.error(err);
         setFairyStatus(
@@ -904,6 +956,10 @@
         storyMotifEl.textContent = "";
         storyMotifEl.classList.add("hidden");
         storyMotifEl.style.color = "";
+        storyTailEl.textContent = "";
+        storyTailEl.classList.add("hidden");
+        storyTailEl.style.color = "";
+        fairyEndBtn.classList.add("hidden");
       }
     }
 
@@ -912,6 +968,45 @@
     // -----------------------------
     fairyBtn.addEventListener("click", async () => {
       await generateFairyFromOpenAI();
+    });
+
+    // Fairy End: zeigt NUR die 2 abgezwickten Wörter mittig + Motiv
+    fairyEndBtn.addEventListener("click", () => {
+      if (!tailReady || !tailWords) {
+        setFairyStatus("Es gibt noch kein Fairy-End. Erst FAIRY tippen.", true);
+        return;
+      }
+      if (tailShown) {
+        setFairyStatus("Fairy-End ist bereits sichtbar.", true);
+        return;
+      }
+
+      // Zwei Wörter mittig, ohne Leerzeichen davor/danach
+      storyTailEl.textContent = tailWords.trim();
+      if (tailColorCss) {
+        storyTailEl.style.color = tailColorCss;
+      } else {
+        storyTailEl.style.color = "";
+      }
+      storyTailEl.classList.remove("hidden");
+
+      // Motiv groß und in derselben Farbe
+      storyMotifEl.textContent = currentMotifDisplay;
+      storyMotifEl.classList.remove("hidden");
+      if (tailColorCss) {
+        storyMotifEl.style.color = tailColorCss;
+      } else {
+        storyMotifEl.style.color = "";
+      }
+
+      storyMotifEl.style.whiteSpace =
+        currentMotif && currentMotif.noun.toLowerCase() === "schmetterling"
+          ? "normal"
+          : "nowrap";
+
+      tailShown = true;
+      fairyEndBtn.classList.add("hidden");
+      setFairyStatus("Fairy-End ist sichtbar.");
     });
 
     revealMotifBtn.classList.add("hidden");
@@ -942,6 +1037,11 @@
       currentMotifDisplay = "";
       currentFairyOwnedByThisDevice = false;
 
+      tailWords = "";
+      tailColorCss = "";
+      tailReady = false;
+      tailShown = false;
+
       storyTextEl.textContent =
         "Fabel verbraucht. Starte die nächste mit einem Tipp auf FAIRY.";
       storyTextEl.classList.add("story-muted");
@@ -950,8 +1050,14 @@
       storyMotifEl.classList.add("hidden");
       storyMotifEl.style.color = "";
 
+      storyTailEl.textContent = "";
+      storyTailEl.classList.add("hidden");
+      storyTailEl.style.color = "";
+
       sentenceIndicator.textContent = "";
       setFairyStatus("");
+
+      fairyEndBtn.classList.add("hidden");
 
       if (narratedFairies >= maxFairies) {
         showEndScreen();
