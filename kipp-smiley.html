@@ -423,6 +423,65 @@
       color: #451a03;
     }
 
+    /* NEU: Exit-Dialog im KIPP-Design */
+    .exit-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 40;
+    }
+
+    .exit-dialog {
+      background: #0f172a;
+      border-radius: 20px;
+      padding: 18px 18px 16px;
+      width: min(80vw, 320px);
+      border: 1px solid rgba(148,163,184,0.6);
+      text-align: center;
+    }
+
+    .exit-title {
+      margin: 0 0 6px;
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .exit-text {
+      margin: 0 0 14px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .exit-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .exit-btn {
+      flex: 1;
+      border-radius: 14px;
+      padding: 9px 6px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+
+    .exit-btn.cancel {
+      background: #111827;
+      color: #e5e7eb;
+      border: 1px solid #4b5563;
+    }
+
+    .exit-btn.confirm {
+      background: #22c55e;
+      color: #022c22;
+    }
+
     .menu-box {
       background: #0f172a;
       padding: 22px 18px;
@@ -617,6 +676,20 @@
       <div class="reset-buttons">
         <button class="reset-btn cancel" id="resetCancel">Nein</button>
         <button class="reset-btn confirm" id="resetConfirm">Ja</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEU: Exit-Overlay für „Zur Startseite?“ -->
+  <div class="exit-overlay" id="exitOverlay">
+    <div class="exit-dialog">
+      <p class="exit-title">Zur Startseite?</p>
+      <p class="exit-text">
+        Möchtest du KIPP SMILEY beenden und zurück zum KIPP CLUB?
+      </p>
+      <div class="exit-buttons">
+        <button class="exit-btn cancel" id="exitCancel">Nein</button>
+        <button class="exit-btn confirm" id="exitConfirm">Ja</button>
       </div>
     </div>
   </div>
@@ -874,6 +947,11 @@ const btnUndo = document.getElementById("btnUndo");
 const resetOverlay = document.getElementById("resetOverlay");
 const resetCancel   = document.getElementById("resetCancel");
 const resetConfirm  = document.getElementById("resetConfirm");
+
+/* NEU: Exit-Overlay-Referenzen */
+const exitOverlay = document.getElementById("exitOverlay");
+const exitCancel  = document.getElementById("exitCancel");
+const exitConfirm = document.getElementById("exitConfirm");
 
 const handOverlay   = document.getElementById("handOverlay");
 const handOptions   = document.querySelectorAll(".hand-option");
@@ -1195,11 +1273,17 @@ resetConfirm.onclick = () => {
   updateUndoButton();
 };
 
-/* schließen-Button: zurück zur Startseite (index.html) */
+/* NEU: schließen-Button mit KIPP-Design-Dialog zurück zur Startseite */
 document.getElementById("btnClose").onclick = () => {
-  if (window.confirm("Zur Startseite (KIPP CLUB) zurückkehren?")) {
-    window.location.href = "index.html";
-  }
+  exitOverlay.style.display = "flex";
+};
+
+exitCancel.onclick = () => {
+  exitOverlay.style.display = "none";
+};
+
+exitConfirm.onclick = () => {
+  window.location.href = "index.html";
 };
 
 /* Kopf / Hand anklickbar */
