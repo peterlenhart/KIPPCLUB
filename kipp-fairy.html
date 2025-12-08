@@ -171,7 +171,7 @@
       background-color: var(--fk-blue);
       color: #fdfdfd;
       box-shadow: 0 0 12px rgba(0, 101, 171, 0.5);
-      transition: transform 0.08s ease-out, box-shadow 0.08s.ease-out,
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
         filter 0.08s ease-out;
     }
 
@@ -505,11 +505,14 @@
   </div>
 
   <script>
+    // -----------------------------
+    // Konfiguration
+    // -----------------------------
     const OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions";
     const OPENAI_MODEL = "gpt-4o-mini";
     const APIKEY_STORAGE_KEY = "fairykipp_openai_key";
-    const TAIL_MARKER = "###TAIL###";
 
+    // Motive
     const motifsData = [
       { key: "Wasserball",  article: "der",  noun: "Wasserball"  },
       { key: "Auto",        article: "das",  noun: "Auto"        },
@@ -525,6 +528,7 @@
       { key: "T-Shirt",     article: "das",  noun: "T-Shirt"     }
     ];
 
+    // Farb-Adjektive
     const colorsData = [
       "grüne",
       "blaue",
@@ -532,6 +536,7 @@
       "orangefarbene"
     ];
 
+    // Lautverben je Motiv
     const motifVerbBase = {
       Wasserball: ["platschte","plumpste","spritzte","hüpfte","polterte","ploppte"],
       Auto: ["brummte","knatterte","röhrte","tuckerte","schnurrte","hupte","quietschte","dröhnte","heulte","fauchte"],
@@ -547,6 +552,9 @@
       "T-Shirt": ["raschelte","flatterte","seufzte","wisperte","knisterte","murmelte","hauchte","säuselte"]
     };
 
+    // -----------------------------
+    // UI-Elemente
+    // -----------------------------
     const fairyBtn = document.getElementById("fairy-btn");
     const revealMotifBtn = document.getElementById("reveal-motif-btn");
     const fairyStatus = document.getElementById("fairy-status");
@@ -568,19 +576,28 @@
     const apikeyInput = document.getElementById("apikey-input");
     const apikeySaveBtn = document.getElementById("apikey-save-btn");
 
+    // -----------------------------
+    // Spielzustand
+    // -----------------------------
     let apiKey = null;
+
     let unusedMotifs = [];
     let unusedVerbsByMotif = {};
+
     let currentMotif = null;
     let currentVerb = null;
     let currentColor = null;
     let currentStoryText = "";
     let currentMotifDisplay = "";
     let currentFairyOwnedByThisDevice = false;
+
     let score = 0;
     let narratedFairies = 0;
     const maxFairies = 6;
 
+    // -----------------------------
+    // Hilfsfunktionen
+    // -----------------------------
     function shuffleArray(arr) {
       const a = arr.slice();
       for (let i = a.length - 1; i > 0; i--) {
@@ -695,6 +712,7 @@
       }
     }
 
+    // färbt das Farb-Adjektiv am Satzende + Motivzeile
     function highlightTailColor(text, adjective, motifElement) {
       const cssColor = getCssColorForAdj(adjective);
       if (!cssColor) {
@@ -709,7 +727,6 @@
       const escapedAdj = adjective.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       const regex = new RegExp(`([\\s\\S]*?)\\b(${escapedAdj})([.,!?:;"“”„]*)\\s*$`);
       const match = text.match(regex);
-
       if (!match) return text;
 
       const before = match[1];
@@ -722,12 +739,16 @@
       return before + coloredWord;
     }
 
+    // -----------------------------
+    // OpenAI-Aufruf
+    // -----------------------------
     async function generateFairyFromOpenAI(retryCount = 0) {
       if (!apiKey) {
         setFairyStatus("Bitte zuerst API-Key oben eingeben.", true);
         apikeyBanner.classList.remove("hidden");
         return;
       }
+
       if (narratedFairies >= maxFairies) {
         setFairyStatus("Diese Partie ist bereits beendet.", true);
         return;
@@ -742,6 +763,7 @@
       storyMotifEl.style.color = "";
       sentenceIndicator.textContent = "";
 
+      // 1. Motiv, Verb, Farbe auswählen
       const motifObj = chooseMotifNoImmediateRepeat();
       const verb = chooseVerbForMotif(motifObj.noun);
       const color = colorsData[Math.floor(Math.random() * colorsData.length)];
@@ -754,7 +776,7 @@
         role: "system",
         content:
           "Du schreibst sehr kurze Fabeltexte auf Deutsch für ein Gesellschaftsspiel.\n" +
-          "Du musst GENAU zwei Sätze liefern, insgesamt etwa 18–28 Wörter.\n" +
+          "Du MUSST GENAU zwei Sätze liefern, insgesamt etwa 18–28 Wörter.\n" +
           "Regeln:\n" +
           "- Schreibe in der dritten Person.\n" +
           "- Verwende keine weiteren Farbwörter im Text.\n" +
@@ -769,10 +791,8 @@
           "Die unsichtbare Hauptfigur dieser Fabel ist: \"" + motifObj.noun + "\".\n" +
           "Schreibe GENAU zwei zusammenhängende Sätze, insgesamt ca. 18–28 Wörter.\n" +
           "Der erste Satz beschreibt die Situation, ohne das Wort \"" + motifObj.noun + "\".\n" +
-          "Der zweite Satz besteht nur aus wörtlicher Rede und endet mit einem abschließenden Anführungszeichen \".\n" +
-          "Nach diesem letzten Anführungszeichen darf in deiner Antwort NICHTS mehr folgen.\n" +
-          "Schreibe am Ende deiner gesamten Ausgabe NACH dem letzten Anführungszeichen nur noch den Marker " + TAIL_MARKER + ".\n" +
-          "Schreibe NICHT die Schlussformel mit Verb, Artikel, Farbe und Motiv – diese füge ich selbst an.\n"
+          "Der zweite Satz besteht nur aus wörtlicher Rede und endet mit einem abschließenden Anführungszeichen und einem Satzzeichen (. ? oder !).\n" +
+          "Nach dem zweiten Satz darf in deiner Antwort nichts Inhaltliches mehr folgen.\n"
       };
 
       try {
@@ -790,107 +810,77 @@
           })
         });
 
-        if (!response.ok) throw new Error("HTTP-Fehler: " + response.status);
+        if (!response.ok) {
+          throw new Error("HTTP-Fehler: " + response.status);
+        }
 
         const data = await response.json();
         let text = data.choices?.[0]?.message?.content?.trim() || "";
 
+        // Whitespace normalisieren
         text = text.replace(/\s+/g, " ").trim();
 
-        const markerIndex = text.indexOf(TAIL_MARKER);
-        if (markerIndex === -1 && retryCount < 3) {
-          return await generateFairyFromOpenAI(retryCount + 1);
-        }
-        if (markerIndex === -1 && retryCount >= 3) {
-          const base =
-            'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
-          const storyLine =
-            base + ", " + verb + " " + motifObj.article + " " + color;
-          const motifUpper = motifObj.noun.toUpperCase();
+        // letztes Satzzeichen finden (. ! ?)
+        const dotIdx = text.lastIndexOf(".");
+        const exIdx = text.lastIndexOf("!");
+        const qIdx = text.lastIndexOf("?");
+        const lastPunctIdx = Math.max(dotIdx, exIdx, qIdx);
 
-          currentStoryText = storyLine;
-          currentMotifDisplay = motifUpper;
-          currentFairyOwnedByThisDevice = true;
+        if (lastPunctIdx === -1) {
+          if (retryCount < 3) {
+            return await generateFairyFromOpenAI(retryCount + 1);
+          } else {
+            // Fallback – einfache Not-Fabel
+            const base =
+              'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!';
+            const tailWithoutMotif =
+              verb + " " + motifObj.article + " " + color;
+            const storyLine = base + "“ , " + tailWithoutMotif;
+            const motifUpper = motifObj.noun.toUpperCase();
 
-          storyMotifEl.textContent = motifUpper;
-          storyMotifEl.classList.remove("hidden");
-          storyMotifEl.style.whiteSpace =
-            motifObj.noun.toLowerCase() === "schmetterling" ? "normal" : "nowrap";
+            currentStoryText = storyLine;
+            currentMotifDisplay = motifUpper;
+            currentFairyOwnedByThisDevice = true;
 
-          const highlightedFallback = highlightTailColor(
-            storyLine,
-            color,
-            storyMotifEl
-          );
+            storyMotifEl.textContent = motifUpper;
+            storyMotifEl.classList.remove("hidden");
+            storyMotifEl.style.whiteSpace =
+              motifObj.noun.toLowerCase() === "schmetterling" ? "normal" : "nowrap";
 
-          storyTextEl.classList.remove("story-muted");
-          storyTextEl.innerHTML = highlightedFallback;
-          setFairyStatus("Neue Fabel ist aktiv (Fallback).");
-          return;
-        }
+            const highlightedFallback = highlightTailColor(
+              storyLine,
+              color,
+              storyMotifEl
+            );
 
-        let baseText = text.slice(0, markerIndex).trim();
-
-        const lastQuoteIndex = Math.max(
-          baseText.lastIndexOf('"'),
-          baseText.lastIndexOf("“"),
-          baseText.lastIndexOf("„")
-        );
-
-        if (lastQuoteIndex === -1 && retryCount < 3) {
-          return await generateFairyFromOpenAI(retryCount + 1);
-        }
-        if (lastQuoteIndex === -1 && retryCount >= 3) {
-          const base =
-            'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
-          const storyLine =
-            base + ", " + verb + " " + motifObj.article + " " + color;
-          const motifUpper = motifObj.noun.toUpperCase();
-
-          currentStoryText = storyLine;
-          currentMotifDisplay = motifUpper;
-          currentFairyOwnedByThisDevice = true;
-
-          storyMotifEl.textContent = motifUpper;
-          storyMotifEl.classList.remove("hidden");
-          storyMotifEl.style.whiteSpace =
-            motifObj.noun.toLowerCase() === "schmetterling" ? "normal" : "nowrap";
-
-          const highlightedFallback = highlightTailColor(
-            storyLine,
-            color,
-            storyMotifEl
-          );
-
-          storyTextEl.classList.remove("story-muted");
-          storyTextEl.innerHTML = highlightedFallback;
-          setFairyStatus("Neue Fabel ist aktiv (Fallback).");
-          return;
+            storyTextEl.classList.remove("story-muted");
+            storyTextEl.innerHTML = highlightedFallback;
+            setFairyStatus("Neue Fabel ist aktiv (Fallback).");
+            return;
+          }
         }
 
-        // Bis inkl. letztes Anführungszeichen
-        baseText = baseText.slice(0, lastQuoteIndex + 1).trimEnd();
+        // Text bis inkl. letztem Satzzeichen behalten
+        let baseText = text.slice(0, lastPunctIdx + 1).trimRight();
 
-        // WICHTIGER FIX:
-        // Falls die KI sowas wie ...!“ " produziert hat,
-        // machen wir daraus sauber ...!“"
-        baseText = baseText.replace(/\s*["“”„]\s*$/, '"');
-
+        // Unser festes Satzende + Tetragramm (ohne Motiv)
         const tailWithoutMotif =
           verb + " " + motifObj.article + " " + color;
+        const storyLine = baseText + "“ , " + tailWithoutMotif;
 
-        const storyLine = baseText + ", " + tailWithoutMotif;
         const motifUpper = motifObj.noun.toUpperCase();
 
         currentStoryText = storyLine;
         currentMotifDisplay = motifUpper;
         currentFairyOwnedByThisDevice = true;
 
+        // Motiv groß
         storyMotifEl.textContent = motifUpper;
         storyMotifEl.classList.remove("hidden");
         storyMotifEl.style.whiteSpace =
           motifObj.noun.toLowerCase() === "schmetterling" ? "normal" : "nowrap";
 
+        // Farbe im Text + Motiv einfärben
         const highlightedText = highlightTailColor(
           storyLine,
           color,
@@ -917,6 +907,9 @@
       }
     }
 
+    // -----------------------------
+    // Event-Listener
+    // -----------------------------
     fairyBtn.addEventListener("click", async () => {
       await generateFairyFromOpenAI();
     });
@@ -988,6 +981,9 @@
       }
     });
 
+    // -----------------------------
+    // Start
+    // -----------------------------
     function init() {
       loadApiKeyFromStorage();
       initUnusedMotifs();
