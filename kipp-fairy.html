@@ -675,6 +675,7 @@
 
       storyMotifEl.textContent = "";
       storyMotifEl.classList.add("hidden");
+      storyMotifEl.style.color = "";   // Farbe zurücksetzen
 
       sentenceIndicator.textContent = "";
       setFairyStatus("");
@@ -731,6 +732,64 @@
       apiKey = key;
       window.localStorage.setItem(APIKEY_STORAGE_KEY, key);
       apikeyBanner.classList.add("hidden");
+    }
+
+    // -----------------------------
+    // NEU: Farb-Hilfsfunktionen
+    // -----------------------------
+    function getCssColorForAdj(adj) {
+      if (!adj) return null;
+
+      const clean = adj
+        .toLowerCase()
+        .replace(/[.,!?:;"“”„]+$/g, "");
+
+      switch (clean) {
+        case "blaue":
+          return "var(--fk-blue)";
+        case "grüne":
+          return "var(--fk-green)";
+        case "violette":
+          return "var(--fk-violet)";
+        case "orangefarbene":
+          return "var(--fk-orange)";
+        default:
+          return null;
+      }
+    }
+
+    // färbt:
+    // - das Farbadjektiv im Story-Text (letztes Vorkommen)
+    // - das Motivwort unten (storyMotifEl)
+    function highlightTailColor(text, adjective, motifElement) {
+      const cssColor = getCssColorForAdj(adjective);
+      if (!cssColor) {
+        if (motifElement) motifElement.style.color = "";
+        return text;
+      }
+
+      // Motiv groß einfärben (zweites der zwei Schlusswörter)
+      if (motifElement) {
+        motifElement.style.color = cssColor;
+      }
+
+      // Letztes Vorkommen des Adjektivs im Text einfärben
+      const escapedAdj = adjective.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(`([\\s\\S]*?)\\b(${escapedAdj})([.,!?:;"“”„]*)\\s*$`);
+      const match = text.match(regex);
+
+      if (!match) {
+        return text;
+      }
+
+      const before = match[1];
+      const word = match[2];
+      const punct = match[3] || "";
+
+      const coloredWord =
+        `<span style="color:${cssColor}">${word}${punct}</span>`;
+
+      return before + coloredWord;
     }
 
     // KI-Text aufsplitten: 
@@ -826,6 +885,7 @@
 
       storyMotifEl.textContent = "";
       storyMotifEl.classList.add("hidden");
+      storyMotifEl.style.color = "";
 
       sentenceIndicator.textContent = "";
 
@@ -913,7 +973,6 @@
 
         if (!result && retryCount >= 3) {
           // Fallback: einfache Not-Fabel
-          // Auch hier die Farbe einfügen, damit es konsistent bleibt
           const fallbackMain =
             "Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. " +
             "\"Jetzt kommt mein Moment\", " + verb + " " + motifObj.article + " " + color;
@@ -924,13 +983,21 @@
           currentMotifDisplay = fallbackMotif;
           currentFairyOwnedByThisDevice = true;
 
-          storyTextEl.classList.remove("story-muted");
-          storyTextEl.textContent = fallbackMain;
-
+          // Motiv zuerst setzen
           storyMotifEl.textContent = fallbackMotif;
           storyMotifEl.classList.remove("hidden");
           storyMotifEl.style.whiteSpace =
             motifObj.noun.toLowerCase() === "schmetterling" ? "normal" : "nowrap";
+
+          // Adjektiv + Motiv einfärben
+          const highlightedFallback = highlightTailColor(
+            fallbackMain,
+            color,
+            storyMotifEl
+          );
+
+          storyTextEl.classList.remove("story-muted");
+          storyTextEl.innerHTML = highlightedFallback;
 
           setFairyStatus("Neue Fabel ist aktiv (Fallback).");
           return;
@@ -940,14 +1007,21 @@
         currentMotifDisplay = result.motifDisplay;
         currentFairyOwnedByThisDevice = true;
 
-        storyTextEl.classList.remove("story-muted");
-        storyTextEl.textContent = currentStoryText;
-
-        // Motiv groß und zentriert
+        // Motiv groß setzen
         storyMotifEl.textContent = currentMotifDisplay;
         storyMotifEl.classList.remove("hidden");
         storyMotifEl.style.whiteSpace =
           motifObj.noun.toLowerCase() === "schmetterling" ? "normal" : "nowrap";
+
+        // Farbadjektiv (letztes Wort des Tetragramms im Text-Teil) + Motivfarbe
+        const highlightedText = highlightTailColor(
+          currentStoryText,
+          currentColor,
+          storyMotifEl
+        );
+
+        storyTextEl.classList.remove("story-muted");
+        storyTextEl.innerHTML = highlightedText;
 
         sentenceIndicator.textContent = "";
         setFairyStatus("Neue Fabel ist aktiv.");
@@ -962,6 +1036,7 @@
         storyTextEl.classList.remove("story-muted");
         storyMotifEl.textContent = "";
         storyMotifEl.classList.add("hidden");
+        storyMotifEl.style.color = "";
       }
     }
 
@@ -1007,6 +1082,7 @@
 
       storyMotifEl.textContent = "";
       storyMotifEl.classList.add("hidden");
+      storyMotifEl.style.color = "";
 
       sentenceIndicator.textContent = "";
       setFairyStatus("");
