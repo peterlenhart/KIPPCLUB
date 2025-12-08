@@ -171,7 +171,7 @@
       background-color: var(--fk-blue);
       color: #fdfdfd;
       box-shadow: 0 0 12px rgba(0, 101, 171, 0.5);
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
+      transition: transform 0.08s ease-out, box-shadow 0.08s.ease-out,
         filter 0.08s ease-out;
     }
 
@@ -214,7 +214,6 @@
       background: rgba(170, 0, 120, 0.1);
     }
 
-    /* GEDICHT-ARTIGE FABEL-ANZEIGE */
     .story-box {
       min-height: 130px;
       max-height: 210px;
@@ -303,6 +302,7 @@
 
     .score-fairies strong {
       color: var(--fk-orange);
+      font-weight: 700;
     }
 
     .end-overlay {
@@ -330,6 +330,8 @@
       font-family: "Pacifico", cursive;
       font-size: 1.7rem;
       color: var(--fk-orange);
+      text-shadow: 0 0 10px rgba(242, 150, 0, 0.8);
+      margin-bottom: 6px;
     }
 
     .end-score-label {
@@ -800,7 +802,6 @@
           return await generateFairyFromOpenAI(retryCount + 1);
         }
         if (markerIndex === -1 && retryCount >= 3) {
-          // Fallback
           const base =
             'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
           const storyLine =
@@ -830,12 +831,12 @@
 
         let baseText = text.slice(0, markerIndex).trim();
 
-        // alles nach letztem Anführungszeichen abschneiden, falls KI doch getrickst hat
         const lastQuoteIndex = Math.max(
           baseText.lastIndexOf('"'),
           baseText.lastIndexOf("“"),
           baseText.lastIndexOf("„")
         );
+
         if (lastQuoteIndex === -1 && retryCount < 3) {
           return await generateFairyFromOpenAI(retryCount + 1);
         }
@@ -867,7 +868,13 @@
           return;
         }
 
-        baseText = baseText.slice(0, lastQuoteIndex + 1).trim();
+        // Bis inkl. letztes Anführungszeichen
+        baseText = baseText.slice(0, lastQuoteIndex + 1).trimEnd();
+
+        // WICHTIGER FIX:
+        // Falls die KI sowas wie ...!“ " produziert hat,
+        // machen wir daraus sauber ...!“"
+        baseText = baseText.replace(/\s*["“”„]\s*$/, '"');
 
         const tailWithoutMotif =
           verb + " " + motifObj.article + " " + color;
