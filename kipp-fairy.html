@@ -5,10 +5,7 @@
   <title>FAIRY KIPP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@500;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@500;700&display=swap" rel="stylesheet"/>
 
   <style>
     :root{
@@ -17,7 +14,7 @@
       --fk-green: rgb(59, 165, 43);
       --fk-orange: rgb(242, 150, 0);
 
-      --fk-bg:#111111;
+      --fk-bg:#111;
       --fk-panel:#1b1b1b;
       --fk-text:#f5f5f5;
       --fk-muted:#bbbbbb;
@@ -29,7 +26,7 @@
     body{
       background: radial-gradient(circle at top, #222 0, #000 55%, #000 100%);
       color: var(--fk-text);
-      font-family:"Montserrat",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height:100vh;
       display:flex;
       justify-content:center;
@@ -40,125 +37,92 @@
     .app{
       width:100%;
       max-width:480px;
-      background:var(--fk-bg);
+      background: var(--fk-bg);
       border-radius:18px;
       border:1px solid var(--fk-border);
-      box-shadow:0 0 30px rgba(0,0,0,0.7);
-      padding:14px 14px 16px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.7);
+      padding:14px 14px 18px;
       display:flex;
       flex-direction:column;
       gap:10px;
     }
 
-    .header{ text-align:center; margin-bottom:4px; }
-    .logo-line{ display:inline-flex; align-items:baseline; gap:6px; }
+    .header{text-align:center;margin-bottom:4px}
+    .logo-line{display:inline-flex;align-items:baseline;gap:6px}
     .logo-fairy{
       font-family:"Pacifico",cursive;
       font-size:1.8rem;
-      letter-spacing:0.05em;
-      color:var(--fk-orange);
-      text-shadow:0 0 6px rgba(242,150,0,0.8);
+      letter-spacing:.05em;
+      color: var(--fk-orange);
+      text-shadow:0 0 6px rgba(242,150,0,.8);
     }
     .logo-kipp{
+      font-family:"Montserrat",sans-serif;
       font-weight:700;
       font-size:1.4rem;
-      letter-spacing:0.2em;
-      color:var(--fk-blue);
+      letter-spacing:.2em;
+      color: var(--fk-blue);
       text-transform:uppercase;
     }
-    .tagline{
-      margin-top:4px;
-      font-size:0.8rem;
-      color:var(--fk-muted);
-    }
+    .tagline{margin-top:4px;font-size:.8rem;color:var(--fk-muted)}
 
     .panel{
-      background:var(--fk-panel);
+      background: var(--fk-panel);
       border-radius:14px;
       border:1px solid var(--fk-border);
       padding:10px 10px 12px;
       display:flex;
       flex-direction:column;
-      gap:8px;
+      gap:10px;
     }
 
     .button-row{
       display:flex;
       justify-content:center;
-      gap:8px;
+      gap:10px;
       flex-wrap:wrap;
+      align-items:center;
     }
 
-    button{ border:none; cursor:pointer; font-family:inherit; }
+    button{border:none;cursor:pointer;font-family:inherit}
+    .hidden{display:none !important;}
 
     .btn-main{
       min-width:160px;
       padding:10px 16px;
-      border-radius:10px;
+      border-radius:12px;
       font-size:1rem;
-      font-weight:700;
-      letter-spacing:0.08em;
+      font-weight:800;
+      letter-spacing:.08em;
       text-transform:uppercase;
-      background-color:var(--fk-orange);
+      background: var(--fk-orange);
       color:#111;
-      box-shadow:0 0 12px rgba(242,150,0,0.7);
-      transition:transform 0.08s ease-out, box-shadow 0.08s ease-out, filter 0.08s ease-out;
+      box-shadow:0 0 12px rgba(242,150,0,.7);
+      transition:transform .08s ease-out, filter .08s ease-out, box-shadow .08s ease-out;
     }
-    .btn-main:active{
-      transform:translateY(1px) scale(0.98);
-      box-shadow:0 0 3px rgba(242,150,0,0.6);
-      filter:brightness(0.95);
-    }
+    .btn-main:active{transform:translateY(1px) scale(.98); filter:brightness(.95); box-shadow:0 0 3px rgba(242,150,0,.6);}
 
     .btn-secondary{
-      min-width:200px;
+      min-width:210px;
       padding:10px 16px;
       border-radius:12px;
       font-size:0.95rem;
       font-weight:800;
-      letter-spacing:0.08em;
+      letter-spacing:.08em;
       text-transform:uppercase;
-      background-color:var(--fk-blue);
-      color:#fdfdfd;
-      box-shadow:0 0 12px rgba(0,101,171,0.5);
-      transition:transform 0.08s ease-out, box-shadow 0.08s ease-out, filter 0.08s ease-out;
+      background: var(--fk-blue);
+      color:#fff;
+      box-shadow:0 0 12px rgba(0,101,171,.5);
+      transition:transform .08s ease-out, filter .08s ease-out, box-shadow .08s ease-out;
     }
-    .btn-secondary:active{
-      transform:translateY(1px) scale(0.98);
-      box-shadow:0 0 3px rgba(0,101,171,0.6);
-      filter:brightness(0.95);
-    }
+    .btn-secondary:active{transform:translateY(1px) scale(.98); filter:brightness(.95); box-shadow:0 0 3px rgba(0,101,171,.6);}
 
-    .btn-ghost{
-      padding:6px 10px;
-      border-radius:10px;
-      font-size:0.72rem;
-      border:1px solid rgba(255,255,255,0.12);
-      background:transparent;
-      color:rgba(255,255,255,0.75);
-      text-transform:uppercase;
-      letter-spacing:0.1em;
-    }
-    .btn-ghost:active{ filter:brightness(0.9); }
-
-    .btn-disabled{
-      opacity:0.40;
-      cursor:not-allowed;
-      filter:grayscale(0.25);
-    }
-
-    .microline{
-      min-height:0.8em;
-      font-size:0.75rem;
-      color:transparent;
-      text-align:center;
-      user-select:none;
-    }
+    .btn-disabled{opacity:.35; cursor:not-allowed; filter:grayscale(.25);}
 
     .story-box{
-      min-height:130px;
-      max-height:210px;
-      border-radius:10px;
+      min-height:140px;
+      max-height:230px;
+      border-radius:12px;
       border:1px solid var(--fk-border);
       padding:12px 16px;
       font-size:1.35rem;
@@ -173,7 +137,7 @@
     .story-box.final-pop{
       border-color:transparent;
       background: radial-gradient(circle at top, #1f1f1f 0, #0c0c0c 60%);
-      box-shadow:0 0 18px rgba(242,150,0,0.10);
+      box-shadow:0 0 18px rgba(242,150,0,.10);
     }
 
     .archive-target{
@@ -181,58 +145,78 @@
       top:0;
       display:none;
       text-align:center;
-      font-size:0.9rem;
-      letter-spacing:0.06em;
+      font-size:.9rem;
+      letter-spacing:.06em;
       text-transform:uppercase;
       padding-bottom:8px;
       margin-bottom:10px;
-      border-bottom:1px solid rgba(255,255,255,0.06);
-      color:rgba(245,245,245,0.62);
-      background:rgba(0,0,0,0.0);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      color: rgba(245,245,245,.62);
+      background: rgba(0,0,0,0);
     }
-    .archive-target.show{ display:block; }
+    .archive-target.show{display:block;}
 
-    #story-text{
-      width:100%;
-      white-space:pre-wrap;
-      font-weight:650;
-    }
-
-    .story-muted{
-      color:var(--fk-muted);
-      font-style:italic;
-      font-size:0.95rem;
-      font-weight:450;
-    }
+    #story-text{white-space:pre-wrap; font-weight:650;}
+    .story-muted{color:var(--fk-muted); font-style:italic; font-size:.95rem; font-weight:450;}
 
     .hintline{
       min-height:1.2em;
       text-align:center;
-      font-size:0.9rem;
+      font-size:.9rem;
       font-weight:700;
-      letter-spacing:0.10em;
+      letter-spacing:.10em;
       text-transform:uppercase;
-      color:rgba(245,245,245,0.72);
-      margin-top:2px;
+      color: rgba(245,245,245,.72);
       user-select:none;
     }
-    .hintline.hidden{ display:none; }
+    .hintline.hidden{display:none;}
 
-    .score-value{
-      text-align:center;
-      font-size:2.4rem;
-      font-weight:900;
-      letter-spacing:0.06em;
-      color:#fff;
-      line-height:1.0;
-      text-shadow:0 0 10px rgba(0,0,0,0.7);
+    .scoreline{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      color: rgba(245,245,245,.75);
+      font-size:.9rem;
+      letter-spacing:.04em;
     }
+    .scoreline strong{color:var(--fk-orange); font-weight:900;}
+    .scorebig{
+      text-align:center;
+      font-size:2.3rem;
+      font-weight:900;
+      line-height:1;
+      margin-top:6px;
+      text-shadow:0 0 10px rgba(0,0,0,.7);
+    }
+
+    /* bottom mini actions */
+    .mini-actions{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:8px;
+      font-size:.78rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.60);
+    }
+    .mini-actions button{
+      background:transparent;
+      color: rgba(255,255,255,.70);
+      border:none;
+      padding:6px 0;
+      text-decoration:underline;
+      text-underline-offset:3px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .mini-actions button:active{filter:brightness(.9);}
 
     /* API banner */
     .apikey-banner{
       position:fixed;
-      top:8px;
-      left:0; right:0;
+      top:8px; left:0; right:0;
       display:flex;
       justify-content:center;
       z-index:50;
@@ -249,10 +233,10 @@
       gap:6px;
       max-width:480px;
       width:calc(100% - 24px);
-      box-shadow:0 0 14px rgba(0,0,0,0.7);
-      font-size:0.75rem;
+      box-shadow:0 0 14px rgba(0,0,0,.7);
+      font-size:.75rem;
     }
-    .apikey-inner span{ white-space:nowrap; }
+    .apikey-inner span{white-space:nowrap;}
     .apikey-input{
       flex:1;
       padding:4px 6px;
@@ -260,58 +244,103 @@
       border:1px solid var(--fk-border);
       background:#111;
       color:#f5f5f5;
-      font-size:0.8rem;
+      font-size:.8rem;
       min-width:0;
     }
     .apikey-btn{
       padding:4px 8px;
       border-radius:999px;
       border:1px solid var(--fk-violet);
-      background:var(--fk-violet);
+      background: var(--fk-violet);
       color:#fff;
-      font-size:0.75rem;
+      font-size:.75rem;
       cursor:pointer;
     }
-    .apikey-btn:active{ filter:brightness(0.9); }
+    .apikey-btn:active{filter:brightness(.9);}
 
-    .hidden{ display:none !important; }
-
-    /* Mini-Confirm-Bar (unten, klein) */
-    .mini-confirm{
+    /* confirm overlay (check/cross squares) */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.92);
       display:none;
-      justify-content:center;
-      gap:10px;
-      margin-top:4px;
-    }
-    .mini-square{
-      width:44px;
-      height:44px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.18);
-      background:rgba(255,255,255,0.06);
-      display:inline-flex;
       align-items:center;
       justify-content:center;
-      font-size:1.2rem;
+      z-index:80;
+      padding:16px;
+    }
+    .card{
+      width:100%;
+      max-width:420px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: radial-gradient(circle at top, #1a1a1a 0, #0b0b0b 62%);
+      padding:18px 16px 14px;
+      box-shadow:0 0 26px rgba(0,0,0,.9);
+      position:relative;
+      overflow:hidden;
+      text-align:center;
+    }
+    .spark{
+      position:absolute;
+      inset:-60px;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(242,150,0,0.15), transparent 45%),
+        radial-gradient(circle at 80% 25%, rgba(0,101,171,0.12), transparent 45%),
+        radial-gradient(circle at 45% 80%, rgba(170,0,120,0.11), transparent 55%),
+        radial-gradient(circle at 70% 75%, rgba(59,165,43,0.10), transparent 55%);
+      filter: blur(10px);
+      opacity:.9;
+      pointer-events:none;
+      animation: floaty 1.8s ease-in-out infinite alternate;
+    }
+    @keyframes floaty{from{transform:translateY(0) scale(1)} to{transform:translateY(-6px) scale(1.02)}}
+
+    .overlay-title{
+      position:relative;
+      z-index:2;
       font-weight:900;
-      color:rgba(245,245,245,0.92);
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      font-size:1.05rem;
+      color: rgba(245,245,245,.90);
+      margin-bottom:10px;
     }
-    .mini-square:active{ filter:brightness(0.9); }
-    .mini-square.ok{
-      border-color:rgba(59,165,43,0.55);
-      box-shadow:0 0 10px rgba(59,165,43,0.18);
-    }
-    .mini-square.no{
-      border-color:rgba(255,255,255,0.18);
+    .overlay-text{
+      position:relative;
+      z-index:2;
+      color: rgba(245,245,245,.80);
+      font-size:.95rem;
+      line-height:1.5;
+      margin-bottom:14px;
+      white-space:pre-line;
+      font-weight:700;
     }
 
-    .footer-row{
+    .sq-row{
+      position:relative;
+      z-index:2;
       display:flex;
-      justify-content:space-between;
-      gap:10px;
-      margin-top:2px;
-      opacity:0.85;
+      justify-content:center;
+      gap:14px;
+      margin-top:4px;
     }
+    .sq{
+      width:64px;
+      height:64px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.7rem;
+      font-weight:900;
+      color: rgba(245,245,245,.88);
+    }
+    .sq:active{filter:brightness(.92);}
+    .sq.ok{border-color: rgba(59,165,43,.55); box-shadow:0 0 12px rgba(59,165,43,.18);}
+    .sq.no{border-color: rgba(255,255,255,.18);}
   </style>
 </head>
 
@@ -333,12 +362,10 @@
       <div class="tagline">Unendlich viele KIPP-Geschichten</div>
     </header>
 
-    <!-- Story / Ablauf -->
     <section class="panel">
       <div class="button-row">
         <button id="fairy-btn" class="btn-main">FAIRY</button>
       </div>
-      <div class="microline">.</div>
 
       <div class="story-box" id="story-box">
         <div id="archive-target" class="archive-target"></div>
@@ -350,26 +377,35 @@
       <div id="hintline" class="hintline hidden">noch 1 kipp</div>
     </section>
 
-    <!-- Punkte + Aktionen -->
     <section class="panel">
-      <div class="score-value" id="score-value">0</div>
+      <div class="scoreline">
+        <div>Punkte: <strong id="score">0</strong> / 6</div>
+        <div class="story-muted" style="font-style:normal;">Minimal</div>
+      </div>
+      <div class="scorebig" id="scorebig">0</div>
 
-      <div class="button-row" style="margin-top: 8px;">
-        <button id="erkippt-btn" class="btn-secondary">FAIRY ERKIPPT</button>
+      <div class="button-row" style="margin-top:8px;">
+        <button id="erkippt-btn" class="btn-secondary btn-disabled" disabled>FAIRY ERKIPPT</button>
       </div>
 
-      <!-- kleine Sicherheitsabfrage (Haken / Kreuz) -->
-      <div class="mini-confirm" id="mini-confirm">
-        <button class="mini-square ok" id="mini-ok" aria-label="Bestätigen">✓</button>
-        <button class="mini-square no" id="mini-no" aria-label="Abbrechen">✕</button>
-      </div>
-
-      <!-- unscheinbar unten -->
-      <div class="footer-row">
-        <button id="newgame-btn" class="btn-ghost">NEUES SPIEL</button>
-        <button id="back-btn" class="btn-ghost">ZUR STARTSEITE</button>
+      <div class="mini-actions">
+        <button id="newgame-btn" type="button">Neues Spiel</button>
+        <button id="back-btn" type="button">Zur Startseite</button>
       </div>
     </section>
+  </div>
+
+  <!-- Confirm Overlay -->
+  <div class="overlay" id="confirm-overlay">
+    <div class="card">
+      <div class="spark"></div>
+      <div class="overlay-title">FAIRY ERKIPPT?</div>
+      <div class="overlay-text">+1 Punkt vergeben?</div>
+      <div class="sq-row">
+        <button class="sq ok" id="confirm-yes" aria-label="Bestätigen">✓</button>
+        <button class="sq no" id="confirm-no" aria-label="Abbrechen">✕</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -384,24 +420,22 @@
 
     // Motive
     const motifsData = [
-      { key: "Wasserball",  article: "der",  noun: "Wasserball"  },
-      { key: "Auto",        article: "das",  noun: "Auto"        },
-      { key: "Farbfleck",   article: "der",  noun: "Farbfleck"   },
-      { key: "Buch",        article: "das",  noun: "Buch"        },
-      { key: "Gießkanne",   article: "die",  noun: "Gießkanne"   },
-      { key: "Kerze",       article: "die",  noun: "Kerze"       },
-      { key: "Blume",       article: "die",  noun: "Blume"       },
-      { key: "Fisch",       article: "der",  noun: "Fisch"       },
-      { key: "Schmetterling", article: "der", noun: "Schmetterling" },
-      { key: "Schuh",       article: "der",  noun: "Schuh"       },
-      { key: "Tasse",       article: "die",  noun: "Tasse"       },
-      { key: "T-Shirt",     article: "das",  noun: "T-Shirt"     }
+      { article: "der",  noun: "Wasserball"  },
+      { article: "das",  noun: "Auto"        },
+      { article: "der",  noun: "Farbfleck"   },
+      { article: "das",  noun: "Buch"        },
+      { article: "die",  noun: "Gießkanne"   },
+      { article: "die",  noun: "Kerze"       },
+      { article: "die",  noun: "Blume"       },
+      { article: "der",  noun: "Fisch"       },
+      { article: "der",  noun: "Schmetterling" },
+      { article: "der",  noun: "Schuh"       },
+      { article: "die",  noun: "Tasse"       },
+      { article: "das",  noun: "T-Shirt"     }
     ];
 
-    // Farb-Adjektive (nur diese!)
-    const colorsData = ["grüne", "blaue", "violette", "orangefarbene"];
+    const colorsData = ["grüne","blaue","violette","orangefarbene"];
 
-    // Lautverben je Motiv
     const motifVerbBase = {
       Wasserball: ["platschte","plumpste","spritzte","hüpfte","polterte","ploppte"],
       Auto: ["brummte","knatterte","röhrte","tuckerte","schnurrte","hupte","quietschte","dröhnte","heulte","fauchte"],
@@ -417,28 +451,38 @@
       "T-Shirt": ["raschelte","flatterte","seufzte","wisperte","knisterte","murmelte","hauchte","säuselte"]
     };
 
+    // Modalverben (für "Modalverb + Infinitiv" zusammenhalten)
+    const MODALS = new Set([
+      "kann","kannst","können","könnt","konnte","konntest","konnten",
+      "muss","musst","müssen","müsst","musste","musstest","mussten",
+      "soll","sollst","sollen","sollt","sollte","solltest","sollten",
+      "will","willst","wollen","wollt","wollte","wolltest","wollten",
+      "darf","darfst","dürfen","dürft","durfte","durftest","durften",
+      "mag","magst","mögen","mögt","mochte","mochtest","mochten"
+    ]);
+
     // -----------------------------
     // UI
     // -----------------------------
     const fairyBtn = document.getElementById("fairy-btn");
+    const erkBtn = document.getElementById("erkippt-btn");
     const storyBox = document.getElementById("story-box");
     const archiveTargetEl = document.getElementById("archive-target");
     const storyTextEl = document.getElementById("story-text");
     const hintlineEl = document.getElementById("hintline");
-
-    const scoreValueEl = document.getElementById("score-value");
-    const erkipptBtn = document.getElementById("erkippt-btn");
-
-    const miniConfirm = document.getElementById("mini-confirm");
-    const miniOk = document.getElementById("mini-ok");
-    const miniNo = document.getElementById("mini-no");
-
-    const newGameBtn = document.getElementById("newgame-btn");
-    const backBtn = document.getElementById("back-btn");
+    const scoreEl = document.getElementById("score");
+    const scoreBigEl = document.getElementById("scorebig");
 
     const apikeyBanner = document.getElementById("apikey-banner");
     const apikeyInput = document.getElementById("apikey-input");
     const apikeySaveBtn = document.getElementById("apikey-save-btn");
+
+    const newGameBtn = document.getElementById("newgame-btn");
+    const backBtn = document.getElementById("back-btn");
+
+    const confirmOverlay = document.getElementById("confirm-overlay");
+    const confirmYes = document.getElementById("confirm-yes");
+    const confirmNo = document.getElementById("confirm-no");
 
     // -----------------------------
     // Zustand
@@ -459,16 +503,14 @@
     let currentChunkIndex = -1;
 
     // Phasen:
-    // idle: keine aktive Fairy
-    // reading: 1..11
-    // final: 12 (kurz Pop)
-    // waiting: Ziel steht oben, jetzt darf "Fairy erkippt" Punkte geben
+    // idle -> reading -> final -> waiting
     let phase = "idle";
 
-    let score = 0;
+    // Nur wenn dieses Gerät die Fairy bis 12/12 gesehen hat,
+    // wird "FAIRY ERKIPPT" freigeschaltet.
+    let readerReadyForAward = false;
 
-    // "Punkt vergeben?" nur wenn waiting + Ziel existiert
-    let confirmArmed = false;
+    let score = 0;
 
     // -----------------------------
     // Helpers
@@ -482,21 +524,18 @@
       return a;
     }
 
-    function initUnusedMotifs(){
-      unusedMotifs = motifsData.slice();
-    }
+    function initUnusedMotifs(){ unusedMotifs = motifsData.slice(); }
 
-    function chooseMotifNoImmediateRepeat(){
+    function chooseMotifNoRepeat(){
       if(unusedMotifs.length===0) initUnusedMotifs();
       const idx = Math.floor(Math.random()*unusedMotifs.length);
-      const motif = unusedMotifs[idx];
+      const m = unusedMotifs[idx];
       unusedMotifs.splice(idx,1);
-      return motif;
+      return m;
     }
 
     function getAllowedVerbsForMotif(noun){
-      const base = motifVerbBase[noun];
-      return base ? base.slice() : [];
+      return motifVerbBase[noun] ? motifVerbBase[noun].slice() : [];
     }
 
     function initUnusedVerbsForMotif(noun){
@@ -510,25 +549,9 @@
       return unusedVerbsByMotif[noun].pop();
     }
 
-    function loadApiKeyFromStorage(){
-      const stored = window.localStorage.getItem(APIKEY_STORAGE_KEY);
-      if(stored && stored.startsWith("sk-")){
-        apiKey = stored;
-        apikeyBanner.classList.add("hidden");
-      }else{
-        apiKey = null;
-        apikeyBanner.classList.remove("hidden");
-      }
-    }
-
-    function saveApiKeyToStorage(key){
-      apiKey = key;
-      window.localStorage.setItem(APIKEY_STORAGE_KEY, key);
-      apikeyBanner.classList.add("hidden");
-    }
-
-    function updateScoreDisplay(){
-      scoreValueEl.textContent = String(score);
+    function updateScore(){
+      scoreEl.textContent = String(score);
+      scoreBigEl.textContent = String(score);
     }
 
     function setHint(text){
@@ -564,7 +587,7 @@
       storyTextEl.innerHTML = html;
     }
 
-    function setButtonMode(mode){
+    function setFairyButton(mode){
       // "FAIRY" | "WEITER" | "HIDE"
       if(mode==="HIDE"){
         fairyBtn.classList.add("hidden");
@@ -572,6 +595,16 @@
       }
       fairyBtn.classList.remove("hidden");
       fairyBtn.textContent = mode;
+    }
+
+    function setErkipptEnabled(on){
+      if(on){
+        erkBtn.disabled = false;
+        erkBtn.classList.remove("btn-disabled");
+      }else{
+        erkBtn.disabled = true;
+        erkBtn.classList.add("btn-disabled");
+      }
     }
 
     function escapeHtml(s){
@@ -596,35 +629,125 @@
     }
 
     function highlightTailColor(tailPlain, adjective){
-      const cssColor = getCssColorForAdj(adjective);
-      if(!cssColor) return escapeHtml(tailPlain);
+      const css = getCssColorForAdj(adjective);
+      if(!css) return escapeHtml(tailPlain);
 
       const escapedAdj = adjective.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
       const regex = new RegExp(`\\b(${escapedAdj})\\b`,"i");
       const safe = escapeHtml(tailPlain);
-      return safe.replace(regex, `<span style="color:${cssColor}">$1</span>`);
+      return safe.replace(regex, `<span style="color:${css}">$1</span>`);
     }
 
-    function splitWordsBalanced(text, n){
-      const words = text.trim().split(/\s+/).filter(Boolean);
-      if(words.length===0) return Array.from({length:n},()=> "");
+    // -----------------------------
+    // API Key
+    // -----------------------------
+    function loadApiKeyFromStorage(){
+      const stored = window.localStorage.getItem(APIKEY_STORAGE_KEY);
+      if(stored && stored.startsWith("sk-")){
+        apiKey = stored;
+        apikeyBanner.classList.add("hidden");
+      }else{
+        apiKey = null;
+        apikeyBanner.classList.remove("hidden");
+      }
+    }
 
-      const totalLen = words.reduce((acc,w)=> acc + w.length + 1, 0);
-      const target = Math.max(1, Math.round(totalLen / n));
+    function saveApiKeyToStorage(key){
+      apiKey = key;
+      window.localStorage.setItem(APIKEY_STORAGE_KEY, key);
+      apikeyBanner.classList.add("hidden");
+    }
+
+    // -----------------------------
+    // NEW: Grammar-safe tokenization
+    // -----------------------------
+    function normalizeWord(w){
+      // Keep punctuation attached for display, but detect core safely
+      return w.toLowerCase().replace(/^[„"“”'()]+|[.,!?:;"“”„')]+$/g,"");
+    }
+
+    function looksLikeParticiple(word){
+      // Heuristik: ge-..., endet oft auf -t oder -en
+      // (nicht perfekt, aber reicht für unsere Aufgabe)
+      const w = normalizeWord(word);
+      if(!w) return false;
+      if(w.startsWith("ge") && w.length>=4) return true;
+      if(w.endsWith("t") && w.length>=3) return true;
+      if(w.endsWith("en") && w.length>=4) return true;
+      return false;
+    }
+
+    function packProtectedUnits(words){
+      // Build tokens where certain sequences MUST stay together:
+      // A) Partizip + zu + Verb
+      // B) Modalverb + Infinitiv
+      const tokens = [];
+      let i = 0;
+
+      while(i < words.length){
+        const w = words[i];
+        const core = normalizeWord(w);
+
+        // A) Partizip + zu + Verb
+        if(i+2 < words.length){
+          const w2 = words[i+1];
+          const w3 = words[i+2];
+          const core2 = normalizeWord(w2);
+
+          if(core2 === "zu" && looksLikeParticiple(w)){
+            tokens.push(`${w} ${w2} ${w3}`);
+            i += 3;
+            continue;
+          }
+        }
+
+        // B) Modalverb + Infinitiv (keep 2 words together)
+        if(i+1 < words.length){
+          const next = words[i+1];
+          const nextCore = normalizeWord(next);
+          if(MODALS.has(core) && nextCore){
+            tokens.push(`${w} ${next}`);
+            i += 2;
+            continue;
+          }
+        }
+
+        // General rule: NEVER end a token with "zu"
+        // (so if a single word "zu" appears, glue it to next)
+        if(core === "zu" && i+1 < words.length){
+          tokens.push(`${w} ${words[i+1]}`);
+          i += 2;
+          continue;
+        }
+
+        tokens.push(w);
+        i += 1;
+      }
+
+      return tokens;
+    }
+
+    function splitTokensBalanced(tokens, n){
+      if(tokens.length===0) return Array.from({length:n}, ()=>"");
+
+      // weight by character length incl spaces
+      const total = tokens.reduce((acc,t)=>acc + t.length + 1, 0);
+      const target = Math.max(1, Math.round(total / n));
 
       const chunks = [];
       let cur = [];
       let curLen = 0;
 
-      for(const w of words){
-        const addLen = w.length + (cur.length ? 1 : 0);
+      for(const t of tokens){
+        const addLen = t.length + (cur.length ? 1 : 0);
 
+        // keep space for remaining chunks
         if(chunks.length < n-1 && cur.length>0 && (curLen + addLen) > target){
           chunks.push(cur.join(" "));
-          cur = [w];
-          curLen = w.length;
+          cur = [t];
+          curLen = t.length;
         }else{
-          cur.push(w);
+          cur.push(t);
           curLen += addLen;
         }
       }
@@ -636,11 +759,11 @@
         const a = chunks.pop();
         chunks[chunks.length-1] = (chunks[chunks.length-1] + " " + a).trim();
       }
-
       return chunks;
     }
 
     function buildTwelfthsVisually(fullPlain, tailPlain, colorAdj){
+      // head => 11 chunks, tail => 12th (html colored adj)
       let head = fullPlain.trim();
       const tail = tailPlain.trim();
 
@@ -651,51 +774,53 @@
         if(idx !== -1) head = head.slice(0, idx).trim();
       }
 
-      const first11 = splitWordsBalanced(head, 11);
+      const headWords = head.trim().split(/\s+/).filter(Boolean);
+      const protectedTokens = packProtectedUnits(headWords);
+      const first11 = splitTokensBalanced(protectedTokens, 11);
+
       const tailHtml = highlightTailColor(tailPlain, colorAdj);
       return [...first11, tailHtml];
     }
 
-    function hideMiniConfirm(){
-      miniConfirm.style.display = "none";
-      confirmArmed = false;
-    }
-    function showMiniConfirm(){
-      miniConfirm.style.display = "flex";
-      confirmArmed = true;
-    }
+    // -----------------------------
+    // Round control
+    // -----------------------------
+    function resetToIdle(keepScore=true){
+      currentMotif = null;
+      currentVerb = null;
+      currentColor = null;
+      currentStoryFullPlain = "";
+      currentTailPlain = "";
+      currentTailHtml = "";
+      currentChunks = [];
+      currentChunkIndex = -1;
 
-    function setEndUI(){
-      setButtonMode("HIDE");
-      erkipptBtn.classList.add("btn-disabled");
-      erkipptBtn.disabled = true;
-      hideMiniConfirm();
-      setHint("");
-      setStoryMuted(`Spielende.<br>Jemand hat <strong>${WIN_POINTS}</strong> Punkte erreicht.`);
-    }
-
-    function resetRoundToIdle(){
-      currentMotif=null;
-      currentVerb=null;
-      currentColor=null;
-      currentStoryFullPlain="";
-      currentTailPlain="";
-      currentTailHtml="";
-      currentChunks=[];
-      currentChunkIndex=-1;
+      phase = "idle";
+      readerReadyForAward = false;
 
       setArchiveTarget("");
       storyBox.classList.remove("final-pop");
       setHint("");
-      setButtonMode("FAIRY");
-      phase="idle";
-      hideMiniConfirm();
+      setFairyButton("FAIRY");
+      setErkipptEnabled(false);
 
       setStoryMuted(`Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.`);
+
+      if(!keepScore){
+        score = 0;
+        updateScore();
+      }
+    }
+
+    function setGameOver(){
+      setFairyButton("HIDE");
+      setErkipptEnabled(false);
+      setHint("");
+      setStoryMuted(`Spielende.\nDu hast <strong>${WIN_POINTS}</strong> Punkte erreicht.`);
     }
 
     // -----------------------------
-    // OpenAI: neue Fairy
+    // OpenAI generate
     // -----------------------------
     async function generateNewFairyAndShowFirstTwelfth(retryCount=0){
       if(!apiKey){
@@ -703,18 +828,20 @@
         return;
       }
       if(score >= WIN_POINTS){
-        setEndUI();
+        setGameOver();
         return;
       }
 
-      setButtonMode("HIDE");
+      // loading
+      setFairyButton("HIDE");
+      setErkipptEnabled(false);
       setHint("");
       storyBox.classList.remove("final-pop");
       setArchiveTarget("");
-      hideMiniConfirm();
       setStoryMuted("… KI zaubert eine neue Geschichte …");
 
-      const motifObj = chooseMotifNoImmediateRepeat();
+      // pick motif+verb+color
+      const motifObj = chooseMotifNoRepeat();
       const verb = chooseVerbForMotif(motifObj.noun);
       const color = colorsData[Math.floor(Math.random()*colorsData.length)];
 
@@ -722,27 +849,30 @@
       currentVerb = verb;
       currentColor = color;
 
+      phase = "idle";
+      readerReadyForAward = false;
+
       const systemMessage = {
         role:"system",
         content:
-          "Du schreibst sehr kurze Fabeltexte auf Deutsch für ein Gesellschaftsspiel.\n" +
+          "Du schreibst kurze Fabeltexte auf Deutsch für ein Gesellschaftsspiel.\n" +
           "Du MUSST GENAU zwei Sätze liefern, insgesamt etwa 18–28 Wörter.\n" +
           "Regeln:\n" +
-          "- Schreibe in der dritten Person.\n" +
-          "- Verwende keine weiteren Farbwörter im Text.\n" +
-          "- Verwende das Motivwort NICHT.\n" +
-          "- Kein Genitiv.\n" +
-          "- Kein 'sagte', 'meinte', 'dachte'.\n"
+          "- dritte Person\n" +
+          "- KEINE weiteren Farbwörter\n" +
+          "- Motivwort NICHT nennen\n" +
+          "- Kein Genitiv\n" +
+          "- Kein 'sagte', 'meinte', 'dachte'\n"
       };
 
       const userMessage = {
         role:"user",
         content:
-          "Die unsichtbare Hauptfigur dieser Fabel ist: \""+motifObj.noun+"\".\n" +
-          "Schreibe GENAU zwei zusammenhängende Sätze, insgesamt ca. 18–28 Wörter.\n" +
-          "Der erste Satz beschreibt die Situation, ohne das Wort \""+motifObj.noun+"\".\n" +
-          "Der zweite Satz besteht nur aus wörtlicher Rede und endet mit einem abschließenden Anführungszeichen und einem Satzzeichen (. ? oder !).\n" +
-          "Nach dem zweiten Satz darf in deiner Antwort nichts Inhaltliches mehr folgen.\n"
+          "Die unsichtbare Hauptfigur ist: \"" + motifObj.noun + "\".\n" +
+          "Schreibe GENAU zwei zusammenhängende Sätze (18–28 Wörter).\n" +
+          "Satz 1 beschreibt die Situation, ohne das Wort \"" + motifObj.noun + "\".\n" +
+          "Satz 2 besteht nur aus wörtlicher Rede und endet mit einem Anführungszeichen und einem Satzzeichen.\n" +
+          "Nach Satz 2 darf nichts Inhaltliches mehr folgen.\n"
       };
 
       try{
@@ -750,7 +880,7 @@
           method:"POST",
           headers:{
             "Content-Type":"application/json",
-            Authorization:"Bearer "+apiKey
+            "Authorization":"Bearer " + apiKey
           },
           body: JSON.stringify({
             model: OPENAI_MODEL,
@@ -760,179 +890,189 @@
           })
         });
 
-        if(!response.ok) throw new Error("HTTP-Fehler: "+response.status);
+        if(!response.ok) throw new Error("HTTP " + response.status);
 
         const data = await response.json();
-        let text = data.choices?.[0]?.message?.content?.trim() || "";
+        let text = (data.choices?.[0]?.message?.content || "").trim();
         text = text.replace(/\s+/g," ").trim();
 
-        const dotIdx = text.lastIndexOf(".");
-        const exIdx  = text.lastIndexOf("!");
-        const qIdx   = text.lastIndexOf("?");
-        const lastPunctIdx = Math.max(dotIdx, exIdx, qIdx);
+        // cut at last . ! ?
+        const dot = text.lastIndexOf(".");
+        const ex  = text.lastIndexOf("!");
+        const qu  = text.lastIndexOf("?");
+        const last = Math.max(dot, ex, qu);
 
+        let baseText = text;
+        if(last !== -1) baseText = text.slice(0, last+1).trimRight();
+
+        // tail: article + color + motif noun
         const tailPlain = `${motifObj.article} ${color} ${motifObj.noun}`;
-        let baseText;
-
-        if(lastPunctIdx === -1){
-          if(retryCount < 3) return await generateNewFairyAndShowFirstTwelfth(retryCount+1);
-          baseText = 'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
-        }else{
-          baseText = text.slice(0, lastPunctIdx + 1).trimRight();
-        }
-
         const storyPlain = `${baseText} ${verb} ${tailPlain}`.replace(/\s+/g," ").trim();
 
         currentStoryFullPlain = storyPlain;
         currentTailPlain = tailPlain;
-        currentTailHtml  = highlightTailColor(currentTailPlain, color);
+        currentTailHtml = highlightTailColor(currentTailPlain, color);
 
         currentChunks = buildTwelfthsVisually(currentStoryFullPlain, currentTailPlain, color);
 
+        // start reading
         currentChunkIndex = 0;
         phase = "reading";
-        setButtonMode("WEITER");
+        setFairyButton("WEITER");
         setStoryPlain(currentChunks[0] || "");
+
       }catch(err){
         console.error(err);
-        setButtonMode("FAIRY");
+        setFairyButton("FAIRY");
         setStoryMuted("Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internet und API-Key.");
-        phase="idle";
+        phase = "idle";
       }
     }
 
     function showNextChunkOrFinal(){
       if(!currentChunks || currentChunks.length !== 12) return;
+      if(phase !== "reading") return;
 
-      if(phase==="reading"){
-        const next = currentChunkIndex + 1;
+      const next = currentChunkIndex + 1;
 
-        if(next <= 10){
-          currentChunkIndex = next;
-          setStoryPlain(currentChunks[currentChunkIndex] || "");
-          return;
-        }
-
-        // Zwölftel 12 (Pop)
-        currentChunkIndex = 11;
-        phase = "final";
-        setButtonMode("HIDE");
-        setHint("");
-        storyBox.classList.add("final-pop");
-        setArchiveTarget("");
-
-        setStoryHtml(`
-          <div style="
-            font-size: clamp(1.8rem, 7vw, 2.35rem);
-            font-weight: 900;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            line-height: 1.15;
-            padding-top: 10px;
-            padding-bottom: 8px;">
-            ${currentTailHtml}
-          </div>
-        `);
-
-        setHint("noch 1 kipp");
-
-        setTimeout(() => {
-          // Ziel bleibt oben (Archiv)
-          setArchiveTarget(currentTailHtml);
-
-          // Hauptfläche ruhig
-          setStoryMuted(" ");
-          storyBox.classList.remove("final-pop");
-
-          // Jetzt ist die Runde im Kipp-Teil: "Fairy erkippt" darf Punkte geben
-          phase = "waiting";
-          setHint("");
-          setButtonMode("FAIRY"); // bleibt sichtbar, soll aber in waiting nichts auslösen
-        }, 3200);
-      }
-    }
-
-    // -----------------------------
-    // Punkte: Fairy erkippt (nur wenn waiting)
-    // -----------------------------
-    function onErkipptClick(){
-      if(score >= WIN_POINTS) return;
-
-      // Nur gültig, wenn Ziel steht (waiting)
-      if(phase !== "waiting") return;
-
-      // Toggle: Mini-Confirm anzeigen
-      if(!confirmArmed){
-        showMiniConfirm();
-      }else{
-        // wenn schon offen, nochmal klicken = ignorieren (verhindert Doppelklick)
-      }
-    }
-
-    function confirmPoint(){
-      if(!confirmArmed) return;
-      if(phase !== "waiting") { hideMiniConfirm(); return; }
-      if(score >= WIN_POINTS) { hideMiniConfirm(); return; }
-
-      score += 1;
-      updateScoreDisplay();
-      hideMiniConfirm();
-
-      if(score >= WIN_POINTS){
-        setEndUI();
+      // chunks 1..11 (index 0..10) plain
+      if(next <= 10){
+        currentChunkIndex = next;
+        setStoryPlain(currentChunks[currentChunkIndex] || "");
         return;
       }
 
-      // Nach Punktvergabe: neue Runde
-      resetRoundToIdle();
-    }
+      // chunk 12 pop
+      currentChunkIndex = 11;
+      phase = "final";
+      setFairyButton("HIDE");
+      setHint("");
+      storyBox.classList.add("final-pop");
+      setArchiveTarget("");
 
-    function cancelPoint(){
-      hideMiniConfirm();
+      setStoryHtml(`
+        <div style="
+          font-size: clamp(1.8rem, 7vw, 2.35rem);
+          font-weight: 900;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          line-height: 1.15;
+          padding-top: 10px;
+          padding-bottom: 8px;">
+          ${currentTailHtml}
+        </div>
+      `);
+
+      setHint("noch 1 kipp");
+
+      setTimeout(()=>{
+        // now waiting: archive shows target, reader can award
+        setArchiveTarget(currentTailHtml);
+        setStoryMuted(" ");
+        storyBox.classList.remove("final-pop");
+        setHint("");
+
+        phase = "waiting";
+        readerReadyForAward = true;
+
+        // Fairy button stays visible as FAIRY but does nothing until new round
+        setFairyButton("FAIRY");
+
+        // Enable award button (reader only)
+        setErkipptEnabled(true);
+      }, 2600);
     }
 
     // -----------------------------
-    // New Game
+    // Award flow
+    // -----------------------------
+    function openConfirm(){
+      if(score >= WIN_POINTS) return;
+      if(!(phase === "waiting" && readerReadyForAward)) return;
+      confirmOverlay.style.display = "flex";
+    }
+    function closeConfirm(){
+      confirmOverlay.style.display = "none";
+    }
+
+    function awardPoint(){
+      closeConfirm();
+
+      if(!(phase === "waiting" && readerReadyForAward)) return;
+
+      score += 1;
+      updateScore();
+
+      // prepare next round
+      readerReadyForAward = false;
+      setErkipptEnabled(false);
+      phase = "idle";
+
+      // keep last archive? -> no, we reset to idle minimal
+      setArchiveTarget("");
+      setStoryMuted(`Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.`);
+      setHint("");
+
+      if(score >= WIN_POINTS){
+        setGameOver();
+      }
+    }
+
+    // -----------------------------
+    // New game / navigation
     // -----------------------------
     function startNewGame(){
       score = 0;
-      updateScoreDisplay();
-      erkipptBtn.disabled = false;
-      erkipptBtn.classList.remove("btn-disabled");
-      resetRoundToIdle();
+      updateScore();
+      resetToIdle(true); // keepScore true would keep score, so we already set 0 above
+      resetToIdle(false);
     }
 
     // -----------------------------
     // Events
     // -----------------------------
-    fairyBtn.addEventListener("click", async () => {
+    fairyBtn.addEventListener("click", async ()=>{
       if(score >= WIN_POINTS) return;
 
       if(phase === "idle"){
+        // start a new fairy
         await generateNewFairyAndShowFirstTwelfth();
         return;
       }
-
       if(phase === "reading"){
         showNextChunkOrFinal();
         return;
       }
-
-      // phase === "waiting": FAIRY soll nichts machen (Ziel muss stehen bleiben)
+      // phase waiting: fairy does nothing (target should stay)
     });
 
-    erkipptBtn.addEventListener("click", () => {
-      if(erkipptBtn.disabled) return;
-      onErkipptClick();
+    erkBtn.addEventListener("click", ()=>{
+      if(erkBtn.disabled) return;
+      openConfirm();
     });
 
-    miniOk.addEventListener("click", () => confirmPoint());
-    miniNo.addEventListener("click", () => cancelPoint());
+    confirmYes.addEventListener("click", ()=>{
+      awardPoint();
+    });
 
-    newGameBtn.addEventListener("click", () => startNewGame());
-    backBtn.addEventListener("click", () => { window.location.href = "index.html"; });
+    confirmNo.addEventListener("click", ()=>{
+      closeConfirm();
+    });
 
-    apikeySaveBtn.addEventListener("click", () => {
+    confirmOverlay.addEventListener("click", (e)=>{
+      // click outside card closes
+      if(e.target === confirmOverlay) closeConfirm();
+    });
+
+    newGameBtn.addEventListener("click", ()=>{
+      startNewGame();
+    });
+
+    backBtn.addEventListener("click", ()=>{
+      window.location.href = "index.html";
+    });
+
+    apikeySaveBtn.addEventListener("click", ()=>{
       const val = apikeyInput.value.trim();
       if(!val || !val.startsWith("sk-")){
         alert("Bitte einen gültigen OpenAI-API-Key eingeben (beginnt mit 'sk-').");
@@ -941,7 +1081,7 @@
       saveApiKeyToStorage(val);
     });
 
-    apikeyInput.addEventListener("keydown", (e) => {
+    apikeyInput.addEventListener("keydown", (e)=>{
       if(e.key === "Enter") apikeySaveBtn.click();
     });
 
@@ -951,8 +1091,8 @@
     function init(){
       loadApiKeyFromStorage();
       initUnusedMotifs();
-      updateScoreDisplay();
-      resetRoundToIdle();
+      updateScore();
+      resetToIdle(true);
     }
     init();
   </script>
