@@ -23,17 +23,12 @@
       --fk-border: #333333;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: radial-gradient(circle at top, #222 0, #000 55%, #000 100%);
       color: var(--fk-text);
-      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -54,10 +49,7 @@
       gap: 10px;
     }
 
-    .header {
-      text-align: center;
-      margin-bottom: 4px;
-    }
+    .header { text-align: center; margin-bottom: 4px; }
 
     .logo-line {
       display: inline-flex;
@@ -82,11 +74,7 @@
       text-transform: uppercase;
     }
 
-    .tagline {
-      margin-top: 4px;
-      font-size: 0.8rem;
-      color: var(--fk-muted);
-    }
+    .tagline { margin-top: 4px; font-size: 0.8rem; color: var(--fk-muted); }
 
     .panel {
       background: var(--fk-panel);
@@ -116,15 +104,8 @@
       letter-spacing: 0.08em;
     }
 
-    .pill-blue {
-      border-color: var(--fk-blue);
-      color: var(--fk-blue);
-    }
-
-    .pill-violet {
-      border-color: var(--fk-violet);
-      color: var(--fk-violet);
-    }
+    .pill-blue { border-color: var(--fk-blue); color: var(--fk-blue); }
+    .pill-violet { border-color: var(--fk-violet); color: var(--fk-violet); }
 
     .button-row {
       display: flex;
@@ -133,11 +114,7 @@
       flex-wrap: wrap;
     }
 
-    button {
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
+    button { border: none; cursor: pointer; font-family: inherit; }
 
     .btn-main {
       min-width: 160px;
@@ -150,8 +127,7 @@
       background-color: var(--fk-orange);
       color: #111;
       box-shadow: 0 0 12px rgba(242, 150, 0, 0.7);
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
-        filter 0.08s ease-out;
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, filter 0.08s ease-out;
     }
 
     .btn-main:active {
@@ -171,8 +147,7 @@
       background-color: var(--fk-blue);
       color: #fdfdfd;
       box-shadow: 0 0 12px rgba(0, 101, 171, 0.5);
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
-        filter 0.08s ease-out;
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, filter 0.08s ease-out;
     }
 
     .btn-secondary:active {
@@ -199,21 +174,6 @@
       background: rgba(170, 0, 120, 0.1);
     }
 
-    .btn-small {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      border: 1px solid var(--fk-violet);
-      background: transparent;
-      color: var(--fk-violet);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .btn-small:active {
-      background: rgba(170, 0, 120, 0.1);
-    }
-
     .story-box {
       min-height: 130px;
       max-height: 210px;
@@ -225,6 +185,7 @@
       background: radial-gradient(circle at top left, #252525 0, #111 55%);
       overflow-y: auto;
       text-align: center;
+      user-select: none;
     }
 
     #story-text {
@@ -240,18 +201,6 @@
       font-weight: 400;
     }
 
-    .motif-big {
-      width: 100%;
-      text-align: center;
-      font-size: clamp(1.6rem, 9vw, 2.3rem);
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 16px;
-      line-height: 1.1;
-      white-space: nowrap;
-    }
-
     .story-footer {
       display: flex;
       justify-content: center;
@@ -262,9 +211,7 @@
       margin-top: 4px;
     }
 
-    .sentence-indicator {
-      color: var(--fk-violet);
-    }
+    .sentence-indicator { color: var(--fk-violet); }
 
     .score-row {
       display: flex;
@@ -273,10 +220,7 @@
       gap: 10px;
     }
 
-    .score-main {
-      flex: 2;
-      text-align: center;
-    }
+    .score-main { flex: 2; text-align: center; }
 
     .score-label {
       font-size: 0.75rem;
@@ -300,10 +244,7 @@
       color: var(--fk-muted);
     }
 
-    .score-fairies strong {
-      color: var(--fk-orange);
-      font-weight: 700;
-    }
+    .score-fairies strong { color: var(--fk-orange); font-weight: 700; }
 
     .end-overlay {
       position: fixed;
@@ -334,24 +275,9 @@
       margin-bottom: 6px;
     }
 
-    .end-score-label {
-      font-size: 0.9rem;
-      color: var(--fk-muted);
-      margin-top: 8px;
-    }
-
-    .end-score-value {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--fk-green);
-      margin: 2px 0 10px;
-    }
-
-    .end-sub {
-      font-size: 0.85rem;
-      color: var(--fk-muted);
-      margin-bottom: 10px;
-    }
+    .end-score-label { font-size: 0.9rem; color: var(--fk-muted); margin-top: 8px; }
+    .end-score-value { font-size: 2.4rem; font-weight: 700; color: var(--fk-green); margin: 2px 0 10px; }
+    .end-sub { font-size: 0.85rem; color: var(--fk-muted); margin-bottom: 10px; }
 
     .apikey-banner {
       position: fixed;
@@ -379,9 +305,7 @@
       font-size: 0.75rem;
     }
 
-    .apikey-inner span {
-      white-space: nowrap;
-    }
+    .apikey-inner span { white-space: nowrap; }
 
     .apikey-input {
       flex: 1;
@@ -404,13 +328,9 @@
       cursor: pointer;
     }
 
-    .apikey-btn:active {
-      filter: brightness(0.9);
-    }
+    .apikey-btn:active { filter: brightness(0.9); }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     .status-line {
       font-size: 0.75rem;
@@ -420,21 +340,15 @@
       text-align: center;
     }
 
-    .status-error {
-      color: #ff6b81;
-    }
+    .status-error { color: #ff6b81; }
   </style>
 </head>
+
 <body>
   <div class="apikey-banner" id="apikey-banner">
     <div class="apikey-inner">
       <span>OpenAI&nbsp;API-Key:</span>
-      <input
-        id="apikey-input"
-        class="apikey-input"
-        type="password"
-        placeholder="sk-..."
-      />
+      <input id="apikey-input" class="apikey-input" type="password" placeholder="sk-..." />
       <button class="apikey-btn" id="apikey-save-btn">OK</button>
     </div>
   </div>
@@ -456,14 +370,12 @@
 
       <div class="button-row">
         <button id="fairy-btn" class="btn-main">FAIRY</button>
-        <button id="reveal-motif-btn" class="btn-small hidden">MOTIV</button>
       </div>
 
-      <div class="story-box" id="story-box">
+      <div class="story-box" id="story-box" title="Tippe für das nächste Zwölftel">
         <div id="story-text" class="story-muted">
           Tippe auf <strong>FAIRY</strong>, um eine neue Fabel zu starten.
         </div>
-        <div id="story-motif" class="motif-big hidden"></div>
       </div>
 
       <div class="story-footer">
@@ -528,13 +440,8 @@
       { key: "T-Shirt",     article: "das",  noun: "T-Shirt"     }
     ];
 
-    // Farb-Adjektive
-    const colorsData = [
-      "grüne",
-      "blaue",
-      "violette",
-      "orangefarbene"
-    ];
+    // Farb-Adjektive (nur diese!)
+    const colorsData = ["grüne", "blaue", "violette", "orangefarbene"];
 
     // Lautverben je Motiv
     const motifVerbBase = {
@@ -556,10 +463,9 @@
     // UI-Elemente
     // -----------------------------
     const fairyBtn = document.getElementById("fairy-btn");
-    const revealMotifBtn = document.getElementById("reveal-motif-btn");
     const fairyStatus = document.getElementById("fairy-status");
     const storyTextEl = document.getElementById("story-text");
-    const storyMotifEl = document.getElementById("story-motif");
+    const storyBox = document.getElementById("story-box");
     const sentenceIndicator = document.getElementById("sentence-indicator");
 
     const scoreValueEl = document.getElementById("score-value");
@@ -587,8 +493,12 @@
     let currentMotif = null;
     let currentVerb = null;
     let currentColor = null;
-    let currentStoryText = "";
-    let currentMotifDisplay = "";
+
+    let currentStoryFullPlain = ""; // kompletter fertiger Text (Plain)
+    let currentTailPlain = "";      // "der/die/das blaue Tasse" (Plain)
+    let currentChunks = [];         // 12 Zwölftel (1–11 plain, 12 html)
+    let currentChunkIndex = 0;
+
     let currentFairyOwnedByThisDevice = false;
 
     let score = 0;
@@ -629,20 +539,20 @@
     function resetGameState() {
       score = 0;
       narratedFairies = 0;
+
       currentMotif = null;
       currentVerb = null;
       currentColor = null;
-      currentStoryText = "";
-      currentMotifDisplay = "";
+
+      currentStoryFullPlain = "";
+      currentTailPlain = "";
+      currentChunks = [];
+      currentChunkIndex = 0;
+
       currentFairyOwnedByThisDevice = false;
 
-      storyTextEl.textContent =
-        "Tippe auf FAIRY, um eine neue Fabel zu starten.";
+      storyTextEl.textContent = "Tippe auf FAIRY, um eine neue Fabel zu starten.";
       storyTextEl.classList.add("story-muted");
-
-      storyMotifEl.textContent = "";
-      storyMotifEl.classList.add("hidden");
-      storyMotifEl.style.color = "";
 
       sentenceIndicator.textContent = "";
       setFairyStatus("");
@@ -657,9 +567,7 @@
     }
 
     function chooseMotifNoImmediateRepeat() {
-      if (unusedMotifs.length === 0) {
-        initUnusedMotifs();
-      }
+      if (unusedMotifs.length === 0) initUnusedMotifs();
       const idx = Math.floor(Math.random() * unusedMotifs.length);
       const motif = unusedMotifs[idx];
       unusedMotifs.splice(idx, 1);
@@ -712,31 +620,94 @@
       }
     }
 
-    // färbt das Farb-Adjektiv am Satzende + Motivzeile
-    function highlightTailColor(text, adjective, motifElement) {
+    // färbt das Farb-Adjektiv (für Zwölftel 12)
+    function highlightTailColor(text, adjective) {
       const cssColor = getCssColorForAdj(adjective);
-      if (!cssColor) {
-        if (motifElement) motifElement.style.color = "";
-        return text;
-      }
-
-      if (motifElement) {
-        motifElement.style.color = cssColor;
-      }
+      if (!cssColor) return text;
 
       const escapedAdj = adjective.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const regex = new RegExp(`([\\s\\S]*?)\\b(${escapedAdj})([.,!?:;"“”„]*)\\s*$`);
-      const match = text.match(regex);
-      if (!match) return text;
+      const regex = new RegExp(`\\b(${escapedAdj})\\b`, "i");
+      return text.replace(regex, `<span style="color:${cssColor}">$1</span>`);
+    }
 
-      const before = match[1];
-      const word = match[2];
-      const punct = match[3] || "";
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-      const coloredWord =
-        `<span style="color:${cssColor}">${word}${punct}</span>`;
+    // 11 visuell ruhige Wort-Chunks (Wortgrenzen, ungefähr gleich groß)
+    function splitWordsBalanced(text, n) {
+      const words = text.trim().split(/\s+/).filter(Boolean);
+      if (words.length === 0) return Array.from({ length: n }, () => "");
 
-      return before + coloredWord;
+      const totalLen = words.reduce((acc, w) => acc + w.length + 1, 0);
+      const target = Math.max(1, Math.round(totalLen / n));
+
+      const chunks = [];
+      let cur = [];
+      let curLen = 0;
+
+      for (const w of words) {
+        const addLen = w.length + (cur.length ? 1 : 0);
+
+        if (chunks.length < n - 1 && cur.length > 0 && (curLen + addLen) > target) {
+          chunks.push(cur.join(" "));
+          cur = [w];
+          curLen = w.length;
+        } else {
+          cur.push(w);
+          curLen += addLen;
+        }
+      }
+
+      chunks.push(cur.join(" "));
+
+      while (chunks.length < n) chunks.push("");
+      while (chunks.length > n) {
+        const a = chunks.pop();
+        chunks[chunks.length - 1] = (chunks[chunks.length - 1] + " " + a).trim();
+      }
+
+      return chunks;
+    }
+
+    function buildTwelfthsVisually(fullPlain, tailPlain, colorAdj) {
+      let head = fullPlain.trim();
+      const tail = tailPlain.trim();
+
+      if (head.endsWith(tail)) {
+        head = head.slice(0, head.length - tail.length).trim();
+      } else {
+        const idx = head.lastIndexOf(tail);
+        if (idx !== -1) head = head.slice(0, idx).trim();
+      }
+
+      const first11 = splitWordsBalanced(head, 11);
+      const tailHtml = highlightTailColor(tailPlain, colorAdj);
+
+      return [...first11, tailHtml]; // 12 Teile
+    }
+
+    function showChunk(i) {
+      if (!currentChunks || currentChunks.length !== 12) return;
+
+      currentChunkIndex = Math.max(0, Math.min(11, i));
+      const chunk = currentChunks[currentChunkIndex];
+
+      // 1–11 plain
+      if (currentChunkIndex < 11) {
+        storyTextEl.innerHTML = escapeHtml(chunk);
+      } else {
+        storyTextEl.innerHTML = chunk; // enthält <span style="color:...">...</span>
+      }
+
+      storyTextEl.classList.remove("story-muted");
+      sentenceIndicator.textContent = `${currentChunkIndex + 1} / 12`;
+      // WICHTIG: keine extra Ansage/Regeltext hier – bleibt flexibel über Spielbeschreibung.
     }
 
     // -----------------------------
@@ -757,13 +728,9 @@
       setFairyStatus("Fairy wird gezaubert …");
       storyTextEl.textContent = "… KI schreibt eine neue Fabel …";
       storyTextEl.classList.add("story-muted");
-
-      storyMotifEl.textContent = "";
-      storyMotifEl.classList.add("hidden");
-      storyMotifEl.style.color = "";
       sentenceIndicator.textContent = "";
 
-      // 1. Motiv, Verb, Farbe auswählen
+      // 1) Motiv, Verb, Farbe wählen
       const motifObj = chooseMotifNoImmediateRepeat();
       const verb = chooseVerbForMotif(motifObj.noun);
       const color = colorsData[Math.floor(Math.random() * colorsData.length)];
@@ -827,83 +794,51 @@
         const lastPunctIdx = Math.max(dotIdx, exIdx, qIdx);
 
         if (lastPunctIdx === -1) {
-          if (retryCount < 3) {
-            return await generateFairyFromOpenAI(retryCount + 1);
-          } else {
-            // Fallback – einfache Not-Fabel
-            const base =
-              'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!';
-            const tailWithoutMotif =
-              verb + " " + motifObj.article + " " + color;
-            const storyLine = base + "“ , " + tailWithoutMotif;
-            const motifUpper = motifObj.noun.toUpperCase();
+          if (retryCount < 3) return await generateFairyFromOpenAI(retryCount + 1);
 
-            currentStoryText = storyLine;
-            currentMotifDisplay = motifUpper;
-            currentFairyOwnedByThisDevice = true;
+          // Not-Fabel (Plain)
+          const base = 'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!';
+          const tailPlain = `${motifObj.article} ${color} ${motifObj.noun}`;
+          const storyPlain = `${base}" ${verb} ${tailPlain}`;
 
-            storyMotifEl.textContent = motifUpper;
-            storyMotifEl.classList.remove("hidden");
-            storyMotifEl.style.whiteSpace =
-              motifObj.noun.toLowerCase() === "schmetterling" ? "normal" : "nowrap";
+          currentStoryFullPlain = storyPlain.trim();
+          currentTailPlain = tailPlain.trim();
+          currentFairyOwnedByThisDevice = true;
 
-            const highlightedFallback = highlightTailColor(
-              storyLine,
-              color,
-              storyMotifEl
-            );
+          currentChunks = buildTwelfthsVisually(currentStoryFullPlain, currentTailPlain, color);
+          currentChunkIndex = 0;
 
-            storyTextEl.classList.remove("story-muted");
-            storyTextEl.innerHTML = highlightedFallback;
-            setFairyStatus("Neue Fabel ist aktiv (Fallback).");
-            return;
-          }
+          showChunk(0);
+          setFairyStatus("Neue Fabel ist aktiv (Fallback).");
+          return;
         }
 
         // Text bis inkl. letztem Satzzeichen behalten
         let baseText = text.slice(0, lastPunctIdx + 1).trimRight();
 
-        // Unser festes Satzende + Tetragramm (ohne Motiv)
-        const tailWithoutMotif =
-          verb + " " + motifObj.article + " " + color;
-        const storyLine = baseText + "“ , " + tailWithoutMotif;
+        // Fixes Ende: Verb + (Artikel Farbe Motiv)
+        const tailPlain = `${motifObj.article} ${color} ${motifObj.noun}`;
+        const storyPlain = `${baseText} ${verb} ${tailPlain}`.replace(/\s+/g, " ").trim();
 
-        const motifUpper = motifObj.noun.toUpperCase();
-
-        currentStoryText = storyLine;
-        currentMotifDisplay = motifUpper;
+        currentStoryFullPlain = storyPlain;
+        currentTailPlain = tailPlain;
         currentFairyOwnedByThisDevice = true;
 
-        // Motiv groß
-        storyMotifEl.textContent = motifUpper;
-        storyMotifEl.classList.remove("hidden");
-        storyMotifEl.style.whiteSpace =
-          motifObj.noun.toLowerCase() === "schmetterling" ? "normal" : "nowrap";
+        // 12 Zwölftel bauen (visuell ruhig)
+        currentChunks = buildTwelfthsVisually(currentStoryFullPlain, currentTailPlain, color);
+        currentChunkIndex = 0;
 
-        // Farbe im Text + Motiv einfärben
-        const highlightedText = highlightTailColor(
-          storyLine,
-          color,
-          storyMotifEl
-        );
-
-        storyTextEl.classList.remove("story-muted");
-        storyTextEl.innerHTML = highlightedText;
-
-        sentenceIndicator.textContent = "";
+        showChunk(0);
         setFairyStatus("Neue Fabel ist aktiv.");
+
       } catch (err) {
         console.error(err);
-        setFairyStatus(
-          "Fehler beim Laden der Fairy (Internet oder API-Key prüfen).",
-          true
-        );
-        storyTextEl.textContent =
-          "Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internetverbindung und API-Key.";
+        setFairyStatus("Fehler beim Laden der Fairy (Internet oder API-Key prüfen).", true);
+        storyTextEl.textContent = "Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internetverbindung und API-Key.";
         storyTextEl.classList.remove("story-muted");
-        storyMotifEl.textContent = "";
-        storyMotifEl.classList.add("hidden");
-        storyMotifEl.style.color = "";
+        sentenceIndicator.textContent = "";
+        currentChunks = [];
+        currentChunkIndex = 0;
       }
     }
 
@@ -914,14 +849,16 @@
       await generateFairyFromOpenAI();
     });
 
-    revealMotifBtn.classList.add("hidden");
+    // Tap auf Textfeld: nächstes Zwölftel
+    storyBox.addEventListener("click", () => {
+      if (!currentChunks || currentChunks.length !== 12) return;
+      if (currentChunkIndex >= 11) return; // bei 12/12 stehen bleiben
+      showChunk(currentChunkIndex + 1);
+    });
 
     fairyFundBtn.addEventListener("click", () => {
-      if (!currentStoryText && !currentMotifDisplay) {
-        setFairyStatus(
-          "Erst eine Fabel starten, dann kannst du FAIRY FUND nutzen.",
-          true
-        );
+      if (!currentStoryFullPlain || !currentTailPlain) {
+        setFairyStatus("Erst eine Fabel starten, dann kannst du FAIRY FUND nutzen.", true);
         return;
       }
 
@@ -930,41 +867,31 @@
       updateScoreDisplay();
 
       narratedFairies += 1;
-      if (narratedFairies > maxFairies) {
-        narratedFairies = maxFairies;
-      }
+      if (narratedFairies > maxFairies) narratedFairies = maxFairies;
       updateFairyCountDisplay();
 
+      // Fairy "verbrauchen"
       currentMotif = null;
       currentVerb = null;
       currentColor = null;
-      currentStoryText = "";
-      currentMotifDisplay = "";
+
+      currentStoryFullPlain = "";
+      currentTailPlain = "";
+      currentChunks = [];
+      currentChunkIndex = 0;
+
       currentFairyOwnedByThisDevice = false;
 
-      storyTextEl.textContent =
-        "Fabel verbraucht. Starte die nächste mit einem Tipp auf FAIRY.";
+      storyTextEl.textContent = "Fabel verbraucht. Starte die nächste mit einem Tipp auf FAIRY.";
       storyTextEl.classList.add("story-muted");
-
-      storyMotifEl.textContent = "";
-      storyMotifEl.classList.add("hidden");
-      storyMotifEl.style.color = "";
-
       sentenceIndicator.textContent = "";
       setFairyStatus("");
 
-      if (narratedFairies >= maxFairies) {
-        showEndScreen();
-      }
+      if (narratedFairies >= maxFairies) showEndScreen();
     });
 
-    resetBtn.addEventListener("click", () => {
-      resetGameState();
-    });
-
-    endNewGameBtn.addEventListener("click", () => {
-      resetGameState();
-    });
+    resetBtn.addEventListener("click", () => resetGameState());
+    endNewGameBtn.addEventListener("click", () => resetGameState());
 
     apikeySaveBtn.addEventListener("click", () => {
       const val = apikeyInput.value.trim();
@@ -976,9 +903,7 @@
     });
 
     apikeyInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        apikeySaveBtn.click();
-      }
+      if (e.key === "Enter") apikeySaveBtn.click();
     });
 
     // -----------------------------
