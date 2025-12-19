@@ -428,6 +428,68 @@
       text-align: center;
       user-select: none;
     }
+
+    /* -----------------------------
+       KIPPER-ABFRAGE (Fullscreen)
+       ----------------------------- */
+    .kipp-select{
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      background: rgba(0,0,0,0.94);
+      padding: 14px;
+      gap: 12px;
+      grid-template-rows: auto 1fr 1fr 1fr; /* Frage + 3 große Felder */
+    }
+
+    .kipp-select.show{
+      display: grid;
+    }
+
+    .kipp-q{
+      text-align: center;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 1.05rem;
+      color: rgba(245,245,245,0.90);
+      padding: 10px 6px 4px;
+    }
+
+    .kipp-opt{
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: radial-gradient(circle at top, #1a1a1a 0, #0b0b0b 70%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 16px;
+      user-select: none;
+    }
+
+    .kipp-opt:active{ filter: brightness(0.92); transform: scale(0.99); }
+
+    .kipp-title{
+      font-size: clamp(1.6rem, 6vw, 2.3rem);
+      font-weight: 1000;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      text-align: center;
+      color: rgba(245,245,245,0.95);
+    }
+
+    .kipp-sub{
+      font-size: clamp(1.0rem, 3.4vw, 1.25rem);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.82;
+      color: rgba(245,245,245,0.85);
+    }
   </style>
 </head>
 
@@ -476,7 +538,8 @@
       </div>
 
       <div class="button-row" style="margin-top: 6px">
-        <button id="fairyfund-btn" class="btn-secondary">FAIRY FUND</button>
+        <!-- Der eine Button unten: Text wird je nach Phase umgeschaltet -->
+        <button id="fairyfund-btn" class="btn-secondary">FAIRY ERKIPPT</button>
       </div>
 
       <div class="button-row" style="margin-top: 6px">
@@ -499,6 +562,26 @@
     </div>
   </div>
 
+  <!-- KIPPER-ABFRAGE (Fullscreen, 4 Spieler -> 3 Felder) -->
+  <div class="kipp-select" id="kipp-select" aria-hidden="true">
+    <div class="kipp-q">Warst du nach dem Fairy-Leser …</div>
+
+    <button class="kipp-opt" data-rank="1">
+      <div class="kipp-title">ERSTER KIPPER</div>
+      <div class="kipp-sub">Gamma 8 Punkte</div>
+    </button>
+
+    <button class="kipp-opt" data-rank="2">
+      <div class="kipp-title">ZWEITER KIPPER</div>
+      <div class="kipp-sub">Gamma 5 Punkte</div>
+    </button>
+
+    <button class="kipp-opt" data-rank="3">
+      <div class="kipp-title">DRITTER KIPPER</div>
+      <div class="kipp-sub">Gamma 3 Punkte</div>
+    </button>
+  </div>
+
   <script>
     // -----------------------------
     // Konfiguration
@@ -506,6 +589,9 @@
     const OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions";
     const OPENAI_MODEL = "gpt-4o-mini";
     const APIKEY_STORAGE_KEY = "fairykipp_openai_key";
+
+    // FIX (wie du gesagt hast): 4 Spieler -> 1/2/3 Kipper nach Leser
+    const PLAYER_COUNT = 4;
 
     // Motive
     const motifsData = [
@@ -568,6 +654,10 @@
     const successConfirm = document.getElementById("success-confirm");
     const successMiss = document.getElementById("success-miss");
 
+    // Kipper-Select Overlay
+    const kippSelect = document.getElementById("kipp-select");
+    const kippOptions = Array.from(document.querySelectorAll(".kipp-opt"));
+
     // -----------------------------
     // Spielzustand
     // -----------------------------
@@ -591,10 +681,10 @@
     const maxFairies = 6;
 
     // Phasen:
-    // idle: keine aktive Fairy (Kipper-Erfolg möglich = 3 Punkte)
+    // idle: keine aktive Fairy (Kipper-Erfolg möglich)
     // reading: Zwölftel 1..11
     // final: Zwölftel 12 (Pop)
-    // waitingFund: nach Pop -> Archiv oben, Ergebnis ruhig, Leserbonus möglich = 1 Punkt
+    // waitingFund: nach Pop -> Archiv oben, Ergebnis ruhig, Leserbonus möglich
     let phase = "idle";
 
     // Pending award (Overlay-Bestätigung)
@@ -618,6 +708,12 @@
 
     function updateFairyCountDisplay() {
       fairyCountEl.textContent = String(narratedFairies);
+    }
+
+    function setFairyLimitLabel() {
+      // Anzeige bleibt (dein Layout), aber du wolltest später auf 4 enden.
+      // Für jetzt lassen wir " / 6" stehen, aber die Logik kannst du später umstellen.
+      // (Wenn du willst, ändere hier auf 4 und oben im HTML.)
     }
 
     function initUnusedMotifs() {
@@ -822,6 +918,43 @@
         updateScoreDisplay();
         updateFairyCountDisplay();
       }
+
+      // Unten: in idle ist es der Kipper-Button
+      setBottomActionLabel();
+    }
+
+    // -----------------------------
+    // Bottom Button Text (nur 1 Button, je nach Phase)
+    // -----------------------------
+    function setBottomActionLabel() {
+      // Nur EIN Button: je nach Phase anderer Text
+      if (phase === "waitingFund") {
+        fairyFundBtn.textContent = "NIEMAND HAT ES ERKIPPT";
+      } else {
+        fairyFundBtn.textContent = "FAIRY ERKIPPT";
+      }
+    }
+
+    // -----------------------------
+    // Kipper-Select Overlay
+    // -----------------------------
+    function openKipperSelect() {
+      kippSelect.classList.add("show");
+      kippSelect.setAttribute("aria-hidden", "false");
+    }
+
+    function closeKipperSelect() {
+      kippSelect.classList.remove("show");
+      kippSelect.setAttribute("aria-hidden", "true");
+    }
+
+    function pointsForRank(rank) {
+      // 4 Spieler: 1->8, 2->5, 3->3
+      if (PLAYER_COUNT === 4) return (rank === 1 ? 8 : rank === 2 ? 5 : 3);
+      // 3 Spieler: 1->5, 2->3
+      if (PLAYER_COUNT === 3) return (rank === 1 ? 5 : 3);
+      // 2 Spieler: direkt nach Leser (keine Abfrage)
+      return 3;
     }
 
     // -----------------------------
@@ -902,16 +1035,12 @@
 
       closeAwardOverlay();
 
-      // Nach FAIRY FUND immer zurück in Idle (neue Runde möglich)
+      // Nach Bestätigung: zurück in Idle
       resetRoundToIdle(true);
     }
 
     function missclickAward() {
-      // Nichts ändern, nur Overlay schließen
       closeAwardOverlay();
-      // Zustand bleibt wie vor dem Klick.
-      // Wichtig: Wenn jemand aus Versehen FAIRY FUND gedrückt hat,
-      // bleibt die Runde so, wie sie war.
     }
 
     // -----------------------------
@@ -934,6 +1063,9 @@
       storyBox.classList.remove("final-pop");
       setArchiveTarget("");
       setStoryMuted("… KI zaubert eine neue Geschichte …");
+
+      // Bottom Button Text aktualisieren
+      setBottomActionLabel();
 
       // 1) Motiv, Verb, Farbe wählen
       const motifObj = chooseMotifNoImmediateRepeat();
@@ -1021,6 +1153,8 @@
         // Start: Zwölftel 1 anzeigen, Button wird WEITER
         currentChunkIndex = 0;
         phase = "reading";
+        setBottomActionLabel();
+
         setButtonMode("WEITER");
         setStoryPlain(currentChunks[0] || "");
       } catch (err) {
@@ -1028,6 +1162,7 @@
         setButtonMode("FAIRY");
         setStoryMuted("Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internet und API-Key.");
         phase = "idle";
+        setBottomActionLabel();
       }
     }
 
@@ -1047,6 +1182,8 @@
         // next == 11 => Zwölftel 12 (Pop)
         currentChunkIndex = 11;
         phase = "final";
+        setBottomActionLabel();
+
         setButtonMode("HIDE");
         setHint(""); // kommt gleich
         storyBox.classList.add("final-pop");
@@ -1074,12 +1211,13 @@
           // Archiv oben (klein, dezent)
           setArchiveTarget(currentTailHtml);
 
-          // Hauptfläche ruhig/leer (damit nichts mehr „center“ dominiert)
+          // Hauptfläche ruhig/leer
           setStoryMuted(" ");
           storyBox.classList.remove("final-pop");
 
-          // Runde ist jetzt im Stillstand (Kipper kippen physisch)
+          // Runde wartet: Leser klickt dann "NIEMAND HAT ES ERKIPPT"
           phase = "waitingFund";
+          setBottomActionLabel();
 
           setHint("");
           setButtonMode("FAIRY");
@@ -1087,28 +1225,28 @@
 
         return;
       }
-
-      // In final / waitingFund / idle passiert über den Button nichts mehr.
     }
 
     // -----------------------------
-    // FAIRY FUND Logik (nur 2 gültige Wege)
+    // FAIRY FUND (1 Button) Logik
     // -----------------------------
-    function onFairyFund() {
-      // 1) Wenn wirklich nichts aktiv ist => Kipperfolg (3 Punkte)
-      if (phase === "idle" && currentChunks.length === 0) {
-        openAwardOverlay("perfect", 3);
-        return;
-      }
-
-      // 2) Wenn Leser durch ist (Archiv steht, Runde wartet) => Lesebonus (1 Punkt)
+    function onBottomAction() {
+      // Leser (nur 1 Button, exakt): "NIEMAND HAT ES ERKIPPT"
       if (phase === "waitingFund") {
         openAwardOverlay("reader", 1);
         return;
       }
 
-      // In allen Zwischenzuständen: nichts (kein Text, keine Punkte)
-      // absichtlich still
+      // Kipper: "FAIRY ERKIPPT"
+      // Nur sinnvoll, wenn gerade eine Fairy aktiv ist (wir lassen trotzdem zu: idle -> ok)
+      if (PLAYER_COUNT === 2) {
+        // bei 2 Spielern keine Abfrage
+        openAwardOverlay("perfect", 3);
+        return;
+      }
+
+      // bei 3/4 Spielern: Abfrage (Fullscreen)
+      openKipperSelect();
     }
 
     // -----------------------------
@@ -1116,7 +1254,6 @@
     // -----------------------------
     fairyBtn.addEventListener("click", async () => {
       if (phase === "idle") {
-        // neue Fairy starten
         await generateNewFairyAndShowFirstTwelfth();
         return;
       }
@@ -1126,14 +1263,22 @@
         return;
       }
 
-      // final / waitingFund: Button ist entweder verborgen oder wieder FAIRY,
-      // aber in waitingFund soll FAIRY nichts machen, weil das Ziel noch gebraucht wird.
-      // Deshalb: in waitingFund ignorieren.
+      // waitingFund: FAIRY soll hier nichts machen (dein Wunsch)
     });
 
     fairyFundBtn.addEventListener("click", () => {
       if (narratedFairies >= maxFairies) return;
-      onFairyFund();
+      onBottomAction();
+    });
+
+    // Kipper-Auswahl -> Punkte anwenden (über Award Overlay)
+    kippOptions.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const rank = Number(btn.dataset.rank || "3");
+        const pts = pointsForRank(rank);
+        closeKipperSelect();
+        openAwardOverlay("perfect", pts);
+      });
     });
 
     successConfirm.addEventListener("click", () => {
@@ -1145,7 +1290,6 @@
     });
 
     backBtn.addEventListener("click", () => {
-      // zurück zur Startseite (index.html)
       window.location.href = "index.html";
     });
 
@@ -1171,6 +1315,7 @@
       updateScoreDisplay();
       updateFairyCountDisplay();
       resetRoundToIdle(true);
+      setBottomActionLabel();
     }
 
     init();
