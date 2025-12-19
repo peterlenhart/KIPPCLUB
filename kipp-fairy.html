@@ -16,7 +16,6 @@
       --fk-violet: rgb(170, 0, 120);
       --fk-green: rgb(59, 165, 43);
       --fk-orange: rgb(242, 150, 0);
-
       --fk-bg: #111111;
       --fk-panel: #1b1b1b;
       --fk-text: #f5f5f5;
@@ -75,11 +74,7 @@
       text-transform: uppercase;
     }
 
-    .tagline {
-      margin-top: 4px;
-      font-size: 0.8rem;
-      color: var(--fk-muted);
-    }
+    .tagline { margin-top: 4px; font-size: 0.8rem; color: var(--fk-muted); }
 
     .panel {
       background: var(--fk-panel);
@@ -90,6 +85,27 @@
       flex-direction: column;
       gap: 8px;
     }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--fk-muted);
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 3px 9px;
+      border: 1px solid var(--fk-border);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .pill-blue { border-color: var(--fk-blue); color: var(--fk-blue); }
+    .pill-violet { border-color: var(--fk-violet); color: var(--fk-violet); }
 
     .button-row {
       display: flex;
@@ -121,11 +137,11 @@
     }
 
     .btn-secondary {
-      min-width: 180px;
-      padding: 10px 16px;
-      border-radius: 12px;
+      min-width: 140px;
+      padding: 9px 16px;
+      border-radius: 10px;
       font-size: 0.95rem;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       background-color: var(--fk-blue);
@@ -142,29 +158,22 @@
 
     .btn-ghost {
       align-self: center;
-      margin-top: 0px;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 0.78rem;
-      border: 1px solid rgba(255,255,255,0.14);
+      margin-top: 4px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      border: 1px solid transparent;
       background: transparent;
-      color: rgba(255,255,255,0.80);
+      color: var(--fk-violet);
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
 
     .btn-ghost:active {
-      filter: brightness(0.9);
-      border-color: rgba(255,255,255,0.22);
+      border-color: var(--fk-violet);
+      background: rgba(170, 0, 120, 0.1);
     }
 
-    .btn-disabled {
-      opacity: 0.40;
-      cursor: not-allowed;
-      filter: grayscale(0.25);
-    }
-
-    /* Story box + states */
     .story-box {
       min-height: 130px;
       max-height: 210px;
@@ -177,85 +186,99 @@
       overflow-y: auto;
       text-align: center;
       user-select: none;
-      position: relative;
     }
-
-    .story-box.final-pop {
-      border-color: transparent;
-      background: radial-gradient(circle at top, #1f1f1f 0, #0c0c0c 60%);
-      box-shadow: 0 0 18px rgba(242,150,0,0.10);
-    }
-
-    .archive-target {
-      position: sticky;
-      top: 0;
-      display: none;
-      text-align: center;
-      font-size: 0.9rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding-bottom: 8px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      color: rgba(245,245,245,0.62);
-      background: rgba(0,0,0,0.0);
-    }
-
-    .archive-target.show { display: block; }
 
     #story-text {
       width: 100%;
       white-space: pre-wrap;
-      font-weight: 650;
+      font-weight: 600;
     }
 
     .story-muted {
       color: var(--fk-muted);
       font-style: italic;
       font-size: 0.95rem;
-      font-weight: 450;
+      font-weight: 400;
     }
 
-    .hintline {
-      min-height: 1.2em;
-      text-align: center;
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: rgba(245,245,245,0.72);
-      margin-top: 2px;
-      user-select: none;
-    }
-
-    .hintline.hidden { display: none; }
-
-    /* Score area (minimal) */
-    .score-row {
+    .story-footer {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
       gap: 8px;
+      font-size: 0.8rem;
+      color: var(--fk-muted);
+      margin-top: 4px;
+    }
+
+    .sentence-indicator { color: var(--fk-violet); }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .score-main { flex: 2; text-align: center; }
+
+    .score-label {
+      font-size: 0.75rem;
+      color: var(--fk-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 2px;
+    }
+
+    .score-value {
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     }
 
     .score-fairies {
-      text-align: center;
-      font-size: 0.95rem;
+      flex: 1.4;
+      text-align: right;
+      font-size: 0.8rem;
       color: var(--fk-muted);
-      letter-spacing: 0.04em;
     }
 
-    .score-fairies strong { color: var(--fk-orange); font-weight: 800; }
+    .score-fairies strong { color: var(--fk-orange); font-weight: 700; }
 
-    .score-value {
-      font-size: 2.3rem;
-      font-weight: 800;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-      line-height: 1.0;
+    .end-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
     }
 
-    /* API banner */
+    .end-card {
+      width: 90%;
+      max-width: 420px;
+      background: #111;
+      border-radius: 18px;
+      border: 1px solid var(--fk-border);
+      padding: 18px 16px 16px;
+      text-align: center;
+      box-shadow: 0 0 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .end-title {
+      font-family: "Pacifico", cursive;
+      font-size: 1.7rem;
+      color: var(--fk-orange);
+      text-shadow: 0 0 10px rgba(242, 150, 0, 0.8);
+      margin-bottom: 6px;
+    }
+
+    .end-score-label { font-size: 0.9rem; color: var(--fk-muted); margin-top: 8px; }
+    .end-score-value { font-size: 2.4rem; font-weight: 700; color: var(--fk-green); margin: 2px 0 10px; }
+    .end-sub { font-size: 0.85rem; color: var(--fk-muted); margin-bottom: 10px; }
+
     .apikey-banner {
       position: fixed;
       top: 8px;
@@ -309,230 +332,15 @@
 
     .hidden { display: none !important; }
 
-    /* Generic overlay */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.92);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 80;
-      padding: 16px;
-    }
-
-    .card {
-      width: 100%;
-      max-width: 440px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: radial-gradient(circle at top, #1a1a1a 0, #0b0b0b 62%);
-      padding: 18px 16px 14px;
-      box-shadow: 0 0 26px rgba(0,0,0,0.9);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .spark {
-      position: absolute;
-      inset: -60px;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(242,150,0,0.15), transparent 45%),
-        radial-gradient(circle at 80% 25%, rgba(0,101,171,0.12), transparent 45%),
-        radial-gradient(circle at 45% 80%, rgba(170,0,120,0.11), transparent 55%),
-        radial-gradient(circle at 70% 75%, rgba(59,165,43,0.10), transparent 55%);
-      filter: blur(10px);
-      opacity: 0.9;
-      pointer-events: none;
-      animation: floaty 1.8s ease-in-out infinite alternate;
-    }
-
-    @keyframes floaty {
-      from { transform: translateY(0px) scale(1); }
-      to   { transform: translateY(-6px) scale(1.02); }
-    }
-
-    .overlay-title {
-      font-weight: 900;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      font-size: 1.05rem;
-      color: rgba(245,245,245,0.90);
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
-
-    /* Player setup circles */
-    .setup-row {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      margin: 10px 0 8px;
-      flex-wrap: wrap;
-    }
-
-    .setup-choice {
-      width: 74px;
-      height: 74px;
-      border-radius: 999px;
-      border: 2px solid rgba(255,255,255,0.18);
-      background: transparent;
-      color: rgba(245,245,245,0.92);
-      font-weight: 900;
-      font-size: 1.6rem;
-      letter-spacing: 0.02em;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .setup-choice:active { filter: brightness(0.92); }
-
-    /* Kipper-order selection list */
-    .pick-list {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 10px;
-    }
-
-    .pick-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 14px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .pick-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-      flex: 1 1 auto;
-    }
-
-    .radio {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      border: 2px solid rgba(255,255,255,0.28);
-      display: inline-block;
-      flex: 0 0 auto;
-      position: relative;
-    }
-
-    .pick-item.selected .radio {
-      border-color: rgba(242,150,0,0.85);
-      box-shadow: 0 0 10px rgba(242,150,0,0.25);
-    }
-
-    .pick-item.selected .radio::after {
-      content: "";
-      position: absolute;
-      inset: 6px;
-      border-radius: 999px;
-      background: var(--fk-orange);
-    }
-
-    /* WICHTIG: nicht mehr alles UPPERCASE, damit "Als Erster Kipper" so bleibt */
-    .pick-label {
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      text-transform: none;
-      font-size: 1.0rem;
-      color: rgba(245,245,245,0.95);
-      white-space: normal;
-      line-height: 1.2;
-      overflow-wrap: anywhere;
-    }
-
-    .pick-right {
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: rgba(245,245,245,0.85);
-      white-space: nowrap;
-      flex: 0 0 auto;
-    }
-
-    .overlay-actions {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .btn-confirm {
-      min-width: 170px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      background: var(--fk-green);
-      color: #081b08;
-      font-weight: 900;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      box-shadow: 0 0 12px rgba(59,165,43,0.35);
-      transition: filter 0.08s ease-out, opacity 0.08s ease-out;
-    }
-
-    .btn-confirm:active { filter: brightness(0.92); }
-
-    .btn-confirm:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-      filter: grayscale(0.2);
-      box-shadow: none;
-    }
-
-    .btn-reset {
-      min-width: 170px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.18);
-      color: rgba(245,245,245,0.85);
-      font-weight: 900;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-    }
-
-    .btn-reset:active { filter: brightness(0.92); }
-
-    .btn-cancel {
-      min-width: 170px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.18);
-      color: rgba(245,245,245,0.85);
-      font-weight: 900;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-    }
-
-    .btn-cancel:active { filter: brightness(0.92); }
-
-    /* Small helper line under Fairy button (no status text) */
-    .microline {
-      min-height: 0.8em;
+    .status-line {
       font-size: 0.75rem;
-      color: transparent;
+      color: var(--fk-muted);
+      min-height: 1em;
+      margin-top: 2px;
       text-align: center;
-      user-select: none;
     }
+
+    .status-error { color: #ff6b81; }
   </style>
 </head>
 
@@ -551,81 +359,60 @@
         <span class="logo-fairy">Fairy</span>
         <span class="logo-kipp">KIPP</span>
       </div>
-      <div class="tagline">Unendlich viele KIPP-Geschichten</div>
+      <div class="tagline">Unendlich viele KIPP-Fabeln</div>
     </header>
 
-    <!-- Spielpanel -->
     <section class="panel">
+      <div class="panel-header">
+        <span class="pill pill-blue">Fairy</span>
+        <span id="fairy-status" class="status-line"></span>
+      </div>
+
       <div class="button-row">
         <button id="fairy-btn" class="btn-main">FAIRY</button>
       </div>
-      <div class="microline">.</div>
 
-      <div class="story-box" id="story-box">
-        <div id="archive-target" class="archive-target"></div>
+      <div class="story-box" id="story-box" title="Tippe für das nächste Zwölftel">
         <div id="story-text" class="story-muted">
-          Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.
+          Tippe auf <strong>FAIRY</strong>, um eine neue Fabel zu starten.
         </div>
       </div>
 
-      <div id="hintline" class="hintline hidden">noch 1 kipp</div>
+      <div class="story-footer">
+        <div class="sentence-indicator" id="sentence-indicator"></div>
+      </div>
     </section>
 
-    <!-- Punktepanel -->
     <section class="panel">
+      <div class="panel-header">
+        <span class="pill pill-violet">Punkte</span>
+        <span class="score-fairies">
+          Erzählte Fairys: <strong id="fairy-count">0</strong> / 6
+        </span>
+      </div>
+
       <div class="score-row">
-        <div class="score-fairies">
-          Erzählte Fairys: <strong id="fairy-count">0</strong> / 4
+        <div class="score-main">
+          <div class="score-label">FAIRY-PUNKTE</div>
+          <div class="score-value" id="score-value">0</div>
         </div>
-        <div class="score-value" id="score-value">0</div>
       </div>
 
-      <div class="button-row" style="margin-top: 10px">
-        <button id="fairyerkippt-btn" class="btn-secondary">FAIRY ERKIPPT</button>
-      </div>
-
-      <div class="button-row" style="margin-top: 8px">
-        <button id="nobody-btn" class="btn-secondary">NIEMAND HAT&#8217;S ERKIPPT</button>
-      </div>
-
-      <div class="button-row" style="margin-top: 10px">
-        <button id="newgame-btn" class="btn-ghost">NEUES SPIEL</button>
-      </div>
-
-      <div class="button-row" style="margin-top: 6px">
-        <button id="back-btn" class="btn-ghost">ZUR STARTSEITE</button>
+      <div class="button-row" style="margin-top: 4px">
+        <button id="fairyfund-btn" class="btn-secondary">FAIRY FUND</button>
       </div>
     </section>
+
+    <button id="reset-btn" class="btn-ghost">NEUE PARTIE</button>
   </div>
 
-  <!-- Setup Overlay: Spieleranzahl -->
-  <div class="overlay" id="setup-overlay">
-    <div class="card">
-      <div class="spark"></div>
-      <div class="overlay-title">SPIELERANZAHL?</div>
-
-      <div class="setup-row" id="setup-row">
-        <!-- neutral, keine Vorauswahl -->
-        <button class="setup-choice" data-players="2" aria-label="2 Spieler">2</button>
-        <button class="setup-choice" data-players="3" aria-label="3 Spieler">3</button>
-        <button class="setup-choice" data-players="4" aria-label="4 Spieler">4</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Kipper-Overlay: Reihenfolge -->
-  <div class="overlay" id="kipper-overlay">
-    <div class="card">
-      <div class="spark"></div>
-      <div class="overlay-title">WANN WARST DU MIT KIPPEN AN DER REIHE?</div>
-
-      <div class="pick-list" id="pick-list"></div>
-
-      <div class="overlay-actions">
-        <button class="btn-confirm" id="kipper-confirm" disabled>BESTÄTIGEN</button>
-        <button class="btn-reset" id="kipper-reset">RESET</button>
-        <button class="btn-cancel" id="kipper-cancel">ABBRECHEN</button>
-      </div>
+  <div class="end-overlay" id="end-overlay">
+    <div class="end-card">
+      <div class="end-title">Fairy End</div>
+      <div class="end-score-label">Deine Fairy-Punkte</div>
+      <div class="end-score-value" id="end-score-value">0</div>
+      <div class="end-sub" id="end-sub"></div>
+      <button id="end-newgame-btn" class="btn-secondary">Neue Partie</button>
     </div>
   </div>
 
@@ -636,7 +423,6 @@
     const OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions";
     const OPENAI_MODEL = "gpt-4o-mini";
     const APIKEY_STORAGE_KEY = "fairykipp_openai_key";
-    const SESSION_PLAYERS_KEY = "fairykipp_players_v1";
 
     // Motive
     const motifsData = [
@@ -677,41 +463,29 @@
     // UI-Elemente
     // -----------------------------
     const fairyBtn = document.getElementById("fairy-btn");
-
-    const storyBox = document.getElementById("story-box");
-    const archiveTargetEl = document.getElementById("archive-target");
+    const fairyStatus = document.getElementById("fairy-status");
     const storyTextEl = document.getElementById("story-text");
-    const hintlineEl = document.getElementById("hintline");
+    const storyBox = document.getElementById("story-box");
+    const sentenceIndicator = document.getElementById("sentence-indicator");
 
     const scoreValueEl = document.getElementById("score-value");
     const fairyCountEl = document.getElementById("fairy-count");
+    const fairyFundBtn = document.getElementById("fairyfund-btn");
+    const resetBtn = document.getElementById("reset-btn");
 
-    const fairyErkipptBtn = document.getElementById("fairyerkippt-btn");
-    const nobodyBtn = document.getElementById("nobody-btn");
-
-    const newGameBtn = document.getElementById("newgame-btn");
-    const backBtn = document.getElementById("back-btn");
+    const endOverlay = document.getElementById("end-overlay");
+    const endScoreValue = document.getElementById("end-score-value");
+    const endNewGameBtn = document.getElementById("end-newgame-btn");
+    const endSub = document.getElementById("end-sub");
 
     const apikeyBanner = document.getElementById("apikey-banner");
     const apikeyInput = document.getElementById("apikey-input");
     const apikeySaveBtn = document.getElementById("apikey-save-btn");
 
-    const setupOverlay = document.getElementById("setup-overlay");
-    const setupRow = document.getElementById("setup-row");
-
-    const kipperOverlay = document.getElementById("kipper-overlay");
-    const pickList = document.getElementById("pick-list");
-    const kipperConfirm = document.getElementById("kipper-confirm");
-    const kipperReset = document.getElementById("kipper-reset");
-    const kipperCancel = document.getElementById("kipper-cancel");
-
     // -----------------------------
     // Spielzustand
     // -----------------------------
     let apiKey = null;
-
-    // Spieleranzahl: IMMER neutral starten
-    let playersCount = null; // 2/3/4
 
     let unusedMotifs = [];
     let unusedVerbsByMotif = {};
@@ -720,28 +494,16 @@
     let currentVerb = null;
     let currentColor = null;
 
-    let currentStoryFullPlain = "";
-    let currentTailPlain = "";
-    let currentTailHtml = "";
-    let currentChunks = [];
-    let currentChunkIndex = -1;
+    let currentStoryFullPlain = ""; // kompletter fertiger Text (Plain)
+    let currentTailPlain = "";      // "der/die/das blaue Tasse" (Plain)
+    let currentChunks = [];         // 12 Zwölftel (1–11 plain, 12 html)
+    let currentChunkIndex = 0;
+
+    let currentFairyOwnedByThisDevice = false;
 
     let score = 0;
     let narratedFairies = 0;
-    const maxFairies = 4;
-
-    // Phasen:
-    // idle: keine aktive Fairy
-    // reading: Zwölftel 1..11
-    // final: Zwölftel 12
-    // waitingFund: nach Pop -> Archiv oben, Leserbonus möglich
-    let phase = "idle";
-
-    // Reader-Flag: wird wahr, wenn dieses Handy die Fairy bis 12/12 durchklickt hat
-    let thisDeviceIsReaderForCurrentFairy = false;
-
-    // Kipper-Auswahl
-    let pendingKipperChoice = null; // { order: 1|2|3, points: number }
+    const maxFairies = 6;
 
     // -----------------------------
     // Hilfsfunktionen
@@ -755,12 +517,49 @@
       return a;
     }
 
+    function setFairyStatus(msg, isError = false) {
+      fairyStatus.textContent = msg || "";
+      fairyStatus.classList.toggle("status-error", isError);
+    }
+
     function updateScoreDisplay() {
       scoreValueEl.textContent = String(score);
     }
 
     function updateFairyCountDisplay() {
       fairyCountEl.textContent = String(narratedFairies);
+    }
+
+    function showEndScreen() {
+      endScoreValue.textContent = String(score);
+      endSub.textContent = "";
+      endOverlay.style.display = "flex";
+    }
+
+    function resetGameState() {
+      score = 0;
+      narratedFairies = 0;
+
+      currentMotif = null;
+      currentVerb = null;
+      currentColor = null;
+
+      currentStoryFullPlain = "";
+      currentTailPlain = "";
+      currentChunks = [];
+      currentChunkIndex = 0;
+
+      currentFairyOwnedByThisDevice = false;
+
+      storyTextEl.textContent = "Tippe auf FAIRY, um eine neue Fabel zu starten.";
+      storyTextEl.classList.add("story-muted");
+
+      sentenceIndicator.textContent = "";
+      setFairyStatus("");
+
+      updateScoreDisplay();
+      updateFairyCountDisplay();
+      endOverlay.style.display = "none";
     }
 
     function initUnusedMotifs() {
@@ -809,35 +608,6 @@
       apikeyBanner.classList.add("hidden");
     }
 
-    function loadPlayersFromSession() {
-      const v = window.sessionStorage.getItem(SESSION_PLAYERS_KEY);
-      const n = Number(v);
-      if (n === 2 || n === 3 || n === 4) {
-        playersCount = n;
-      } else {
-        playersCount = null;
-      }
-    }
-
-    function savePlayersToSession(n) {
-      playersCount = n;
-      window.sessionStorage.setItem(SESSION_PLAYERS_KEY, String(n));
-    }
-
-    function clearPlayersInSession() {
-      playersCount = null;
-      window.sessionStorage.removeItem(SESSION_PLAYERS_KEY);
-    }
-
-    function showSetupOverlay() {
-      // neutral – keine Vorauswahl
-      setupOverlay.style.display = "flex";
-    }
-
-    function hideSetupOverlay() {
-      setupOverlay.style.display = "none";
-    }
-
     function getCssColorForAdj(adj) {
       if (!adj) return null;
       const clean = adj.toLowerCase().replace(/[.,!?:;"“”„]+$/g, "");
@@ -850,6 +620,16 @@
       }
     }
 
+    // färbt das Farb-Adjektiv (für Zwölftel 12)
+    function highlightTailColor(text, adjective) {
+      const cssColor = getCssColorForAdj(adjective);
+      if (!cssColor) return text;
+
+      const escapedAdj = adjective.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(`\\b(${escapedAdj})\\b`, "i");
+      return text.replace(regex, `<span style="color:${cssColor}">$1</span>`);
+    }
+
     function escapeHtml(s) {
       return String(s)
         .replace(/&/g, "&amp;")
@@ -859,16 +639,7 @@
         .replace(/'/g, "&#039;");
     }
 
-    function highlightTailColor(tailPlain, adjective) {
-      const cssColor = getCssColorForAdj(adjective);
-      if (!cssColor) return escapeHtml(tailPlain);
-
-      const escapedAdj = adjective.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const regex = new RegExp(`\\b(${escapedAdj})\\b`, "i");
-      const safe = escapeHtml(tailPlain);
-      return safe.replace(regex, `<span style="color:${cssColor}">$1</span>`);
-    }
-
+    // 11 visuell ruhige Wort-Chunks (Wortgrenzen, ungefähr gleich groß)
     function splitWordsBalanced(text, n) {
       const words = text.trim().split(/\s+/).filter(Boolean);
       if (words.length === 0) return Array.from({ length: n }, () => "");
@@ -918,261 +689,48 @@
       const first11 = splitWordsBalanced(head, 11);
       const tailHtml = highlightTailColor(tailPlain, colorAdj);
 
-      return [...first11, tailHtml];
+      return [...first11, tailHtml]; // 12 Teile
     }
 
-    function setHint(text) {
-      if (!text) {
-        hintlineEl.classList.add("hidden");
-        hintlineEl.textContent = "";
-        return;
+    function showChunk(i) {
+      if (!currentChunks || currentChunks.length !== 12) return;
+
+      currentChunkIndex = Math.max(0, Math.min(11, i));
+      const chunk = currentChunks[currentChunkIndex];
+
+      // 1–11 plain
+      if (currentChunkIndex < 11) {
+        storyTextEl.innerHTML = escapeHtml(chunk);
+      } else {
+        storyTextEl.innerHTML = chunk; // enthält <span style="color:...">...</span>
       }
-      hintlineEl.textContent = text;
-      hintlineEl.classList.remove("hidden");
-    }
 
-    function setArchiveTarget(htmlOrEmpty) {
-      if (!htmlOrEmpty) {
-        archiveTargetEl.innerHTML = "";
-        archiveTargetEl.classList.remove("show");
-        return;
-      }
-      archiveTargetEl.innerHTML = htmlOrEmpty;
-      archiveTargetEl.classList.add("show");
-    }
-
-    function setStoryMuted(text) {
-      storyTextEl.classList.add("story-muted");
-      storyTextEl.innerHTML = text;
-    }
-
-    function setStoryPlain(text) {
       storyTextEl.classList.remove("story-muted");
-      storyTextEl.textContent = text;
-    }
-
-    function setStoryHtml(html) {
-      storyTextEl.classList.remove("story-muted");
-      storyTextEl.innerHTML = html;
-    }
-
-    function setButtonMode(mode) {
-      // mode: "FAIRY" | "WEITER" | "HIDE"
-      if (mode === "HIDE") {
-        fairyBtn.classList.add("hidden");
-        return;
-      }
-      fairyBtn.classList.remove("hidden");
-      fairyBtn.textContent = mode;
-    }
-
-    function setEndOfGameUI() {
-      // Nach 4 Fairys: alles sperren
-      setButtonMode("HIDE");
-      fairyErkipptBtn.classList.add("btn-disabled");
-      nobodyBtn.classList.add("btn-disabled");
-      fairyErkipptBtn.disabled = true;
-      nobodyBtn.disabled = true;
-      setHint("");
-      setStoryMuted("Spielende.\nFür dieses Handy sind 4 FAIRYs abgeschlossen.\nTippe auf „NEUES SPIEL“.");
-    }
-
-    function updateScoringButtonsVisibility() {
-      // Leser-Gerät: sobald waitingFund erreicht -> nur "Niemand hat's erkippt"
-      if (phase === "waitingFund" && thisDeviceIsReaderForCurrentFairy) {
-        fairyErkipptBtn.classList.add("hidden");
-        nobodyBtn.classList.remove("hidden");
-        return;
-      }
-
-      fairyErkipptBtn.classList.remove("hidden");
-      nobodyBtn.classList.add("hidden");
-    }
-
-    function resetRoundToIdle(keepScore = true) {
-      currentMotif = null;
-      currentVerb = null;
-      currentColor = null;
-
-      currentStoryFullPlain = "";
-      currentTailPlain = "";
-      currentTailHtml = "";
-      currentChunks = [];
-      currentChunkIndex = -1;
-
-      setArchiveTarget("");
-      storyBox.classList.remove("final-pop");
-      setHint("");
-      setButtonMode("FAIRY");
-
-      phase = "idle";
-
-      // Reader-Flag immer zurücksetzen
-      thisDeviceIsReaderForCurrentFairy = false;
-
-      setStoryMuted(`Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.`);
-
-      if (!keepScore) {
-        score = 0;
-        narratedFairies = 0;
-        updateScoreDisplay();
-        updateFairyCountDisplay();
-      }
-
-      updateScoringButtonsVisibility();
+      sentenceIndicator.textContent = `${currentChunkIndex + 1} / 12`;
+      // WICHTIG: keine extra Ansage/Regeltext hier – bleibt flexibel über Spielbeschreibung.
     }
 
     // -----------------------------
-    // Sound (kurz)
+    // OpenAI-Aufruf
     // -----------------------------
-    function beep(freq = 880, duration = 0.12, gain = 0.06) {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        const ctx = new AudioCtx();
-        const o = ctx.createOscillator();
-        const g = ctx.createGain();
-        o.type = "sine";
-        o.frequency.value = freq;
-        g.gain.value = gain;
-        o.connect(g);
-        g.connect(ctx.destination);
-        o.start();
-        setTimeout(() => {
-          o.stop();
-          ctx.close();
-        }, Math.max(30, duration * 1000));
-      } catch (_) {}
-    }
-
-    function playOkSound() {
-      beep(880, 0.10, 0.06);
-      setTimeout(() => beep(990, 0.10, 0.06), 120);
-    }
-
-    // -----------------------------
-    // Punkte-Logik nach Spieleranzahl
-    // -----------------------------
-    function getKipperPointsOptions(players) {
-      // Format wie gewünscht:
-      // - "Als Erster Kipper" (nur Erster/Zweiter/Dritter groß)
-      // - rechts "8P" usw.
-      if (players === 2) {
-        return [{ order: 1, label: "Als Erster Kipper", points: 3 }];
-      }
-      if (players === 3) {
-        return [
-          { order: 1, label: "Als Erster Kipper", points: 5 },
-          { order: 2, label: "Als Zweiter Kipper", points: 3 }
-        ];
-      }
-      return [
-        { order: 1, label: "Als Erster Kipper", points: 8 },
-        { order: 2, label: "Als Zweiter Kipper", points: 5 },
-        { order: 3, label: "Als Dritter Kipper", points: 3 }
-      ];
-    }
-
-    // -----------------------------
-    // Kipper-Overlay
-    // -----------------------------
-    function resetKipperSelectionUI() {
-      pendingKipperChoice = null;
-      document.querySelectorAll(".pick-item").forEach(el => el.classList.remove("selected"));
-      kipperConfirm.disabled = true;
-    }
-
-    function openKipperOverlay(players) {
-      resetKipperSelectionUI();
-
-      const options = getKipperPointsOptions(players);
-
-      // bei 2 Spielern: KEINE Abfrage – direkt 3 Punkte
-      if (players === 2) {
-        applyPointsAndAdvance(3);
-        return;
-      }
-
-      pickList.innerHTML = "";
-
-      options.forEach((opt) => {
-        const item = document.createElement("button");
-        item.type = "button";
-        item.className = "pick-item";
-        item.dataset.order = String(opt.order);
-        item.dataset.points = String(opt.points);
-
-        item.innerHTML = `
-          <div class="pick-left">
-            <span class="radio"></span>
-            <span class="pick-label">${opt.label}</span>
-          </div>
-          <div class="pick-right">${opt.points}P</div>
-        `;
-
-        item.addEventListener("click", () => {
-          document.querySelectorAll(".pick-item").forEach(el => el.classList.remove("selected"));
-          item.classList.add("selected");
-          pendingKipperChoice = { order: opt.order, points: opt.points };
-          kipperConfirm.disabled = false;
-          playOkSound();
-        });
-
-        pickList.appendChild(item);
-      });
-
-      kipperOverlay.style.display = "flex";
-    }
-
-    function closeKipperOverlay() {
-      kipperOverlay.style.display = "none";
-      // Auswahl behalten wir NICHT (weil Abbrechen/Schließen soll neutral sein)
-      resetKipperSelectionUI();
-    }
-
-    // -----------------------------
-    // Punkte anwenden + Fairy zählen
-    // -----------------------------
-    function applyPointsAndAdvance(pointsToAdd) {
-      if (narratedFairies >= maxFairies) return;
-
-      score += pointsToAdd;
-      updateScoreDisplay();
-
-      narratedFairies += 1;
-      if (narratedFairies > maxFairies) narratedFairies = maxFairies;
-      updateFairyCountDisplay();
-
-      // Ende nach 4
-      if (narratedFairies >= maxFairies) {
-        setEndOfGameUI();
-        return;
-      }
-
-      // Zurück in Idle (nächste Runde)
-      resetRoundToIdle(true);
-    }
-
-    // -----------------------------
-    // OpenAI-Aufruf: neue Fairy, Zwölftel 1
-    // -----------------------------
-    async function generateNewFairyAndShowFirstTwelfth(retryCount = 0) {
+    async function generateFairyFromOpenAI(retryCount = 0) {
       if (!apiKey) {
+        setFairyStatus("Bitte zuerst API-Key oben eingeben.", true);
         apikeyBanner.classList.remove("hidden");
         return;
       }
 
       if (narratedFairies >= maxFairies) {
-        setEndOfGameUI();
+        setFairyStatus("Diese Partie ist bereits beendet.", true);
         return;
       }
 
-      setButtonMode("HIDE");
-      setHint("");
-      storyBox.classList.remove("final-pop");
-      setArchiveTarget("");
-      setStoryMuted("… KI zaubert eine neue Geschichte …");
+      setFairyStatus("Fairy wird gezaubert …");
+      storyTextEl.textContent = "… KI schreibt eine neue Fabel …";
+      storyTextEl.classList.add("story-muted");
+      sentenceIndicator.textContent = "";
 
-      // 1) Motiv, Verb, Farbe
+      // 1) Motiv, Verb, Farbe wählen
       const motifObj = chooseMotifNoImmediateRepeat();
       const verb = chooseVerbForMotif(motifObj.noun);
       const color = colorsData[Math.floor(Math.random() * colorsData.length)];
@@ -1180,9 +738,6 @@
       currentMotif = motifObj;
       currentVerb = verb;
       currentColor = color;
-
-      // Dieses Handy wird Reader, weil es eine Fairy startet und durchklickt
-      thisDeviceIsReaderForCurrentFairy = false;
 
       const systemMessage = {
         role: "system",
@@ -1222,184 +777,121 @@
           })
         });
 
-        if (!response.ok) throw new Error("HTTP-Fehler: " + response.status);
+        if (!response.ok) {
+          throw new Error("HTTP-Fehler: " + response.status);
+        }
 
         const data = await response.json();
         let text = data.choices?.[0]?.message?.content?.trim() || "";
+
+        // Whitespace normalisieren
         text = text.replace(/\s+/g, " ").trim();
 
+        // letztes Satzzeichen finden (. ! ?)
         const dotIdx = text.lastIndexOf(".");
         const exIdx = text.lastIndexOf("!");
         const qIdx = text.lastIndexOf("?");
         const lastPunctIdx = Math.max(dotIdx, exIdx, qIdx);
 
         if (lastPunctIdx === -1) {
-          if (retryCount < 3) return await generateNewFairyAndShowFirstTwelfth(retryCount + 1);
+          if (retryCount < 3) return await generateFairyFromOpenAI(retryCount + 1);
 
-          const base = 'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
+          // Not-Fabel (Plain)
+          const base = 'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!';
           const tailPlain = `${motifObj.article} ${color} ${motifObj.noun}`;
-          const storyPlain = `${base} ${verb} ${tailPlain}`.replace(/\s+/g, " ").trim();
+          const storyPlain = `${base}" ${verb} ${tailPlain}`;
 
-          currentStoryFullPlain = storyPlain;
-          currentTailPlain = tailPlain;
-          currentTailHtml = highlightTailColor(currentTailPlain, color);
+          currentStoryFullPlain = storyPlain.trim();
+          currentTailPlain = tailPlain.trim();
+          currentFairyOwnedByThisDevice = true;
 
           currentChunks = buildTwelfthsVisually(currentStoryFullPlain, currentTailPlain, color);
-        } else {
-          const baseText = text.slice(0, lastPunctIdx + 1).trimRight();
-          const tailPlain = `${motifObj.article} ${color} ${motifObj.noun}`;
-          const storyPlain = `${baseText} ${verb} ${tailPlain}`.replace(/\s+/g, " ").trim();
+          currentChunkIndex = 0;
 
-          currentStoryFullPlain = storyPlain;
-          currentTailPlain = tailPlain;
-          currentTailHtml = highlightTailColor(currentTailPlain, color);
-
-          currentChunks = buildTwelfthsVisually(currentStoryFullPlain, currentTailPlain, color);
-        }
-
-        // Start: Zwölftel 1 anzeigen
-        currentChunkIndex = 0;
-        phase = "reading";
-        setButtonMode("WEITER");
-        setStoryPlain(currentChunks[0] || "");
-
-        // Dieses Gerät ist jetzt der Leser dieser Fairy
-        thisDeviceIsReaderForCurrentFairy = true;
-
-        updateScoringButtonsVisibility();
-      } catch (err) {
-        console.error(err);
-        setButtonMode("FAIRY");
-        setStoryMuted("Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internet und API-Key.");
-        phase = "idle";
-      }
-    }
-
-    function showNextChunkOrFinal() {
-      if (!currentChunks || currentChunks.length !== 12) return;
-
-      if (phase === "reading") {
-        const next = currentChunkIndex + 1;
-
-        if (next <= 10) {
-          currentChunkIndex = next;
-          setStoryPlain(currentChunks[currentChunkIndex] || "");
+          showChunk(0);
+          setFairyStatus("Neue Fabel ist aktiv (Fallback).");
           return;
         }
 
-        // Zwölftel 12 (Pop)
-        currentChunkIndex = 11;
-        phase = "final";
-        setButtonMode("HIDE");
-        setHint("");
-        storyBox.classList.add("final-pop");
-        setArchiveTarget("");
+        // Text bis inkl. letztem Satzzeichen behalten
+        let baseText = text.slice(0, lastPunctIdx + 1).trimRight();
 
-        setStoryHtml(
-          `<div style="
-            font-size: clamp(1.8rem, 7vw, 2.35rem);
-            font-weight: 900;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            line-height: 1.15;
-            padding-top: 10px;
-            padding-bottom: 8px;">
-            ${currentTailHtml}
-          </div>`
-        );
+        // Fixes Ende: Verb + (Artikel Farbe Motiv)
+        const tailPlain = `${motifObj.article} ${color} ${motifObj.noun}`;
+        const storyPlain = `${baseText} ${verb} ${tailPlain}`.replace(/\s+/g, " ").trim();
 
-        setHint("noch 1 kipp");
+        currentStoryFullPlain = storyPlain;
+        currentTailPlain = tailPlain;
+        currentFairyOwnedByThisDevice = true;
 
-        setTimeout(() => {
-          setArchiveTarget(currentTailHtml);
-          setStoryMuted(" ");
-          storyBox.classList.remove("final-pop");
+        // 12 Zwölftel bauen (visuell ruhig)
+        currentChunks = buildTwelfthsVisually(currentStoryFullPlain, currentTailPlain, color);
+        currentChunkIndex = 0;
 
-          phase = "waitingFund";
+        showChunk(0);
+        setFairyStatus("Neue Fabel ist aktiv.");
 
-          setHint("");
-          setButtonMode("FAIRY"); // bleibt sichtbar, macht aber nichts in waitingFund
-
-          updateScoringButtonsVisibility();
-        }, 3200);
-
-        return;
+      } catch (err) {
+        console.error(err);
+        setFairyStatus("Fehler beim Laden der Fairy (Internet oder API-Key prüfen).", true);
+        storyTextEl.textContent = "Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internetverbindung und API-Key.";
+        storyTextEl.classList.remove("story-muted");
+        sentenceIndicator.textContent = "";
+        currentChunks = [];
+        currentChunkIndex = 0;
       }
-    }
-
-    // -----------------------------
-    // Buttons unten: FAIRY ERKIPPT / NIEMAND HAT'S ERKIPPT
-    // -----------------------------
-    function onFairyErkippt() {
-      if (narratedFairies >= maxFairies) return;
-      if (!playersCount) {
-        showSetupOverlay();
-        return;
-      }
-      openKipperOverlay(playersCount);
-    }
-
-    function onNobodyErkippt() {
-      // Nur sinnvoll fürs Leser-Gerät in waitingFund
-      if (narratedFairies >= maxFairies) return;
-
-      // Sicherstellen: Leserzustand
-      if (!(phase === "waitingFund" && thisDeviceIsReaderForCurrentFairy)) return;
-
-      applyPointsAndAdvance(1); // Lesebonus
-    }
-
-    // -----------------------------
-    // NEUES SPIEL
-    // -----------------------------
-    function startNewGame() {
-      // Alles neu inkl Spieleranzahl-Abfrage
-      clearPlayersInSession();
-      score = 0;
-      narratedFairies = 0;
-      updateScoreDisplay();
-      updateFairyCountDisplay();
-      resetRoundToIdle(true);
-      // sofort Setup zeigen
-      showSetupOverlay();
     }
 
     // -----------------------------
     // Event-Listener
     // -----------------------------
     fairyBtn.addEventListener("click", async () => {
-      if (narratedFairies >= maxFairies) return;
+      await generateFairyFromOpenAI();
+    });
 
-      if (phase === "idle") {
-        await generateNewFairyAndShowFirstTwelfth();
+    // Tap auf Textfeld: nächstes Zwölftel
+    storyBox.addEventListener("click", () => {
+      if (!currentChunks || currentChunks.length !== 12) return;
+      if (currentChunkIndex >= 11) return; // bei 12/12 stehen bleiben
+      showChunk(currentChunkIndex + 1);
+    });
+
+    fairyFundBtn.addEventListener("click", () => {
+      if (!currentStoryFullPlain || !currentTailPlain) {
+        setFairyStatus("Erst eine Fabel starten, dann kannst du FAIRY FUND nutzen.", true);
         return;
       }
 
-      if (phase === "reading") {
-        showNextChunkOrFinal();
-        return;
-      }
+      const add = currentFairyOwnedByThisDevice ? 3 : 2;
+      score += add;
+      updateScoreDisplay();
 
-      // waitingFund: FAIRY soll nichts machen (Motiv bleibt als Ziel)
+      narratedFairies += 1;
+      if (narratedFairies > maxFairies) narratedFairies = maxFairies;
+      updateFairyCountDisplay();
+
+      // Fairy "verbrauchen"
+      currentMotif = null;
+      currentVerb = null;
+      currentColor = null;
+
+      currentStoryFullPlain = "";
+      currentTailPlain = "";
+      currentChunks = [];
+      currentChunkIndex = 0;
+
+      currentFairyOwnedByThisDevice = false;
+
+      storyTextEl.textContent = "Fabel verbraucht. Starte die nächste mit einem Tipp auf FAIRY.";
+      storyTextEl.classList.add("story-muted");
+      sentenceIndicator.textContent = "";
+      setFairyStatus("");
+
+      if (narratedFairies >= maxFairies) showEndScreen();
     });
 
-    fairyErkipptBtn.addEventListener("click", () => {
-      if (fairyErkipptBtn.disabled) return;
-      onFairyErkippt();
-    });
-
-    nobodyBtn.addEventListener("click", () => {
-      if (nobodyBtn.disabled) return;
-      onNobodyErkippt();
-    });
-
-    newGameBtn.addEventListener("click", () => {
-      startNewGame();
-    });
-
-    backBtn.addEventListener("click", () => {
-      window.location.href = "index.html";
-    });
+    resetBtn.addEventListener("click", () => resetGameState());
+    endNewGameBtn.addEventListener("click", () => resetGameState());
 
     apikeySaveBtn.addEventListener("click", () => {
       const val = apikeyInput.value.trim();
@@ -1414,53 +906,15 @@
       if (e.key === "Enter") apikeySaveBtn.click();
     });
 
-    // Setup Overlay: Spieleranzahl wählen
-    setupRow.addEventListener("click", (e) => {
-      const btn = e.target.closest(".setup-choice");
-      if (!btn) return;
-      const n = Number(btn.dataset.players);
-      if (!(n === 2 || n === 3 || n === 4)) return;
-
-      savePlayersToSession(n);
-      hideSetupOverlay();
-
-      // Runde bleibt idle
-      resetRoundToIdle(true);
-    });
-
-    // Kipper Overlay confirm/reset/cancel
-    kipperConfirm.addEventListener("click", () => {
-      if (!pendingKipperChoice) return;
-      const pts = pendingKipperChoice.points;
-      closeKipperOverlay();
-      applyPointsAndAdvance(pts);
-    });
-
-    kipperReset.addEventListener("click", () => {
-      resetKipperSelectionUI();
-    });
-
-    kipperCancel.addEventListener("click", () => {
-      // Abbrechen = Overlay schließen, später wieder über "Fairy erkippt" öffnbar
-      closeKipperOverlay();
-    });
-
     // -----------------------------
     // Start
     // -----------------------------
     function init() {
       loadApiKeyFromStorage();
       initUnusedMotifs();
-      loadPlayersFromSession();
-
       updateScoreDisplay();
       updateFairyCountDisplay();
-      resetRoundToIdle(true);
-
-      // Wenn noch keine Spieleranzahl gewählt: sofort fragen (neutral)
-      if (!playersCount) {
-        showSetupOverlay();
-      }
+      sentenceIndicator.textContent = "";
     }
 
     init();
