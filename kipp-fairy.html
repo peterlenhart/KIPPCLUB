@@ -392,16 +392,6 @@
 
     .setup-choice:active { filter: brightness(0.92); }
 
-    .setup-hint {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: rgba(245,245,245,0.70);
-      font-size: 0.85rem;
-      line-height: 1.35;
-      margin-top: 4px;
-    }
-
     /* Kipper-order selection list */
     .pick-list {
       position: relative;
@@ -428,6 +418,7 @@
       align-items: center;
       gap: 12px;
       min-width: 0;
+      flex: 1 1 auto;
     }
 
     .radio {
@@ -453,21 +444,25 @@
       background: var(--fk-orange);
     }
 
+    /* WICHTIG: nicht mehr alles UPPERCASE, damit "Als Erster Kipper" so bleibt */
     .pick-label {
       font-weight: 900;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      text-transform: none;
       font-size: 1.0rem;
       color: rgba(245,245,245,0.95);
-      white-space: nowrap;
+      white-space: normal;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
     }
 
     .pick-right {
       font-weight: 900;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       color: rgba(245,245,245,0.85);
       white-space: nowrap;
+      flex: 0 0 auto;
     }
 
     .overlay-actions {
@@ -490,9 +485,31 @@
       letter-spacing: 0.10em;
       text-transform: uppercase;
       box-shadow: 0 0 12px rgba(59,165,43,0.35);
+      transition: filter 0.08s ease-out, opacity 0.08s ease-out;
     }
 
     .btn-confirm:active { filter: brightness(0.92); }
+
+    .btn-confirm:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      filter: grayscale(0.2);
+      box-shadow: none;
+    }
+
+    .btn-reset {
+      min-width: 170px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(245,245,245,0.85);
+      font-weight: 900;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .btn-reset:active { filter: brightness(0.92); }
 
     .btn-cancel {
       min-width: 170px;
@@ -585,18 +602,13 @@
   <div class="overlay" id="setup-overlay">
     <div class="card">
       <div class="spark"></div>
-      <div class="overlay-title">WIE VIELE SPIELER SEID IHR?</div>
+      <div class="overlay-title">SPIELERANZAHL?</div>
 
       <div class="setup-row" id="setup-row">
         <!-- neutral, keine Vorauswahl -->
         <button class="setup-choice" data-players="2" aria-label="2 Spieler">2</button>
         <button class="setup-choice" data-players="3" aria-label="3 Spieler">3</button>
         <button class="setup-choice" data-players="4" aria-label="4 Spieler">4</button>
-      </div>
-
-      <div class="setup-hint">
-        Tippe auf die Zahl.<br>
-        (Bei „Neues Spiel“ wird diese Frage wieder gestellt.)
       </div>
     </div>
   </div>
@@ -610,7 +622,8 @@
       <div class="pick-list" id="pick-list"></div>
 
       <div class="overlay-actions">
-        <button class="btn-confirm" id="kipper-confirm">BESTÄTIGEN</button>
+        <button class="btn-confirm" id="kipper-confirm" disabled>BESTÄTIGEN</button>
+        <button class="btn-reset" id="kipper-reset">RESET</button>
         <button class="btn-cancel" id="kipper-cancel">ABBRECHEN</button>
       </div>
     </div>
@@ -689,6 +702,7 @@
     const kipperOverlay = document.getElementById("kipper-overlay");
     const pickList = document.getElementById("pick-list");
     const kipperConfirm = document.getElementById("kipper-confirm");
+    const kipperReset = document.getElementById("kipper-reset");
     const kipperCancel = document.getElementById("kipper-cancel");
 
     // -----------------------------
@@ -816,7 +830,7 @@
     }
 
     function showSetupOverlay() {
-      // Wichtig: neutral – keine Vorauswahl, nichts gelb
+      // neutral – keine Vorauswahl
       setupOverlay.style.display = "flex";
     }
 
@@ -971,7 +985,6 @@
         return;
       }
 
-      // Alle anderen: "Fairy erkippt" sichtbar, Nobody nur beim Leser sinnvoll
       fairyErkipptBtn.classList.remove("hidden");
       nobodyBtn.classList.add("hidden");
     }
@@ -1040,29 +1053,36 @@
     // Punkte-Logik nach Spieleranzahl
     // -----------------------------
     function getKipperPointsOptions(players) {
-      // Gibt Liste [{order:1, label:"ALS ERSTER KIPPER", points:8}, ...]
+      // Format wie gewünscht:
+      // - "Als Erster Kipper" (nur Erster/Zweiter/Dritter groß)
+      // - rechts "8P" usw.
       if (players === 2) {
-        return [{ order: 1, label: "ALS ERSTER KIPPER", points: 3 }];
+        return [{ order: 1, label: "Als Erster Kipper", points: 3 }];
       }
       if (players === 3) {
         return [
-          { order: 1, label: "ALS ERSTER KIPPER", points: 5 },
-          { order: 2, label: "ALS ZWEITER KIPPER", points: 3 }
+          { order: 1, label: "Als Erster Kipper", points: 5 },
+          { order: 2, label: "Als Zweiter Kipper", points: 3 }
         ];
       }
-      // players === 4
       return [
-        { order: 1, label: "ALS ERSTER KIPPER", points: 8 },
-        { order: 2, label: "ALS ZWEITER KIPPER", points: 5 },
-        { order: 3, label: "ALS DRITTER KIPPER", points: 3 }
+        { order: 1, label: "Als Erster Kipper", points: 8 },
+        { order: 2, label: "Als Zweiter Kipper", points: 5 },
+        { order: 3, label: "Als Dritter Kipper", points: 3 }
       ];
     }
 
     // -----------------------------
     // Kipper-Overlay
     // -----------------------------
-    function openKipperOverlay(players) {
+    function resetKipperSelectionUI() {
       pendingKipperChoice = null;
+      document.querySelectorAll(".pick-item").forEach(el => el.classList.remove("selected"));
+      kipperConfirm.disabled = true;
+    }
+
+    function openKipperOverlay(players) {
+      resetKipperSelectionUI();
 
       const options = getKipperPointsOptions(players);
 
@@ -1074,7 +1094,7 @@
 
       pickList.innerHTML = "";
 
-      options.forEach((opt, idx) => {
+      options.forEach((opt) => {
         const item = document.createElement("button");
         item.type = "button";
         item.className = "pick-item";
@@ -1086,19 +1106,18 @@
             <span class="radio"></span>
             <span class="pick-label">${opt.label}</span>
           </div>
-          <div class="pick-right">${opt.points} PUNKTE</div>
+          <div class="pick-right">${opt.points}P</div>
         `;
 
         item.addEventListener("click", () => {
           document.querySelectorAll(".pick-item").forEach(el => el.classList.remove("selected"));
           item.classList.add("selected");
           pendingKipperChoice = { order: opt.order, points: opt.points };
+          kipperConfirm.disabled = false;
           playOkSound();
         });
 
         pickList.appendChild(item);
-
-        // keine Vorauswahl!
       });
 
       kipperOverlay.style.display = "flex";
@@ -1106,7 +1125,8 @@
 
     function closeKipperOverlay() {
       kipperOverlay.style.display = "none";
-      pendingKipperChoice = null;
+      // Auswahl behalten wir NICHT (weil Abbrechen/Schließen soll neutral sein)
+      resetKipperSelectionUI();
     }
 
     // -----------------------------
@@ -1404,12 +1424,11 @@
       savePlayersToSession(n);
       hideSetupOverlay();
 
-      // Nach Auswahl: einfach im Spiel bleiben
-      // (Runde bleibt idle)
+      // Runde bleibt idle
       resetRoundToIdle(true);
     });
 
-    // Kipper Overlay confirm/cancel
+    // Kipper Overlay confirm/reset/cancel
     kipperConfirm.addEventListener("click", () => {
       if (!pendingKipperChoice) return;
       const pts = pendingKipperChoice.points;
@@ -1417,7 +1436,12 @@
       applyPointsAndAdvance(pts);
     });
 
+    kipperReset.addEventListener("click", () => {
+      resetKipperSelectionUI();
+    });
+
     kipperCancel.addEventListener("click", () => {
+      // Abbrechen = Overlay schließen, später wieder über "Fairy erkippt" öffnbar
       closeKipperOverlay();
     });
 
@@ -1433,7 +1457,7 @@
       updateFairyCountDisplay();
       resetRoundToIdle(true);
 
-      // Wenn noch keine Spieleranzahl gewählt: sofort fragen (IMMER neutral)
+      // Wenn noch keine Spieleranzahl gewählt: sofort fragen (neutral)
       if (!playersCount) {
         showSetupOverlay();
       }
