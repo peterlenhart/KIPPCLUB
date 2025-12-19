@@ -17,11 +17,14 @@
       --fk-green: rgb(59, 165, 43);
       --fk-orange: rgb(242, 150, 0);
 
-      --fk-bg: #111111;
-      --fk-panel: #1b1b1b;
+      --fk-bg: #0e0e0e;
+      --fk-panel: #151515;
       --fk-text: #f5f5f5;
       --fk-muted: #bbbbbb;
-      --fk-border: #333333;
+      --fk-border: #2b2b2b;
+
+      --fk-soft: rgba(255,255,255,0.10);
+      --fk-soft2: rgba(255,255,255,0.06);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,11 +46,12 @@
       background: var(--fk-bg);
       border-radius: 18px;
       border: 1px solid var(--fk-border);
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.75);
       padding: 14px 14px 18px;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      position: relative;
     }
 
     .header { text-align: center; margin-bottom: 4px; }
@@ -63,7 +67,7 @@
       font-size: 1.8rem;
       letter-spacing: 0.05em;
       color: var(--fk-orange);
-      text-shadow: 0 0 6px rgba(242, 150, 0, 0.8);
+      text-shadow: 0 0 10px rgba(242, 150, 0, 0.55);
     }
 
     .logo-kipp {
@@ -73,6 +77,7 @@
       letter-spacing: 0.2em;
       color: var(--fk-blue);
       text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(0, 101, 171, 0.35);
     }
 
     .tagline {
@@ -82,20 +87,22 @@
     }
 
     .panel {
-      background: var(--fk-panel);
+      background: radial-gradient(circle at top, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.02) 45%, rgba(0,0,0,0) 100%),
+                  var(--fk-panel);
       border-radius: 14px;
       border: 1px solid var(--fk-border);
       padding: 10px 10px 12px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .button-row {
       display: flex;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     button { border: none; cursor: pointer; font-family: inherit; }
@@ -103,81 +110,65 @@
     .btn-main {
       min-width: 160px;
       padding: 10px 16px;
-      border-radius: 10px;
+      border-radius: 999px;
       font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-weight: 800;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       background-color: var(--fk-orange);
       color: #111;
-      box-shadow: 0 0 12px rgba(242, 150, 0, 0.7);
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, filter 0.08s ease-out;
+      box-shadow: 0 0 14px rgba(242, 150, 0, 0.55);
+      transition: transform 0.08s ease-out, filter 0.08s ease-out;
     }
 
-    .btn-main:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 0 3px rgba(242, 150, 0, 0.6);
-      filter: brightness(0.95);
-    }
+    .btn-main:active { transform: translateY(1px) scale(0.98); filter: brightness(0.95); }
 
-    .btn-secondary {
-      min-width: 140px;
-      padding: 9px 16px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+    .btn-action {
+      min-width: 190px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 900;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
-      background-color: var(--fk-blue);
-      color: #fdfdfd;
-      box-shadow: 0 0 12px rgba(0, 101, 171, 0.5);
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, filter 0.08s ease-out;
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.20);
+      color: rgba(245,245,245,0.92);
+      box-shadow: 0 0 16px rgba(0,0,0,0.35);
+      transition: transform 0.08s ease-out, filter 0.08s ease-out, opacity 0.15s ease-out;
     }
-
-    .btn-secondary:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 0 3px rgba(0, 101, 171, 0.6);
-      filter: brightness(0.95);
-    }
+    .btn-action:active { transform: translateY(1px) scale(0.99); filter: brightness(0.95); }
+    .btn-action[disabled] { opacity: 0.35; cursor: default; }
 
     .btn-ghost {
       align-self: center;
       margin-top: 0px;
       padding: 6px 10px;
-      border-radius: 10px;
+      border-radius: 999px;
       font-size: 0.78rem;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.16);
       background: transparent;
       color: rgba(255,255,255,0.78);
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
+    .btn-ghost:active { filter: brightness(0.9); }
 
-    .btn-ghost:active {
-      filter: brightness(0.9);
-      border-color: rgba(255,255,255,0.22);
-    }
-
-    /* Story box + states */
+    /* Story box */
     .story-box {
-      min-height: 130px;
-      max-height: 210px;
-      border-radius: 10px;
+      min-height: 140px;
+      max-height: 230px;
+      border-radius: 14px;
       border: 1px solid var(--fk-border);
-      padding: 12px 16px;
+      padding: 14px 16px;
       font-size: 1.35rem;
       line-height: 1.7;
-      background: radial-gradient(circle at top left, #252525 0, #111 55%);
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0) 100%),
+                  radial-gradient(circle at top left, #1b1b1b 0, #0f0f0f 60%);
       overflow-y: auto;
       text-align: center;
       user-select: none;
       position: relative;
-    }
-
-    .story-box.final-pop {
-      border-color: transparent;
-      background: radial-gradient(circle at top, #1f1f1f 0, #0c0c0c 60%);
-      box-shadow: 0 0 18px rgba(242,150,0,0.10);
     }
 
     .archive-target {
@@ -185,68 +176,62 @@
       top: 0;
       display: none;
       text-align: center;
-      font-size: 0.9rem;
-      letter-spacing: 0.06em;
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       margin-bottom: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      color: rgba(245,245,245,0.62);
+      border-bottom: 1px solid var(--fk-soft2);
+      color: rgba(245,245,245,0.70);
       background: rgba(0,0,0,0.0);
     }
-
     .archive-target.show { display: block; }
 
     #story-text {
       width: 100%;
       white-space: pre-wrap;
-      font-weight: 650;
+      font-weight: 700;
     }
-
     .story-muted {
-      color: var(--fk-muted);
+      color: rgba(245,245,245,0.65);
       font-style: italic;
-      font-size: 0.95rem;
-      font-weight: 450;
+      font-size: 0.98rem;
+      font-weight: 500;
     }
 
     .hintline {
       min-height: 1.2em;
       text-align: center;
       font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.10em;
+      font-weight: 800;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(245,245,245,0.72);
-      margin-top: 2px;
+      color: rgba(245,245,245,0.78);
       user-select: none;
     }
-
     .hintline.hidden { display: none; }
 
-    /* Score area (minimal) */
+    /* Score area */
     .score-row {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 8px;
     }
-
     .score-fairies {
       text-align: center;
       font-size: 0.95rem;
       color: var(--fk-muted);
       letter-spacing: 0.04em;
     }
-
-    .score-fairies strong { color: var(--fk-orange); font-weight: 800; }
-
+    .score-fairies strong { color: var(--fk-orange); font-weight: 900; }
     .score-value {
       font-size: 2.3rem;
-      font-weight: 800;
+      font-weight: 900;
       color: #ffffff;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 0 14px rgba(0, 0, 0, 0.7);
       line-height: 1.0;
+      letter-spacing: 0.02em;
     }
 
     /* API banner */
@@ -260,10 +245,9 @@
       z-index: 50;
       pointer-events: none;
     }
-
     .apikey-inner {
       pointer-events: auto;
-      background: #151515;
+      background: rgba(15,15,15,0.92);
       border-radius: 999px;
       border: 1px solid var(--fk-border);
       padding: 6px 10px;
@@ -272,12 +256,11 @@
       gap: 6px;
       max-width: 480px;
       width: calc(100% - 24px);
-      box-shadow: 0 0 14px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
       font-size: 0.75rem;
+      backdrop-filter: blur(6px);
     }
-
     .apikey-inner span { white-space: nowrap; }
-
     .apikey-input {
       flex: 1;
       padding: 4px 6px;
@@ -288,7 +271,6 @@
       font-size: 0.8rem;
       min-width: 0;
     }
-
     .apikey-btn {
       padding: 4px 8px;
       border-radius: 999px;
@@ -298,216 +280,289 @@
       font-size: 0.75rem;
       cursor: pointer;
     }
-
     .apikey-btn:active { filter: brightness(0.9); }
 
     .hidden { display: none !important; }
 
-    /* Fullscreen success overlay */
-    .success-overlay {
+    /* Setup overlay (Spieleranzahl) */
+    .setup-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.92);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 60;
-      padding: 16px;
+      z-index: 80;
+      padding: 18px;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.08) 0, rgba(0,0,0,0.90) 55%, rgba(0,0,0,0.96) 100%);
+      backdrop-filter: blur(6px);
     }
-
-    .success-card {
+    .setup-inner {
       width: 100%;
       max-width: 420px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: radial-gradient(circle at top, #1a1a1a 0, #0b0b0b 62%);
-      padding: 18px 16px 14px;
       text-align: center;
-      box-shadow: 0 0 26px rgba(0,0,0,0.9);
-      position: relative;
-      overflow: hidden;
+      padding: 10px 6px;
     }
-
-    .spark {
-      position: absolute;
-      inset: -60px;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(242,150,0,0.18), transparent 45%),
-        radial-gradient(circle at 80% 25%, rgba(0,101,171,0.15), transparent 45%),
-        radial-gradient(circle at 45% 80%, rgba(170,0,120,0.14), transparent 55%),
-        radial-gradient(circle at 70% 75%, rgba(59,165,43,0.12), transparent 55%);
-      filter: blur(10px);
-      opacity: 0.9;
-      pointer-events: none;
-      animation: floaty 1.8s ease-in-out infinite alternate;
-    }
-
-    @keyframes floaty {
-      from { transform: translateY(0px) scale(1); }
-      to   { transform: translateY(-6px) scale(1.02); }
-    }
-
-    .success-title {
+    .setup-title {
       font-weight: 900;
-      letter-spacing: 0.10em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       font-size: 1.05rem;
-      color: rgba(245,245,245,0.85);
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .success-lines {
-      position: relative;
-      z-index: 2;
-      font-size: 1.05rem;
-      line-height: 1.6;
       color: rgba(245,245,245,0.92);
       margin-bottom: 12px;
-      white-space: pre-line;
-      font-weight: 700;
+    }
+    .setup-sub {
+      font-size: 0.92rem;
+      color: rgba(245,245,245,0.70);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .setup-choices {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 8px 0 14px;
+    }
+    .choice-circle {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.22);
+      background: radial-gradient(circle at top, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.02) 55%, rgba(0,0,0,0) 100%);
+      box-shadow: 0 0 18px rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(245,245,245,0.95);
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      user-select: none;
+      transition: transform 0.08s ease-out, filter 0.08s ease-out, border-color 0.12s ease-out;
+      cursor: pointer;
+    }
+    .choice-circle:active { transform: translateY(1px) scale(0.99); filter: brightness(0.95); }
+    .choice-circle.selected {
+      border-color: rgba(242,150,0,0.75);
+      box-shadow: 0 0 22px rgba(242,150,0,0.22), 0 0 18px rgba(0,0,0,0.55);
     }
 
-    .success-points {
+    /* Award overlay (magisch, ohne Kasten) */
+    .award-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 90;
+      padding: 18px;
+      background: rgba(0,0,0,0.92);
+      overflow: hidden;
+    }
+    .stars {
+      position: absolute;
+      inset: -40px;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(242,150,0,0.14), transparent 42%),
+        radial-gradient(circle at 80% 25%, rgba(0,101,171,0.12), transparent 45%),
+        radial-gradient(circle at 45% 80%, rgba(170,0,120,0.10), transparent 55%),
+        radial-gradient(circle at 70% 75%, rgba(59,165,43,0.10), transparent 55%);
+      filter: blur(10px);
+      opacity: 0.95;
+      animation: floaty 1.9s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .twinkles {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.18) 0 1px, transparent 2px),
+        radial-gradient(circle, rgba(255,255,255,0.12) 0 1px, transparent 2px),
+        radial-gradient(circle, rgba(255,255,255,0.10) 0 1px, transparent 2px);
+      background-size: 120px 120px, 160px 160px, 220px 220px;
+      background-position: 0 0, 40px 80px, 90px 30px;
+      opacity: 0.35;
+      animation: drift 7s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes floaty { from { transform: translateY(0px) scale(1); } to { transform: translateY(-8px) scale(1.03); } }
+    @keyframes drift { from { transform: translateY(0px); } to { transform: translateY(-120px); } }
+
+    .award-inner {
       position: relative;
       z-index: 2;
-      font-size: 2.3rem;
+      width: 100%;
+      max-width: 460px;
+      text-align: center;
+      padding: 16px 10px 10px;
+    }
+    .award-title {
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.98rem;
+      color: rgba(245,245,245,0.78);
+      margin-bottom: 10px;
+    }
+    .award-lines {
+      font-size: 1.12rem;
+      line-height: 1.6;
+      font-weight: 800;
+      color: rgba(245,245,245,0.95);
+      white-space: pre-line;
+      margin-bottom: 12px;
+      text-shadow: 0 0 18px rgba(0,0,0,0.65);
+    }
+    .award-points {
+      font-size: clamp(2.4rem, 7vw, 3.1rem);
+      font-weight: 900;
+      letter-spacing: 0.10em;
+      margin: 10px 0 16px;
+      text-transform: uppercase;
+      text-shadow: 0 0 22px rgba(0,0,0,0.65);
+    }
+    .award-points.good { color: var(--fk-green); }
+    .award-points.ok { color: var(--fk-orange); }
+
+    .award-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .btn-round {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.04);
+      color: rgba(245,245,245,0.92);
       font-weight: 900;
       letter-spacing: 0.08em;
-      margin: 6px 0 14px;
       text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(0,0,0,0.55);
+    }
+    .btn-round:active { transform: translateY(1px) scale(0.99); filter: brightness(0.95); }
+    .btn-round.ok {
+      border-color: rgba(59,165,43,0.55);
+      box-shadow: 0 0 22px rgba(59,165,43,0.18), 0 0 20px rgba(0,0,0,0.55);
+    }
+    .btn-round.no {
+      border-color: rgba(255,255,255,0.18);
     }
 
-    .success-points.good { color: var(--fk-green); }
-    .success-points.ok   { color: var(--fk-orange); }
-
-    .success-actions {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      gap: 10px;
+    /* Kipper-Position overlay */
+    .pos-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 6px;
+      z-index: 85;
+      padding: 18px;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.08) 0, rgba(0,0,0,0.90) 55%, rgba(0,0,0,0.96) 100%);
+      backdrop-filter: blur(6px);
+    }
+    .pos-inner {
+      width: 100%;
+      max-width: 460px;
+      text-align: center;
+      padding: 10px 6px;
+    }
+    .pos-title {
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.98rem;
+      color: rgba(245,245,245,0.92);
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+    .pos-grid {
+      display: grid;
+      gap: 14px;
+      width: 100%;
+    }
+    .pos-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.03);
+      box-shadow: 0 0 18px rgba(0,0,0,0.40);
+      cursor: pointer;
+      user-select: none;
+    }
+    .pos-option:active { transform: translateY(1px) scale(0.995); filter: brightness(0.95); }
+
+    .pos-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+    .pos-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.03);
+      box-shadow: 0 0 12px rgba(0,0,0,0.45);
+      flex: 0 0 auto;
+    }
+    .pos-label {
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(245,245,245,0.92);
+      font-size: 1.02rem;
+    }
+    .pos-points {
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(245,245,245,0.78);
+      font-size: 0.95rem;
+      white-space: nowrap;
     }
 
-    .btn-confirm {
-      min-width: 150px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      background: var(--fk-green);
-      color: #081b08;
-      font-weight: 900;
+    /* tiny settings link */
+    .top-tools {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 8px;
+      z-index: 5;
+    }
+    .tool-btn {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.03);
+      color: rgba(245,245,245,0.78);
+      font-size: 0.72rem;
+      font-weight: 800;
       letter-spacing: 0.10em;
       text-transform: uppercase;
-      box-shadow: 0 0 12px rgba(59,165,43,0.35);
     }
+    .tool-btn:active { filter: brightness(0.9); }
 
-    .btn-confirm:active { filter: brightness(0.92); }
-
-    .btn-miss {
-      min-width: 150px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.18);
-      color: rgba(245,245,245,0.85);
-      font-weight: 900;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-    }
-
-    .btn-miss:active { filter: brightness(0.92); }
-
-    /* Small helper line under Fairy button (no status text) */
     .microline {
-      min-height: 0.8em;
+      min-height: 0.6em;
       font-size: 0.75rem;
-      color: transparent; /* keeps layout stable, but invisible */
+      color: transparent;
       text-align: center;
       user-select: none;
     }
-
-    /* -----------------------------
-       START: SPIELERANZAHL (Fullscreen)
-       ----------------------------- */
-    .player-select{
-      position: fixed;
-      inset: 0;
-      z-index: 95;
-      display: none;
-      background: rgba(0,0,0,0.94);
-      padding: 18px;
-      gap: 14px;
-      grid-template-rows: auto auto 1fr;
-      align-content: start;
-    }
-    .player-select.show{ display: grid; }
-
-    .player-title{
-      text-align:center;
-      font-weight: 900;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      font-size: 1.10rem;
-      color: rgba(245,245,245,0.92);
-      padding-top: 8px;
-    }
-
-    .player-sub{
-      text-align:center;
-      font-size: 0.98rem;
-      color: rgba(245,245,245,0.72);
-      letter-spacing: 0.03em;
-      line-height: 1.4;
-      margin-bottom: 6px;
-    }
-
-    .player-dots{
-      display:flex;
-      justify-content:center;
-      gap: 22px;
-      align-items:center;
-      padding-top: 10px;
-    }
-
-    .dot-btn{
-      width: 64px;
-      height: 64px;
-      border-radius: 999px;
-      background: transparent;
-      border: none;
-      outline: none;
-      position: relative;
-      display: grid;
-      place-items: center;
-      user-select: none;
-    }
-
-    .dot-btn::after{
-      content:"";
-      position:absolute;
-      inset: 0;
-      border-radius: 999px;
-      border: 3px solid rgba(245,245,245,0.75);
-      box-shadow: 0 0 14px rgba(255,255,255,0.08);
-    }
-
-    .dot-label{
-      position: relative;
-      z-index: 2;
-      font-weight: 900;
-      font-size: 1.15rem;
-      letter-spacing: 0.06em;
-      color: rgba(245,245,245,0.92);
-    }
-
-    .dot-btn:active{ transform: scale(0.96); filter: brightness(0.92); }
   </style>
 </head>
 
 <body>
+  <!-- API Key Banner -->
   <div class="apikey-banner" id="apikey-banner">
     <div class="apikey-inner">
       <span>OpenAI&nbsp;API-Key:</span>
@@ -516,25 +571,11 @@
     </div>
   </div>
 
-  <!-- START: Spieleranzahl Overlay -->
-  <div class="player-select" id="player-select" aria-hidden="true">
-    <div class="player-title">Spieleranzahl</div>
-    <div class="player-sub">Tippe auf so viele Punkte, wie ihr Spieler seid.</div>
-
-    <div class="player-dots">
-      <button class="dot-btn" data-players="2" aria-label="2 Spieler">
-        <span class="dot-label">2</span>
-      </button>
-      <button class="dot-btn" data-players="3" aria-label="3 Spieler">
-        <span class="dot-label">3</span>
-      </button>
-      <button class="dot-btn" data-players="4" aria-label="4 Spieler">
-        <span class="dot-label">4</span>
-      </button>
-    </div>
-  </div>
-
   <div class="app">
+    <div class="top-tools">
+      <button class="tool-btn" id="players-btn">Spieler</button>
+    </div>
+
     <header class="header">
       <div class="logo-line">
         <span class="logo-fairy">Fairy</span>
@@ -560,17 +601,18 @@
       <div id="hintline" class="hintline hidden">noch 1 kipp</div>
     </section>
 
-    <!-- Punktepanel (minimal) -->
+    <!-- Punktepanel -->
     <section class="panel">
       <div class="score-row">
         <div class="score-fairies">
-          Erzählte Fairys: <strong id="fairy-count">0</strong> / 6
+          Erzählte Fairys: <strong id="fairy-count">0</strong> / <span id="fairy-max">4</span>
         </div>
         <div class="score-value" id="score-value">0</div>
       </div>
 
       <div class="button-row" style="margin-top: 6px">
-        <button id="fairyfund-btn" class="btn-secondary">FAIRY FUND</button>
+        <button id="erkippt-btn" class="btn-action" disabled>FAIRY ERKIPPT</button>
+        <button id="niemand-btn" class="btn-action" disabled>NIEMAND HAT ES ERKIPPT</button>
       </div>
 
       <div class="button-row" style="margin-top: 6px">
@@ -579,16 +621,41 @@
     </section>
   </div>
 
-  <!-- Erfolg / Fehlklick Overlay -->
-  <div class="success-overlay" id="success-overlay">
-    <div class="success-card">
-      <div class="spark"></div>
-      <div class="success-title" id="success-title">FAIRY FUND</div>
-      <div class="success-lines" id="success-lines"></div>
-      <div class="success-points ok" id="success-points">+0</div>
-      <div class="success-actions">
-        <button class="btn-confirm" id="success-confirm">BESTÄTIGEN</button>
-        <button class="btn-miss" id="success-miss">FEHLKLICK</button>
+  <!-- Setup Overlay: Spieleranzahl -->
+  <div class="setup-overlay" id="setup-overlay">
+    <div class="setup-inner">
+      <div class="setup-title">Wie viele Spieler seid ihr?</div>
+      <div class="setup-sub">Tippe eine Zahl an. (2–4 Spieler)</div>
+      <div class="setup-choices">
+        <div class="choice-circle" data-n="2">2</div>
+        <div class="choice-circle" data-n="3">3</div>
+        <div class="choice-circle" data-n="4">4</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kipper Position Overlay -->
+  <div class="pos-overlay" id="pos-overlay">
+    <div class="pos-inner">
+      <div class="pos-title" id="pos-title">Warst du nach dem Fairy-Leser der … Kipper?</div>
+      <div class="pos-grid" id="pos-grid"></div>
+      <div style="margin-top:14px;">
+        <button class="btn-ghost" id="pos-cancel">ABBRECHEN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Award Overlay -->
+  <div class="award-overlay" id="award-overlay">
+    <div class="stars"></div>
+    <div class="twinkles"></div>
+    <div class="award-inner">
+      <div class="award-title" id="award-title">FAIRY FUND</div>
+      <div class="award-lines" id="award-lines"></div>
+      <div class="award-points ok" id="award-points">+0</div>
+      <div class="award-actions">
+        <button class="btn-round ok" id="award-ok">OK</button>
+        <button class="btn-round no" id="award-miss">NEIN</button>
       </div>
     </div>
   </div>
@@ -601,9 +668,19 @@
     const OPENAI_MODEL = "gpt-4o-mini";
     const APIKEY_STORAGE_KEY = "fairykipp_openai_key";
 
-    // Spieleranzahl Storage
-    const PLAYERCOUNT_STORAGE_KEY = "fairykipp_player_count";
-    let playerCount = 4; // default fallback
+    // Spieler / Spielende
+    const PLAYERS_STORAGE_KEY = "fairykipp_players";
+    const MAX_FAIRIES = 4;
+
+    // Punkte je Spieleranzahl (nach dem Fairy-Leser)
+    // 2 Spieler: kein Prompt, immer 3
+    // 3 Spieler: 1. Kipper = 5, 2. Kipper = 3
+    // 4 Spieler: 1. Kipper = 8, 2. Kipper = 5, 3. Kipper = 3
+    const POINTS_BY_PLAYERS = {
+      2: [3],
+      3: [5, 3],
+      4: [8, 5, 3]
+    };
 
     // Motive
     const motifsData = [
@@ -644,7 +721,6 @@
     // UI-Elemente
     // -----------------------------
     const fairyBtn = document.getElementById("fairy-btn");
-
     const storyBox = document.getElementById("story-box");
     const archiveTargetEl = document.getElementById("archive-target");
     const storyTextEl = document.getElementById("story-text");
@@ -652,28 +728,39 @@
 
     const scoreValueEl = document.getElementById("score-value");
     const fairyCountEl = document.getElementById("fairy-count");
-    const fairyFundBtn = document.getElementById("fairyfund-btn");
+    const fairyMaxEl = document.getElementById("fairy-max");
+
+    const erkipptBtn = document.getElementById("erkippt-btn");
+    const niemandBtn = document.getElementById("niemand-btn");
+
     const backBtn = document.getElementById("back-btn");
+    const playersBtn = document.getElementById("players-btn");
 
     const apikeyBanner = document.getElementById("apikey-banner");
     const apikeyInput = document.getElementById("apikey-input");
     const apikeySaveBtn = document.getElementById("apikey-save-btn");
 
-    const successOverlay = document.getElementById("success-overlay");
-    const successTitle = document.getElementById("success-title");
-    const successLines = document.getElementById("success-lines");
-    const successPoints = document.getElementById("success-points");
-    const successConfirm = document.getElementById("success-confirm");
-    const successMiss = document.getElementById("success-miss");
+    const setupOverlay = document.getElementById("setup-overlay");
+    const setupCircles = Array.from(document.querySelectorAll(".choice-circle"));
 
-    // Spieleranzahl Overlay
-    const playerSelect = document.getElementById("player-select");
-    const playerDotBtns = Array.from(document.querySelectorAll(".dot-btn"));
+    const posOverlay = document.getElementById("pos-overlay");
+    const posTitle = document.getElementById("pos-title");
+    const posGrid = document.getElementById("pos-grid");
+    const posCancel = document.getElementById("pos-cancel");
+
+    const awardOverlay = document.getElementById("award-overlay");
+    const awardTitle = document.getElementById("award-title");
+    const awardLines = document.getElementById("award-lines");
+    const awardPoints = document.getElementById("award-points");
+    const awardOk = document.getElementById("award-ok");
+    const awardMiss = document.getElementById("award-miss");
 
     // -----------------------------
     // Spielzustand
     // -----------------------------
     let apiKey = null;
+
+    let playersCount = 4; // default, wird im Setup gewählt (2..4)
 
     let unusedMotifs = [];
     let unusedVerbsByMotif = {};
@@ -690,40 +777,16 @@
 
     let score = 0;
     let narratedFairies = 0;
-    const maxFairies = 6;
 
     // Phasen:
-    // idle: keine aktive Fairy (Kipper-Erfolg möglich = 3 Punkte)
-    // reading: Zwölftel 1..11
-    // final: Zwölftel 12 (Pop)
-    // waitingFund: nach Pop -> Archiv oben, Ergebnis ruhig, Leserbonus möglich = 1 Punkt
+    // idle: keine aktive Fairy (neue Fairy starten möglich)
+    // reading: Zwölftel 1..11 (WEITER)
+    // final: Zwölftel 12 (Pop kurz)
+    // waiting: nach Pop -> Archiv oben, Spiel wartet auf Kipper/Leser Buttons
     let phase = "idle";
 
-    // Pending award (Overlay-Bestätigung)
-    let pendingAward = null; // { points, kind: "reader"|"perfect" }
-
-    // -----------------------------
-    // Spieleranzahl: Storage
-    // -----------------------------
-    function loadPlayerCount() {
-      const v = Number(window.localStorage.getItem(PLAYERCOUNT_STORAGE_KEY));
-      if (v === 2 || v === 3 || v === 4) playerCount = v;
-    }
-
-    function savePlayerCount(v) {
-      playerCount = v;
-      window.localStorage.setItem(PLAYERCOUNT_STORAGE_KEY, String(v));
-    }
-
-    function openPlayerSelect() {
-      playerSelect.classList.add("show");
-      playerSelect.setAttribute("aria-hidden", "false");
-    }
-
-    function closePlayerSelect() {
-      playerSelect.classList.remove("show");
-      playerSelect.setAttribute("aria-hidden", "true");
-    }
+    // Pending award (Bestätigung)
+    let pendingAward = null; // { points, kind: "kipper"|"reader" }
 
     // -----------------------------
     // Hilfsfunktionen
@@ -743,6 +806,7 @@
 
     function updateFairyCountDisplay() {
       fairyCountEl.textContent = String(narratedFairies);
+      fairyMaxEl.textContent = String(MAX_FAIRIES);
     }
 
     function initUnusedMotifs() {
@@ -789,6 +853,17 @@
       apiKey = key;
       window.localStorage.setItem(APIKEY_STORAGE_KEY, key);
       apikeyBanner.classList.add("hidden");
+    }
+
+    function loadPlayersFromStorage() {
+      const stored = window.localStorage.getItem(PLAYERS_STORAGE_KEY);
+      const n = Number(stored);
+      if (n === 2 || n === 3 || n === 4) playersCount = n;
+    }
+
+    function savePlayersToStorage(n) {
+      playersCount = n;
+      window.localStorage.setItem(PLAYERS_STORAGE_KEY, String(n));
     }
 
     function getCssColorForAdj(adj) {
@@ -870,7 +945,6 @@
 
       const first11 = splitWordsBalanced(head, 11);
       const tailHtml = highlightTailColor(tailPlain, colorAdj);
-
       return [...first11, tailHtml];
     }
 
@@ -894,9 +968,9 @@
       archiveTargetEl.classList.add("show");
     }
 
-    function setStoryMuted(text) {
+    function setStoryMuted(html) {
       storyTextEl.classList.add("story-muted");
-      storyTextEl.innerHTML = text;
+      storyTextEl.innerHTML = html;
     }
 
     function setStoryPlain(text) {
@@ -909,7 +983,8 @@
       storyTextEl.innerHTML = html;
     }
 
-    function setButtonMode(mode) {
+    function setFairyButton(mode) {
+      // mode: "FAIRY" | "WEITER" | "HIDE"
       if (mode === "HIDE") {
         fairyBtn.classList.add("hidden");
         return;
@@ -918,7 +993,13 @@
       fairyBtn.textContent = mode;
     }
 
-    function resetRoundToIdle(keepScore = true) {
+    function setActionButtonsEnabled() {
+      const enable = (phase === "waiting");
+      erkipptBtn.disabled = !enable;
+      niemandBtn.disabled = !enable;
+    }
+
+    function resetRoundToIdle() {
       currentMotif = null;
       currentVerb = null;
       currentColor = null;
@@ -930,20 +1011,19 @@
       currentChunkIndex = -1;
 
       setArchiveTarget("");
-      storyBox.classList.remove("final-pop");
-
       setHint("");
-      setButtonMode("FAIRY");
+      setFairyButton("FAIRY");
 
       phase = "idle";
 
-      setStoryMuted(`Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.`);
-      if (!keepScore) {
-        score = 0;
-        narratedFairies = 0;
-        updateScoreDisplay();
-        updateFairyCountDisplay();
+      setActionButtonsEnabled();
+      if (narratedFairies >= MAX_FAIRIES) {
+        setStoryMuted("Spielende. Es wurden 4 FAIRYs abgeschlossen.");
+        setFairyButton("HIDE");
+        return;
       }
+
+      setStoryMuted(`Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.`);
     }
 
     // -----------------------------
@@ -967,45 +1047,66 @@
         }, Math.max(30, duration * 1000));
       } catch (_) {}
     }
-
     function playReaderSound() {
       beep(660, 0.10, 0.05);
       setTimeout(() => beep(880, 0.10, 0.05), 120);
     }
-
-    function playPerfectSound() {
+    function playKipperSound() {
       beep(880, 0.10, 0.06);
       setTimeout(() => beep(990, 0.10, 0.06), 120);
       setTimeout(() => beep(1320, 0.12, 0.07), 260);
     }
 
     // -----------------------------
-    // Overlay / Award
+    // Setup Overlay (immer verfügbar)
+    // -----------------------------
+    function showSetupOverlay(always = true) {
+      // always=true: Setup wird IMMER gezeigt (dein Wunsch: bei jedem Eintritt ins Spiel)
+      // Wir laden gespeicherte Wahl nur als "vorselektiert".
+      loadPlayersFromStorage();
+
+      setupCircles.forEach(c => c.classList.remove("selected"));
+      const pre = setupCircles.find(c => Number(c.dataset.n) === playersCount);
+      if (pre) pre.classList.add("selected");
+
+      setupOverlay.style.display = "flex";
+
+      // Wenn das Setup offen ist: keine Fehlklicks im Spiel
+      posOverlay.style.display = "none";
+      awardOverlay.style.display = "none";
+    }
+
+    function closeSetupOverlay() {
+      setupOverlay.style.display = "none";
+    }
+
+    // -----------------------------
+    // Award Overlay
     // -----------------------------
     function openAwardOverlay(kind, points) {
       pendingAward = { kind, points };
 
+      awardTitle.textContent = "FAIRY FUND";
+
       if (kind === "reader") {
-        successTitle.textContent = "FAIRY FUND";
-        successLines.textContent = "Niemand hat’s erkippt.\nLesebonus:";
-        successPoints.classList.remove("good");
-        successPoints.classList.add("ok");
-        successPoints.textContent = `+${points} PUNKT`;
+        awardLines.textContent = "Niemand hat’s erkippt.\nLesebonus:";
+        awardPoints.classList.remove("good");
+        awardPoints.classList.add("ok");
+        awardPoints.textContent = `+${points}`;
         playReaderSound();
       } else {
-        successTitle.textContent = "FAIRY FUND";
-        successLines.textContent = "Perfekt gekippt.";
-        successPoints.classList.remove("ok");
-        successPoints.classList.add("good");
-        successPoints.textContent = `+${points} PUNKTE`;
-        playPerfectSound();
+        awardLines.textContent = "Erkippt.";
+        awardPoints.classList.remove("ok");
+        awardPoints.classList.add("good");
+        awardPoints.textContent = `+${points}`;
+        playKipperSound();
       }
 
-      successOverlay.style.display = "flex";
+      awardOverlay.style.display = "flex";
     }
 
     function closeAwardOverlay() {
-      successOverlay.style.display = "none";
+      awardOverlay.style.display = "none";
       pendingAward = null;
     }
 
@@ -1016,34 +1117,68 @@
       updateScoreDisplay();
 
       narratedFairies += 1;
-      if (narratedFairies > maxFairies) narratedFairies = maxFairies;
+      if (narratedFairies > MAX_FAIRIES) narratedFairies = MAX_FAIRIES;
       updateFairyCountDisplay();
 
       closeAwardOverlay();
-      resetRoundToIdle(true);
-    }
 
-    function missclickAward() {
-      closeAwardOverlay();
+      // Nach jeder Wertung: neue Runde oder Spielende
+      resetRoundToIdle();
     }
 
     // -----------------------------
-    // OpenAI-Aufruf
+    // Kipper-Position Overlay
+    // -----------------------------
+    function openPositionOverlay() {
+      const pts = POINTS_BY_PLAYERS[playersCount] || POINTS_BY_PLAYERS[4];
+
+      // 2 Spieler -> kein Prompt, direkt 3 Punkte
+      if (playersCount === 2) {
+        openAwardOverlay("kipper", pts[0]);
+        return;
+      }
+
+      // 3 Spieler -> 2 Optionen; 4 Spieler -> 3 Optionen
+      posGrid.innerHTML = "";
+      posTitle.textContent = "Warst du nach dem Fairy-Leser der … Kipper?";
+
+      pts.forEach((p, idx) => {
+        const which = idx + 1; // 1,2,3
+        const opt = document.createElement("div");
+        opt.className = "pos-option";
+        opt.innerHTML = `
+          <div class="pos-left">
+            <div class="pos-dot"></div>
+            <div class="pos-label">${which}. KIPPER</div>
+          </div>
+          <div class="pos-points">${p} PUNKTE</div>
+        `;
+        opt.addEventListener("click", () => {
+          posOverlay.style.display = "none";
+          openAwardOverlay("kipper", p);
+        });
+        posGrid.appendChild(opt);
+      });
+
+      posOverlay.style.display = "flex";
+    }
+
+    // -----------------------------
+    // OpenAI: neue Fairy
     // -----------------------------
     async function generateNewFairyAndShowFirstTwelfth(retryCount = 0) {
+      if (narratedFairies >= MAX_FAIRIES) {
+        resetRoundToIdle();
+        return;
+      }
+
       if (!apiKey) {
         apikeyBanner.classList.remove("hidden");
         return;
       }
 
-      if (narratedFairies >= maxFairies) {
-        setStoryMuted("Für dieses Handy sind 6 FAIRYs abgeschlossen.");
-        return;
-      }
-
-      setButtonMode("HIDE");
+      setFairyButton("HIDE");
       setHint("");
-      storyBox.classList.remove("final-pop");
       setArchiveTarget("");
       setStoryMuted("… KI zaubert eine neue Geschichte …");
 
@@ -1130,76 +1265,80 @@
 
         currentChunkIndex = 0;
         phase = "reading";
-        setButtonMode("WEITER");
+        setActionButtonsEnabled();
+
+        setFairyButton("WEITER");
         setStoryPlain(currentChunks[0] || "");
       } catch (err) {
         console.error(err);
-        setButtonMode("FAIRY");
+        setFairyButton("FAIRY");
         setStoryMuted("Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internet und API-Key.");
         phase = "idle";
+        setActionButtonsEnabled();
       }
     }
 
     function showNextChunkOrFinal() {
       if (!currentChunks || currentChunks.length !== 12) return;
 
-      if (phase === "reading") {
-        const next = currentChunkIndex + 1;
+      if (phase !== "reading") return;
 
-        if (next <= 10) {
-          currentChunkIndex = next;
-          setStoryPlain(currentChunks[currentChunkIndex] || "");
-          return;
-        }
+      const next = currentChunkIndex + 1;
 
-        currentChunkIndex = 11;
-        phase = "final";
-        setButtonMode("HIDE");
-        setHint("");
-        storyBox.classList.add("final-pop");
-        setArchiveTarget("");
-
-        setStoryHtml(
-          `<div style="
-            font-size: clamp(1.8rem, 7vw, 2.35rem);
-            font-weight: 900;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            line-height: 1.15;
-            padding-top: 10px;
-            padding-bottom: 8px;">
-            ${currentTailHtml}
-          </div>`
-        );
-
-        setHint("noch 1 kipp");
-
-        setTimeout(() => {
-          setArchiveTarget(currentTailHtml);
-          setStoryMuted(" ");
-          storyBox.classList.remove("final-pop");
-          phase = "waitingFund";
-          setHint("");
-          setButtonMode("FAIRY");
-        }, 3200);
-
+      if (next <= 10) { // 2..11
+        currentChunkIndex = next;
+        setStoryPlain(currentChunks[currentChunkIndex] || "");
         return;
       }
+
+      // Zwölftel 12 kurz groß
+      currentChunkIndex = 11;
+      phase = "final";
+      setActionButtonsEnabled();
+
+      setFairyButton("HIDE");
+      setHint("noch 1 kipp");
+      setArchiveTarget("");
+
+      setStoryHtml(
+        `<div style="
+          font-size: clamp(1.9rem, 7vw, 2.45rem);
+          font-weight: 900;
+          letter-spacing: 0.10em;
+          text-transform: uppercase;
+          line-height: 1.15;
+          padding: 10px 0 8px;
+          text-shadow: 0 0 18px rgba(0,0,0,0.65);">
+          ${currentTailHtml}
+        </div>`
+      );
+
+      // Danach: Archiv oben, warten auf Kipper/Leser
+      setTimeout(() => {
+        setArchiveTarget(currentTailHtml);
+        setStoryMuted(" ");
+        setHint("");
+
+        phase = "waiting";
+        setActionButtonsEnabled();
+
+        // FAIRY bleibt absichtlich wieder da, aber macht in waiting nichts
+        setFairyButton("FAIRY");
+      }, 2900);
     }
 
     // -----------------------------
-    // FAIRY FUND Logik
+    // Buttons: "Fairy erkippt" / "Niemand hat es erkippt"
     // -----------------------------
-    function onFairyFund() {
-      if (phase === "idle" && currentChunks.length === 0) {
-        openAwardOverlay("perfect", 3);
-        return;
-      }
+    function onErkippt() {
+      if (phase !== "waiting") return;
+      // Position abfragen (oder bei 2 Spielern direkt vergeben)
+      openPositionOverlay();
+    }
 
-      if (phase === "waitingFund") {
-        openAwardOverlay("reader", 1);
-        return;
-      }
+    function onNiemand() {
+      if (phase !== "waiting") return;
+      openAwardOverlay("reader", 1);
     }
 
     // -----------------------------
@@ -1210,27 +1349,30 @@
         await generateNewFairyAndShowFirstTwelfth();
         return;
       }
+
       if (phase === "reading") {
         showNextChunkOrFinal();
         return;
       }
+
+      // phase "waiting": FAIRY macht absichtlich nichts (damit niemand weiterklickt)
     });
 
-    fairyFundBtn.addEventListener("click", () => {
-      if (narratedFairies >= maxFairies) return;
-      onFairyFund();
-    });
+    erkipptBtn.addEventListener("click", onErkippt);
+    niemandBtn.addEventListener("click", onNiemand);
 
-    successConfirm.addEventListener("click", () => {
-      confirmAward();
-    });
+    awardOk.addEventListener("click", () => confirmAward());
+    awardMiss.addEventListener("click", () => closeAwardOverlay());
 
-    successMiss.addEventListener("click", () => {
-      missclickAward();
-    });
+    posCancel.addEventListener("click", () => { posOverlay.style.display = "none"; });
 
     backBtn.addEventListener("click", () => {
       window.location.href = "index.html";
+    });
+
+    playersBtn.addEventListener("click", () => {
+      // jederzeit Spieleranzahl ändern
+      showSetupOverlay(true);
     });
 
     apikeySaveBtn.addEventListener("click", () => {
@@ -1246,13 +1388,20 @@
       if (e.key === "Enter") apikeySaveBtn.click();
     });
 
-    // Spieleranzahl: Auswahl
-    playerDotBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const v = Number(btn.dataset.players);
-        if (v !== 2 && v !== 3 && v !== 4) return;
-        savePlayerCount(v);
-        closePlayerSelect();
+    // Setup Auswahl
+    setupCircles.forEach(circle => {
+      circle.addEventListener("click", () => {
+        const n = Number(circle.dataset.n);
+        if (!(n === 2 || n === 3 || n === 4)) return;
+
+        setupCircles.forEach(c => c.classList.remove("selected"));
+        circle.classList.add("selected");
+
+        savePlayersToStorage(n);
+        closeSetupOverlay();
+
+        // Bei Spielerwechsel: Runde sauber zurücksetzen
+        resetRoundToIdle();
       });
     });
 
@@ -1262,13 +1411,18 @@
     function init() {
       loadApiKeyFromStorage();
       initUnusedMotifs();
+
+      score = 0;
+      narratedFairies = 0;
       updateScoreDisplay();
       updateFairyCountDisplay();
-      resetRoundToIdle(true);
 
-      loadPlayerCount();
-      const stored = window.localStorage.getItem(PLAYERCOUNT_STORAGE_KEY);
-      if (!stored) openPlayerSelect();
+      // Startzustand
+      resetRoundToIdle();
+
+      // WICHTIG: Setup kommt IMMER beim Start dieser Seite
+      // (damit es nie „verschwindet“, egal was Browser speichert)
+      showSetupOverlay(true);
     }
 
     init();
