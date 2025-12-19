@@ -5,342 +5,405 @@
   <title>FAIRY KIPP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@500;700&display=swap" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
-    :root{
+    :root {
       --fk-blue: rgb(0, 101, 171);
       --fk-violet: rgb(170, 0, 120);
       --fk-green: rgb(59, 165, 43);
       --fk-orange: rgb(242, 150, 0);
 
-      --fk-bg:#111;
-      --fk-panel:#1b1b1b;
-      --fk-text:#f5f5f5;
-      --fk-muted:#bbbbbb;
-      --fk-border:#333333;
+      --fk-bg: #111111;
+      --fk-panel: #1b1b1b;
+      --fk-text: #f5f5f5;
+      --fk-muted: #bbbbbb;
+      --fk-border: #333333;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body{
+    body {
       background: radial-gradient(circle at top, #222 0, #000 55%, #000 100%);
       color: var(--fk-text);
       font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:stretch;
-      padding:12px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 12px;
     }
 
-    .app{
-      width:100%;
-      max-width:480px;
+    .app {
+      width: 100%;
+      max-width: 480px;
       background: var(--fk-bg);
-      border-radius:18px;
-      border:1px solid var(--fk-border);
-      box-shadow: 0 0 30px rgba(0,0,0,0.7);
-      padding:14px 14px 18px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+      border-radius: 18px;
+      border: 1px solid var(--fk-border);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+      padding: 14px 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .header{text-align:center;margin-bottom:4px}
-    .logo-line{display:inline-flex;align-items:baseline;gap:6px}
-    .logo-fairy{
-      font-family:"Pacifico",cursive;
-      font-size:1.8rem;
-      letter-spacing:.05em;
+    .header { text-align: center; margin-bottom: 4px; }
+
+    .logo-line {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .logo-fairy {
+      font-family: "Pacifico", cursive;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
       color: var(--fk-orange);
-      text-shadow:0 0 6px rgba(242,150,0,.8);
+      text-shadow: 0 0 6px rgba(242, 150, 0, 0.8);
     }
-    .logo-kipp{
-      font-family:"Montserrat",sans-serif;
-      font-weight:700;
-      font-size:1.4rem;
-      letter-spacing:.2em;
+
+    .logo-kipp {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 0.2em;
       color: var(--fk-blue);
-      text-transform:uppercase;
+      text-transform: uppercase;
     }
-    .tagline{margin-top:4px;font-size:.8rem;color:var(--fk-muted)}
 
-    .panel{
+    .tagline {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: var(--fk-muted);
+    }
+
+    .panel {
       background: var(--fk-panel);
-      border-radius:14px;
-      border:1px solid var(--fk-border);
-      padding:10px 10px 12px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+      border-radius: 14px;
+      border: 1px solid var(--fk-border);
+      padding: 10px 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .button-row{
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    button{border:none;cursor:pointer;font-family:inherit}
-    .hidden{display:none !important;}
+    button { border: none; cursor: pointer; font-family: inherit; }
 
-    .btn-main{
-      min-width:160px;
-      padding:10px 16px;
-      border-radius:12px;
-      font-size:1rem;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      background: var(--fk-orange);
-      color:#111;
-      box-shadow:0 0 12px rgba(242,150,0,.7);
-      transition:transform .08s ease-out, filter .08s ease-out, box-shadow .08s ease-out;
+    .btn-main {
+      min-width: 160px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-color: var(--fk-orange);
+      color: #111;
+      box-shadow: 0 0 12px rgba(242, 150, 0, 0.7);
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, filter 0.08s ease-out;
     }
-    .btn-main:active{transform:translateY(1px) scale(.98); filter:brightness(.95); box-shadow:0 0 3px rgba(242,150,0,.6);}
 
-    .btn-secondary{
-      min-width:210px;
-      padding:10px 16px;
-      border-radius:12px;
-      font-size:0.95rem;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      background: var(--fk-blue);
-      color:#fff;
-      box-shadow:0 0 12px rgba(0,101,171,.5);
-      transition:transform .08s ease-out, filter .08s ease-out, box-shadow .08s ease-out;
+    .btn-main:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 0 3px rgba(242, 150, 0, 0.6);
+      filter: brightness(0.95);
     }
-    .btn-secondary:active{transform:translateY(1px) scale(.98); filter:brightness(.95); box-shadow:0 0 3px rgba(0,101,171,.6);}
 
-    .btn-disabled{opacity:.35; cursor:not-allowed; filter:grayscale(.25);}
+    .btn-secondary {
+      min-width: 180px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-color: var(--fk-blue);
+      color: #fdfdfd;
+      box-shadow: 0 0 12px rgba(0, 101, 171, 0.5);
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, filter 0.08s ease-out;
+    }
 
-    .story-box{
-      min-height:140px;
-      max-height:230px;
-      border-radius:12px;
-      border:1px solid var(--fk-border);
-      padding:12px 16px;
-      font-size:1.35rem;
-      line-height:1.7;
+    .btn-secondary:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 0 3px rgba(0, 101, 171, 0.6);
+      filter: brightness(0.95);
+    }
+
+    .btn-ghost {
+      align-self: center;
+      margin-top: 0px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: transparent;
+      color: rgba(255,255,255,0.80);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .btn-ghost:active {
+      filter: brightness(0.9);
+      border-color: rgba(255,255,255,0.22);
+    }
+
+    .btn-disabled {
+      opacity: 0.40;
+      cursor: not-allowed;
+      filter: grayscale(0.25);
+    }
+
+    .story-box {
+      min-height: 130px;
+      max-height: 210px;
+      border-radius: 10px;
+      border: 1px solid var(--fk-border);
+      padding: 12px 16px;
+      font-size: 1.35rem;
+      line-height: 1.7;
       background: radial-gradient(circle at top left, #252525 0, #111 55%);
-      overflow-y:auto;
-      text-align:center;
-      user-select:none;
-      position:relative;
+      overflow-y: auto;
+      text-align: center;
+      user-select: none;
+      position: relative;
     }
 
-    .story-box.final-pop{
-      border-color:transparent;
+    .story-box.final-pop {
+      border-color: transparent;
       background: radial-gradient(circle at top, #1f1f1f 0, #0c0c0c 60%);
-      box-shadow:0 0 18px rgba(242,150,0,.10);
+      box-shadow: 0 0 18px rgba(242,150,0,0.10);
     }
 
-    .archive-target{
-      position:sticky;
-      top:0;
-      display:none;
-      text-align:center;
-      font-size:.9rem;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      padding-bottom:8px;
-      margin-bottom:10px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      color: rgba(245,245,245,.62);
-      background: rgba(0,0,0,0);
-    }
-    .archive-target.show{display:block;}
-
-    #story-text{white-space:pre-wrap; font-weight:650;}
-    .story-muted{color:var(--fk-muted); font-style:italic; font-size:.95rem; font-weight:450;}
-
-    .hintline{
-      min-height:1.2em;
-      text-align:center;
-      font-size:.9rem;
-      font-weight:700;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      color: rgba(245,245,245,.72);
-      user-select:none;
-    }
-    .hintline.hidden{display:none;}
-
-    .scoreline{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      color: rgba(245,245,245,.75);
-      font-size:.9rem;
-      letter-spacing:.04em;
-    }
-    .scoreline strong{color:var(--fk-orange); font-weight:900;}
-    .scorebig{
-      text-align:center;
-      font-size:2.3rem;
-      font-weight:900;
-      line-height:1;
-      margin-top:6px;
-      text-shadow:0 0 10px rgba(0,0,0,.7);
+    .archive-target {
+      position: sticky;
+      top: 0;
+      display: none;
+      text-align: center;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: rgba(245,245,245,0.62);
+      background: rgba(0,0,0,0.0);
     }
 
-    /* bottom mini actions */
-    .mini-actions{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      margin-top:8px;
-      font-size:.78rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.60);
-    }
-    .mini-actions button{
-      background:transparent;
-      color: rgba(255,255,255,.70);
-      border:none;
-      padding:6px 0;
-      text-decoration:underline;
-      text-underline-offset:3px;
-      cursor:pointer;
-      font-weight:700;
-    }
-    .mini-actions button:active{filter:brightness(.9);}
+    .archive-target.show { display: block; }
 
-    /* API banner */
-    .apikey-banner{
-      position:fixed;
-      top:8px; left:0; right:0;
-      display:flex;
-      justify-content:center;
-      z-index:50;
-      pointer-events:none;
+    #story-text {
+      width: 100%;
+      white-space: pre-wrap;
+      font-weight: 650;
     }
-    .apikey-inner{
-      pointer-events:auto;
-      background:#151515;
-      border-radius:999px;
-      border:1px solid var(--fk-border);
-      padding:6px 10px;
-      display:flex;
-      align-items:center;
-      gap:6px;
-      max-width:480px;
-      width:calc(100% - 24px);
-      box-shadow:0 0 14px rgba(0,0,0,.7);
-      font-size:.75rem;
+
+    .story-muted {
+      color: var(--fk-muted);
+      font-style: italic;
+      font-size: 0.95rem;
+      font-weight: 450;
     }
-    .apikey-inner span{white-space:nowrap;}
-    .apikey-input{
-      flex:1;
-      padding:4px 6px;
-      border-radius:999px;
-      border:1px solid var(--fk-border);
-      background:#111;
-      color:#f5f5f5;
-      font-size:.8rem;
-      min-width:0;
+
+    .hintline {
+      min-height: 1.2em;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(245,245,245,0.72);
+      margin-top: 2px;
+      user-select: none;
     }
-    .apikey-btn{
-      padding:4px 8px;
-      border-radius:999px;
-      border:1px solid var(--fk-violet);
+
+    .hintline.hidden { display: none; }
+
+    .score-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .score-fairies {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--fk-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .score-fairies strong { color: var(--fk-orange); font-weight: 800; }
+
+    .score-value {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+      line-height: 1.0;
+    }
+
+    .apikey-banner {
+      position: fixed;
+      top: 8px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .apikey-inner {
+      pointer-events: auto;
+      background: #151515;
+      border-radius: 999px;
+      border: 1px solid var(--fk-border);
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      max-width: 480px;
+      width: calc(100% - 24px);
+      box-shadow: 0 0 14px rgba(0, 0, 0, 0.7);
+      font-size: 0.75rem;
+    }
+
+    .apikey-inner span { white-space: nowrap; }
+
+    .apikey-input {
+      flex: 1;
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid var(--fk-border);
+      background: #111;
+      color: #f5f5f5;
+      font-size: 0.8rem;
+      min-width: 0;
+    }
+
+    .apikey-btn {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--fk-violet);
       background: var(--fk-violet);
-      color:#fff;
-      font-size:.75rem;
-      cursor:pointer;
+      color: #fff;
+      font-size: 0.75rem;
+      cursor: pointer;
     }
-    .apikey-btn:active{filter:brightness(.9);}
 
-    /* confirm overlay (check/cross squares) */
-    .overlay{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.92);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:80;
-      padding:16px;
+    .apikey-btn:active { filter: brightness(0.9); }
+
+    .hidden { display: none !important; }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 80;
+      padding: 16px;
     }
-    .card{
-      width:100%;
-      max-width:420px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.12);
+
+    .card {
+      width: 100%;
+      max-width: 440px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
       background: radial-gradient(circle at top, #1a1a1a 0, #0b0b0b 62%);
-      padding:18px 16px 14px;
-      box-shadow:0 0 26px rgba(0,0,0,.9);
-      position:relative;
-      overflow:hidden;
-      text-align:center;
+      padding: 18px 16px 14px;
+      box-shadow: 0 0 26px rgba(0,0,0,0.9);
+      position: relative;
+      overflow: hidden;
     }
-    .spark{
-      position:absolute;
-      inset:-60px;
+
+    .spark {
+      position: absolute;
+      inset: -60px;
       background:
         radial-gradient(circle at 20% 30%, rgba(242,150,0,0.15), transparent 45%),
         radial-gradient(circle at 80% 25%, rgba(0,101,171,0.12), transparent 45%),
         radial-gradient(circle at 45% 80%, rgba(170,0,120,0.11), transparent 55%),
         radial-gradient(circle at 70% 75%, rgba(59,165,43,0.10), transparent 55%);
       filter: blur(10px);
-      opacity:.9;
-      pointer-events:none;
+      opacity: 0.9;
+      pointer-events: none;
       animation: floaty 1.8s ease-in-out infinite alternate;
     }
-    @keyframes floaty{from{transform:translateY(0) scale(1)} to{transform:translateY(-6px) scale(1.02)}}
 
-    .overlay-title{
-      position:relative;
-      z-index:2;
-      font-weight:900;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      font-size:1.05rem;
-      color: rgba(245,245,245,.90);
-      margin-bottom:10px;
-    }
-    .overlay-text{
-      position:relative;
-      z-index:2;
-      color: rgba(245,245,245,.80);
-      font-size:.95rem;
-      line-height:1.5;
-      margin-bottom:14px;
-      white-space:pre-line;
-      font-weight:700;
+    @keyframes floaty {
+      from { transform: translateY(0px) scale(1); }
+      to   { transform: translateY(-6px) scale(1.02); }
     }
 
-    .sq-row{
-      position:relative;
-      z-index:2;
-      display:flex;
-      justify-content:center;
-      gap:14px;
-      margin-top:4px;
+    .overlay-title {
+      font-weight: 900;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      font-size: 1.05rem;
+      color: rgba(245,245,245,0.90);
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+      text-align: center;
     }
-    .sq{
-      width:64px;
-      height:64px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.04);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:1.7rem;
-      font-weight:900;
-      color: rgba(245,245,245,.88);
+
+    .setup-row {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 10px 0 8px;
+      flex-wrap: wrap;
     }
-    .sq:active{filter:brightness(.92);}
-    .sq.ok{border-color: rgba(59,165,43,.55); box-shadow:0 0 12px rgba(59,165,43,.18);}
-    .sq.no{border-color: rgba(255,255,255,.18);}
+
+    .setup-choice {
+      width: 74px;
+      height: 74px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.18);
+      background: transparent;
+      color: rgba(245,245,245,0.92);
+      font-weight: 900;
+      font-size: 1.6rem;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .setup-choice:active { filter: brightness(0.92); }
+
+    .setup-hint {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: rgba(245,245,245,0.70);
+      font-size: 0.85rem;
+      line-height: 1.35;
+      margin-top: 4px;
+    }
+
+    .microline {
+      min-height: 0.8em;
+      font-size: 0.75rem;
+      color: transparent;
+      text-align: center;
+      user-select: none;
+    }
   </style>
 </head>
 
@@ -366,6 +429,7 @@
       <div class="button-row">
         <button id="fairy-btn" class="btn-main">FAIRY</button>
       </div>
+      <div class="microline">.</div>
 
       <div class="story-box" id="story-box">
         <div id="archive-target" class="archive-target"></div>
@@ -378,63 +442,71 @@
     </section>
 
     <section class="panel">
-      <div class="scoreline">
-        <div>Punkte: <strong id="score">0</strong> / 6</div>
-        <div class="story-muted" style="font-style:normal;">Minimal</div>
-      </div>
-      <div class="scorebig" id="scorebig">0</div>
-
-      <div class="button-row" style="margin-top:8px;">
-        <button id="erkippt-btn" class="btn-secondary btn-disabled" disabled>FAIRY ERKIPPT</button>
+      <div class="score-row">
+        <div class="score-fairies">
+          Erzählte Fairys: <strong id="fairy-count">0</strong> / 4
+        </div>
+        <div class="score-value" id="score-value">0</div>
       </div>
 
-      <div class="mini-actions">
-        <button id="newgame-btn" type="button">Neues Spiel</button>
-        <button id="back-btn" type="button">Zur Startseite</button>
+      <div class="button-row" style="margin-top: 10px">
+        <button id="fairyerkippt-btn" class="btn-secondary">FAIRY ERKIPPT</button>
+      </div>
+
+      <div class="button-row" style="margin-top: 8px">
+        <button id="nobody-btn" class="btn-secondary">NIEMAND HAT&#8217;S ERKIPPT</button>
+      </div>
+
+      <div class="button-row" style="margin-top: 10px">
+        <button id="newgame-btn" class="btn-ghost">NEUES SPIEL</button>
+      </div>
+
+      <div class="button-row" style="margin-top: 6px">
+        <button id="back-btn" class="btn-ghost">ZUR STARTSEITE</button>
       </div>
     </section>
   </div>
 
-  <!-- Confirm Overlay -->
-  <div class="overlay" id="confirm-overlay">
+  <div class="overlay" id="setup-overlay">
     <div class="card">
       <div class="spark"></div>
-      <div class="overlay-title">FAIRY ERKIPPT?</div>
-      <div class="overlay-text">+1 Punkt vergeben?</div>
-      <div class="sq-row">
-        <button class="sq ok" id="confirm-yes" aria-label="Bestätigen">✓</button>
-        <button class="sq no" id="confirm-no" aria-label="Abbrechen">✕</button>
+      <div class="overlay-title">WIE VIELE SPIELER SEID IHR?</div>
+
+      <div class="setup-row" id="setup-row">
+        <button class="setup-choice" data-players="2" aria-label="2 Spieler">2</button>
+        <button class="setup-choice" data-players="3" aria-label="3 Spieler">3</button>
+        <button class="setup-choice" data-players="4" aria-label="4 Spieler">4</button>
+      </div>
+
+      <div class="setup-hint">
+        Tippe auf die Zahl.<br>
+        (Bei „Neues Spiel“ wird diese Frage wieder gestellt.)
       </div>
     </div>
   </div>
 
   <script>
-    // -----------------------------
-    // Konfiguration
-    // -----------------------------
     const OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions";
     const OPENAI_MODEL = "gpt-4o-mini";
     const APIKEY_STORAGE_KEY = "fairykipp_openai_key";
+    const SESSION_PLAYERS_KEY = "fairykipp_players_v1";
 
-    const WIN_POINTS = 6;
-
-    // Motive
     const motifsData = [
-      { article: "der",  noun: "Wasserball"  },
-      { article: "das",  noun: "Auto"        },
-      { article: "der",  noun: "Farbfleck"   },
-      { article: "das",  noun: "Buch"        },
-      { article: "die",  noun: "Gießkanne"   },
-      { article: "die",  noun: "Kerze"       },
-      { article: "die",  noun: "Blume"       },
-      { article: "der",  noun: "Fisch"       },
-      { article: "der",  noun: "Schmetterling" },
-      { article: "der",  noun: "Schuh"       },
-      { article: "die",  noun: "Tasse"       },
-      { article: "das",  noun: "T-Shirt"     }
+      { key: "Wasserball",  article: "der",  noun: "Wasserball"  },
+      { key: "Auto",        article: "das",  noun: "Auto"        },
+      { key: "Farbfleck",   article: "der",  noun: "Farbfleck"   },
+      { key: "Buch",        article: "das",  noun: "Buch"        },
+      { key: "Gießkanne",   article: "die",  noun: "Gießkanne"   },
+      { key: "Kerze",       article: "die",  noun: "Kerze"       },
+      { key: "Blume",       article: "die",  noun: "Blume"       },
+      { key: "Fisch",       article: "der",  noun: "Fisch"       },
+      { key: "Schmetterling", article: "der", noun: "Schmetterling" },
+      { key: "Schuh",       article: "der",  noun: "Schuh"       },
+      { key: "Tasse",       article: "die",  noun: "Tasse"       },
+      { key: "T-Shirt",     article: "das",  noun: "T-Shirt"     }
     ];
 
-    const colorsData = ["grüne","blaue","violette","orangefarbene"];
+    const colorsData = ["grüne", "blaue", "violette", "orangefarbene"];
 
     const motifVerbBase = {
       Wasserball: ["platschte","plumpste","spritzte","hüpfte","polterte","ploppte"],
@@ -451,43 +523,31 @@
       "T-Shirt": ["raschelte","flatterte","seufzte","wisperte","knisterte","murmelte","hauchte","säuselte"]
     };
 
-    // Modalverben (für "Modalverb + Infinitiv" zusammenhalten)
-    const MODALS = new Set([
-      "kann","kannst","können","könnt","konnte","konntest","konnten",
-      "muss","musst","müssen","müsst","musste","musstest","mussten",
-      "soll","sollst","sollen","sollt","sollte","solltest","sollten",
-      "will","willst","wollen","wollt","wollte","wolltest","wollten",
-      "darf","darfst","dürfen","dürft","durfte","durftest","durften",
-      "mag","magst","mögen","mögt","mochte","mochtest","mochten"
-    ]);
-
-    // -----------------------------
-    // UI
-    // -----------------------------
     const fairyBtn = document.getElementById("fairy-btn");
-    const erkBtn = document.getElementById("erkippt-btn");
+
     const storyBox = document.getElementById("story-box");
     const archiveTargetEl = document.getElementById("archive-target");
     const storyTextEl = document.getElementById("story-text");
     const hintlineEl = document.getElementById("hintline");
-    const scoreEl = document.getElementById("score");
-    const scoreBigEl = document.getElementById("scorebig");
+
+    const scoreValueEl = document.getElementById("score-value");
+    const fairyCountEl = document.getElementById("fairy-count");
+
+    const fairyErkipptBtn = document.getElementById("fairyerkippt-btn");
+    const nobodyBtn = document.getElementById("nobody-btn");
+
+    const newGameBtn = document.getElementById("newgame-btn");
+    const backBtn = document.getElementById("back-btn");
 
     const apikeyBanner = document.getElementById("apikey-banner");
     const apikeyInput = document.getElementById("apikey-input");
     const apikeySaveBtn = document.getElementById("apikey-save-btn");
 
-    const newGameBtn = document.getElementById("newgame-btn");
-    const backBtn = document.getElementById("back-btn");
+    const setupOverlay = document.getElementById("setup-overlay");
+    const setupRow = document.getElementById("setup-row");
 
-    const confirmOverlay = document.getElementById("confirm-overlay");
-    const confirmYes = document.getElementById("confirm-yes");
-    const confirmNo = document.getElementById("confirm-no");
-
-    // -----------------------------
-    // Zustand
-    // -----------------------------
     let apiKey = null;
+    let playersCount = null;
 
     let unusedMotifs = [];
     let unusedVerbsByMotif = {};
@@ -502,124 +562,93 @@
     let currentChunks = [];
     let currentChunkIndex = -1;
 
-    // Phasen:
-    // idle -> reading -> final -> waiting
-    let phase = "idle";
-
-    // Nur wenn dieses Gerät die Fairy bis 12/12 gesehen hat,
-    // wird "FAIRY ERKIPPT" freigeschaltet.
-    let readerReadyForAward = false;
-
     let score = 0;
+    let narratedFairies = 0;
+    const maxFairies = 4;
 
-    // -----------------------------
-    // Helpers
-    // -----------------------------
-    function shuffleArray(arr){
+    let phase = "idle";
+    let thisDeviceIsReaderForCurrentFairy = false;
+
+    function shuffleArray(arr) {
       const a = arr.slice();
-      for(let i=a.length-1;i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [a[i],a[j]]=[a[j],a[i]];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
       }
       return a;
     }
 
-    function initUnusedMotifs(){ unusedMotifs = motifsData.slice(); }
+    function updateScoreDisplay() { scoreValueEl.textContent = String(score); }
+    function updateFairyCountDisplay() { fairyCountEl.textContent = String(narratedFairies); }
 
-    function chooseMotifNoRepeat(){
-      if(unusedMotifs.length===0) initUnusedMotifs();
-      const idx = Math.floor(Math.random()*unusedMotifs.length);
-      const m = unusedMotifs[idx];
-      unusedMotifs.splice(idx,1);
-      return m;
+    function initUnusedMotifs() { unusedMotifs = motifsData.slice(); }
+
+    function chooseMotifNoImmediateRepeat() {
+      if (unusedMotifs.length === 0) initUnusedMotifs();
+      const idx = Math.floor(Math.random() * unusedMotifs.length);
+      const motif = unusedMotifs[idx];
+      unusedMotifs.splice(idx, 1);
+      return motif;
     }
 
-    function getAllowedVerbsForMotif(noun){
-      return motifVerbBase[noun] ? motifVerbBase[noun].slice() : [];
+    function getAllowedVerbsForMotif(noun) {
+      const base = motifVerbBase[noun];
+      return base ? base.slice() : [];
     }
 
-    function initUnusedVerbsForMotif(noun){
-      unusedVerbsByMotif[noun] = shuffleArray(getAllowedVerbsForMotif(noun));
+    function initUnusedVerbsForMotif(noun) {
+      const all = getAllowedVerbsForMotif(noun);
+      unusedVerbsByMotif[noun] = shuffleArray(all);
     }
 
-    function chooseVerbForMotif(noun){
-      if(!unusedVerbsByMotif[noun] || unusedVerbsByMotif[noun].length===0){
+    function chooseVerbForMotif(noun) {
+      if (!unusedVerbsByMotif[noun] || unusedVerbsByMotif[noun].length === 0) {
         initUnusedVerbsForMotif(noun);
       }
       return unusedVerbsByMotif[noun].pop();
     }
 
-    function updateScore(){
-      scoreEl.textContent = String(score);
-      scoreBigEl.textContent = String(score);
-    }
-
-    function setHint(text){
-      if(!text){
-        hintlineEl.classList.add("hidden");
-        hintlineEl.textContent="";
-        return;
-      }
-      hintlineEl.textContent=text;
-      hintlineEl.classList.remove("hidden");
-    }
-
-    function setArchiveTarget(htmlOrEmpty){
-      if(!htmlOrEmpty){
-        archiveTargetEl.innerHTML="";
-        archiveTargetEl.classList.remove("show");
-        return;
-      }
-      archiveTargetEl.innerHTML = htmlOrEmpty;
-      archiveTargetEl.classList.add("show");
-    }
-
-    function setStoryMuted(html){
-      storyTextEl.classList.add("story-muted");
-      storyTextEl.innerHTML = html;
-    }
-    function setStoryPlain(text){
-      storyTextEl.classList.remove("story-muted");
-      storyTextEl.textContent = text;
-    }
-    function setStoryHtml(html){
-      storyTextEl.classList.remove("story-muted");
-      storyTextEl.innerHTML = html;
-    }
-
-    function setFairyButton(mode){
-      // "FAIRY" | "WEITER" | "HIDE"
-      if(mode==="HIDE"){
-        fairyBtn.classList.add("hidden");
-        return;
-      }
-      fairyBtn.classList.remove("hidden");
-      fairyBtn.textContent = mode;
-    }
-
-    function setErkipptEnabled(on){
-      if(on){
-        erkBtn.disabled = false;
-        erkBtn.classList.remove("btn-disabled");
-      }else{
-        erkBtn.disabled = true;
-        erkBtn.classList.add("btn-disabled");
+    function loadApiKeyFromStorage() {
+      const stored = window.localStorage.getItem(APIKEY_STORAGE_KEY);
+      if (stored && stored.startsWith("sk-")) {
+        apiKey = stored;
+        apikeyBanner.classList.add("hidden");
+      } else {
+        apiKey = null;
+        apikeyBanner.classList.remove("hidden");
       }
     }
 
-    function escapeHtml(s){
-      return String(s)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    function saveApiKeyToStorage(key) {
+      apiKey = key;
+      window.localStorage.setItem(APIKEY_STORAGE_KEY, key);
+      apikeyBanner.classList.add("hidden");
     }
 
-    function getCssColorForAdj(adj){
-      if(!adj) return null;
-      const clean = adj.toLowerCase().replace(/[.,!?:;"“”„]+$/g,"");
-      switch(clean){
+    function loadPlayersFromSession() {
+      const v = window.sessionStorage.getItem(SESSION_PLAYERS_KEY);
+      const n = Number(v);
+      if (n === 2 || n === 3 || n === 4) playersCount = n;
+      else playersCount = null;
+    }
+
+    function savePlayersToSession(n) {
+      playersCount = n;
+      window.sessionStorage.setItem(SESSION_PLAYERS_KEY, String(n));
+    }
+
+    function clearPlayersInSession() {
+      playersCount = null;
+      window.sessionStorage.removeItem(SESSION_PLAYERS_KEY);
+    }
+
+    function showSetupOverlay() { setupOverlay.style.display = "flex"; }
+    function hideSetupOverlay() { setupOverlay.style.display = "none"; }
+
+    function getCssColorForAdj(adj) {
+      if (!adj) return null;
+      const clean = adj.toLowerCase().replace(/[.,!?:;"“”„]+$/g, "");
+      switch (clean) {
         case "blaue": return "var(--fk-blue)";
         case "grüne": return "var(--fk-green)";
         case "violette": return "var(--fk-violet)";
@@ -628,286 +657,312 @@
       }
     }
 
-    function highlightTailColor(tailPlain, adjective){
-      const css = getCssColorForAdj(adjective);
-      if(!css) return escapeHtml(tailPlain);
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-      const escapedAdj = adjective.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
-      const regex = new RegExp(`\\b(${escapedAdj})\\b`,"i");
+    function highlightTailColor(tailPlain, adjective) {
+      const cssColor = getCssColorForAdj(adjective);
+      if (!cssColor) return escapeHtml(tailPlain);
+      const escapedAdj = adjective.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(`\\b(${escapedAdj})\\b`, "i");
       const safe = escapeHtml(tailPlain);
-      return safe.replace(regex, `<span style="color:${css}">$1</span>`);
+      return safe.replace(regex, `<span style="color:${cssColor}">$1</span>`);
     }
 
-    // -----------------------------
-    // API Key
-    // -----------------------------
-    function loadApiKeyFromStorage(){
-      const stored = window.localStorage.getItem(APIKEY_STORAGE_KEY);
-      if(stored && stored.startsWith("sk-")){
-        apiKey = stored;
-        apikeyBanner.classList.add("hidden");
-      }else{
-        apiKey = null;
-        apikeyBanner.classList.remove("hidden");
-      }
-    }
-
-    function saveApiKeyToStorage(key){
-      apiKey = key;
-      window.localStorage.setItem(APIKEY_STORAGE_KEY, key);
-      apikeyBanner.classList.add("hidden");
-    }
-
-    // -----------------------------
-    // NEW: Grammar-safe tokenization
-    // -----------------------------
-    function normalizeWord(w){
-      // Keep punctuation attached for display, but detect core safely
-      return w.toLowerCase().replace(/^[„"“”'()]+|[.,!?:;"“”„')]+$/g,"");
-    }
-
-    function looksLikeParticiple(word){
-      // Heuristik: ge-..., endet oft auf -t oder -en
-      // (nicht perfekt, aber reicht für unsere Aufgabe)
-      const w = normalizeWord(word);
-      if(!w) return false;
-      if(w.startsWith("ge") && w.length>=4) return true;
-      if(w.endsWith("t") && w.length>=3) return true;
-      if(w.endsWith("en") && w.length>=4) return true;
-      return false;
-    }
-
-    function packProtectedUnits(words){
-      // Build tokens where certain sequences MUST stay together:
-      // A) Partizip + zu + Verb
-      // B) Modalverb + Infinitiv
-      const tokens = [];
-      let i = 0;
-
-      while(i < words.length){
-        const w = words[i];
-        const core = normalizeWord(w);
-
-        // A) Partizip + zu + Verb
-        if(i+2 < words.length){
-          const w2 = words[i+1];
-          const w3 = words[i+2];
-          const core2 = normalizeWord(w2);
-
-          if(core2 === "zu" && looksLikeParticiple(w)){
-            tokens.push(`${w} ${w2} ${w3}`);
-            i += 3;
-            continue;
-          }
-        }
-
-        // B) Modalverb + Infinitiv (keep 2 words together)
-        if(i+1 < words.length){
-          const next = words[i+1];
-          const nextCore = normalizeWord(next);
-          if(MODALS.has(core) && nextCore){
-            tokens.push(`${w} ${next}`);
-            i += 2;
-            continue;
-          }
-        }
-
-        // General rule: NEVER end a token with "zu"
-        // (so if a single word "zu" appears, glue it to next)
-        if(core === "zu" && i+1 < words.length){
-          tokens.push(`${w} ${words[i+1]}`);
-          i += 2;
-          continue;
-        }
-
-        tokens.push(w);
-        i += 1;
-      }
-
-      return tokens;
-    }
-
-    function splitTokensBalanced(tokens, n){
-      if(tokens.length===0) return Array.from({length:n}, ()=>"");
-
-      // weight by character length incl spaces
-      const total = tokens.reduce((acc,t)=>acc + t.length + 1, 0);
-      const target = Math.max(1, Math.round(total / n));
+    function splitWordsBalanced(text, n) {
+      const words = text.trim().split(/\s+/).filter(Boolean);
+      if (words.length === 0) return Array.from({ length: n }, () => "");
+      const totalLen = words.reduce((acc, w) => acc + w.length + 1, 0);
+      const target = Math.max(1, Math.round(totalLen / n));
 
       const chunks = [];
       let cur = [];
       let curLen = 0;
 
-      for(const t of tokens){
-        const addLen = t.length + (cur.length ? 1 : 0);
-
-        // keep space for remaining chunks
-        if(chunks.length < n-1 && cur.length>0 && (curLen + addLen) > target){
+      for (const w of words) {
+        const addLen = w.length + (cur.length ? 1 : 0);
+        if (chunks.length < n - 1 && cur.length > 0 && (curLen + addLen) > target) {
           chunks.push(cur.join(" "));
-          cur = [t];
-          curLen = t.length;
-        }else{
-          cur.push(t);
+          cur = [w];
+          curLen = w.length;
+        } else {
+          cur.push(w);
           curLen += addLen;
         }
       }
 
       chunks.push(cur.join(" "));
-
-      while(chunks.length < n) chunks.push("");
-      while(chunks.length > n){
+      while (chunks.length < n) chunks.push("");
+      while (chunks.length > n) {
         const a = chunks.pop();
-        chunks[chunks.length-1] = (chunks[chunks.length-1] + " " + a).trim();
+        chunks[chunks.length - 1] = (chunks[chunks.length - 1] + " " + a).trim();
       }
       return chunks;
     }
 
-    function buildTwelfthsVisually(fullPlain, tailPlain, colorAdj){
-      // head => 11 chunks, tail => 12th (html colored adj)
+    function buildTwelfthsVisually(fullPlain, tailPlain, colorAdj) {
       let head = fullPlain.trim();
       const tail = tailPlain.trim();
 
-      if(head.endsWith(tail)){
+      if (head.endsWith(tail)) {
         head = head.slice(0, head.length - tail.length).trim();
-      }else{
+      } else {
         const idx = head.lastIndexOf(tail);
-        if(idx !== -1) head = head.slice(0, idx).trim();
+        if (idx !== -1) head = head.slice(0, idx).trim();
       }
 
-      const headWords = head.trim().split(/\s+/).filter(Boolean);
-      const protectedTokens = packProtectedUnits(headWords);
-      const first11 = splitTokensBalanced(protectedTokens, 11);
-
+      const first11 = splitWordsBalanced(head, 11);
       const tailHtml = highlightTailColor(tailPlain, colorAdj);
       return [...first11, tailHtml];
     }
 
-    // -----------------------------
-    // Round control
-    // -----------------------------
-    function resetToIdle(keepScore=true){
+    function setHint(text) {
+      if (!text) {
+        hintlineEl.classList.add("hidden");
+        hintlineEl.textContent = "";
+        return;
+      }
+      hintlineEl.textContent = text;
+      hintlineEl.classList.remove("hidden");
+    }
+
+    function setArchiveTarget(htmlOrEmpty) {
+      if (!htmlOrEmpty) {
+        archiveTargetEl.innerHTML = "";
+        archiveTargetEl.classList.remove("show");
+        return;
+      }
+      archiveTargetEl.innerHTML = htmlOrEmpty;
+      archiveTargetEl.classList.add("show");
+    }
+
+    function setStoryMuted(text) {
+      storyTextEl.classList.add("story-muted");
+      storyTextEl.innerHTML = text;
+    }
+
+    function setStoryPlain(text) {
+      storyTextEl.classList.remove("story-muted");
+      storyTextEl.textContent = text;
+    }
+
+    function setStoryHtml(html) {
+      storyTextEl.classList.remove("story-muted");
+      storyTextEl.innerHTML = html;
+    }
+
+    function setButtonMode(mode) {
+      if (mode === "HIDE") {
+        fairyBtn.classList.add("hidden");
+        return;
+      }
+      fairyBtn.classList.remove("hidden");
+      fairyBtn.textContent = mode;
+    }
+
+    function setEndOfGameUI() {
+      setButtonMode("HIDE");
+      fairyErkipptBtn.classList.add("btn-disabled");
+      nobodyBtn.classList.add("btn-disabled");
+      fairyErkipptBtn.disabled = true;
+      nobodyBtn.disabled = true;
+      setHint("");
+      setStoryMuted("Spielende.\nFür dieses Handy sind 4 FAIRYs abgeschlossen.\nTippe auf „NEUES SPIEL“.");
+    }
+
+    function updateScoringButtonsVisibility() {
+      if (phase === "waitingFund" && thisDeviceIsReaderForCurrentFairy) {
+        fairyErkipptBtn.classList.add("hidden");
+        nobodyBtn.classList.remove("hidden");
+        return;
+      }
+      fairyErkipptBtn.classList.remove("hidden");
+      nobodyBtn.classList.add("hidden");
+    }
+
+    function resetRoundToIdle(keepScore = true) {
       currentMotif = null;
       currentVerb = null;
       currentColor = null;
+
       currentStoryFullPlain = "";
       currentTailPlain = "";
       currentTailHtml = "";
       currentChunks = [];
       currentChunkIndex = -1;
 
-      phase = "idle";
-      readerReadyForAward = false;
-
       setArchiveTarget("");
       storyBox.classList.remove("final-pop");
       setHint("");
-      setFairyButton("FAIRY");
-      setErkipptEnabled(false);
+      setButtonMode("FAIRY");
+
+      phase = "idle";
+      thisDeviceIsReaderForCurrentFairy = false;
 
       setStoryMuted(`Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.`);
 
-      if(!keepScore){
+      if (!keepScore) {
         score = 0;
-        updateScore();
+        narratedFairies = 0;
+        updateScoreDisplay();
+        updateFairyCountDisplay();
       }
+
+      updateScoringButtonsVisibility();
     }
 
-    function setGameOver(){
-      setFairyButton("HIDE");
-      setErkipptEnabled(false);
-      setHint("");
-      setStoryMuted(`Spielende.\nDu hast <strong>${WIN_POINTS}</strong> Punkte erreicht.`);
+    function beep(freq = 880, duration = 0.12, gain = 0.06) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioCtx();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.value = freq;
+        g.gain.value = gain;
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start();
+        setTimeout(() => {
+          o.stop();
+          ctx.close();
+        }, Math.max(30, duration * 1000));
+      } catch (_) {}
     }
 
-    // -----------------------------
-    // OpenAI generate
-    // -----------------------------
-    async function generateNewFairyAndShowFirstTwelfth(retryCount=0){
-      if(!apiKey){
+    function playOkSound() {
+      beep(880, 0.10, 0.06);
+      setTimeout(() => beep(990, 0.10, 0.06), 120);
+    }
+
+    function applyPointsAndAdvance(pointsToAdd) {
+      if (narratedFairies >= maxFairies) return;
+
+      score += pointsToAdd;
+      updateScoreDisplay();
+
+      narratedFairies += 1;
+      if (narratedFairies > maxFairies) narratedFairies = maxFairies;
+      updateFairyCountDisplay();
+
+      if (narratedFairies >= maxFairies) {
+        setEndOfGameUI();
+        return;
+      }
+
+      resetRoundToIdle(true);
+    }
+
+    // ✅ FIX 1: sauberer Abschluss der KI-Antwort (inkl. schließendem Anführungszeichen)
+    function cutTextAtLastSentenceEndWithClosingQuote(text) {
+      const t = String(text || "").trim();
+      if (!t) return "";
+
+      const dotIdx = t.lastIndexOf(".");
+      const exIdx  = t.lastIndexOf("!");
+      const qIdx   = t.lastIndexOf("?");
+      let end = Math.max(dotIdx, exIdx, qIdx);
+      if (end === -1) return t;
+
+      // Wenn direkt nach dem Satzzeichen ein schließendes Anführungszeichen kommt, mitnehmen
+      // (", ”, «, » etc. – wir nehmen die gängigen)
+      const closingQuotes = ['"', "”", "“", "„", "»", "«", "’", "‹", "›"];
+      const next = t[end + 1];
+      if (next && closingQuotes.includes(next)) end += 1;
+
+      // optional: noch ein Leerzeichen danach ignorieren (wir trimmen später eh)
+      return t.slice(0, end + 1).trim();
+    }
+
+    async function generateNewFairyAndShowFirstTwelfth(retryCount = 0) {
+      if (!apiKey) {
         apikeyBanner.classList.remove("hidden");
         return;
       }
-      if(score >= WIN_POINTS){
-        setGameOver();
+
+      if (narratedFairies >= maxFairies) {
+        setEndOfGameUI();
         return;
       }
 
-      // loading
-      setFairyButton("HIDE");
-      setErkipptEnabled(false);
+      setButtonMode("HIDE");
       setHint("");
       storyBox.classList.remove("final-pop");
       setArchiveTarget("");
       setStoryMuted("… KI zaubert eine neue Geschichte …");
 
-      // pick motif+verb+color
-      const motifObj = chooseMotifNoRepeat();
+      const motifObj = chooseMotifNoImmediateRepeat();
       const verb = chooseVerbForMotif(motifObj.noun);
-      const color = colorsData[Math.floor(Math.random()*colorsData.length)];
+      const color = colorsData[Math.floor(Math.random() * colorsData.length)];
 
       currentMotif = motifObj;
       currentVerb = verb;
       currentColor = color;
 
-      phase = "idle";
-      readerReadyForAward = false;
+      thisDeviceIsReaderForCurrentFairy = false;
 
       const systemMessage = {
-        role:"system",
+        role: "system",
         content:
-          "Du schreibst kurze Fabeltexte auf Deutsch für ein Gesellschaftsspiel.\n" +
+          "Du schreibst sehr kurze Fabeltexte auf Deutsch für ein Gesellschaftsspiel.\n" +
           "Du MUSST GENAU zwei Sätze liefern, insgesamt etwa 18–28 Wörter.\n" +
           "Regeln:\n" +
-          "- dritte Person\n" +
-          "- KEINE weiteren Farbwörter\n" +
-          "- Motivwort NICHT nennen\n" +
-          "- Kein Genitiv\n" +
-          "- Kein 'sagte', 'meinte', 'dachte'\n"
+          "- Schreibe in der dritten Person.\n" +
+          "- Verwende keine weiteren Farbwörter im Text.\n" +
+          "- Verwende das Motivwort NICHT.\n" +
+          "- Kein Genitiv.\n" +
+          "- Kein 'sagte', 'meinte', 'dachte'.\n"
       };
 
       const userMessage = {
-        role:"user",
+        role: "user",
         content:
-          "Die unsichtbare Hauptfigur ist: \"" + motifObj.noun + "\".\n" +
-          "Schreibe GENAU zwei zusammenhängende Sätze (18–28 Wörter).\n" +
-          "Satz 1 beschreibt die Situation, ohne das Wort \"" + motifObj.noun + "\".\n" +
-          "Satz 2 besteht nur aus wörtlicher Rede und endet mit einem Anführungszeichen und einem Satzzeichen.\n" +
-          "Nach Satz 2 darf nichts Inhaltliches mehr folgen.\n"
+          "Die unsichtbare Hauptfigur dieser Fabel ist: \"" + motifObj.noun + "\".\n" +
+          "Schreibe GENAU zwei zusammenhängende Sätze, insgesamt ca. 18–28 Wörter.\n" +
+          "Der erste Satz beschreibt die Situation, ohne das Wort \"" + motifObj.noun + "\".\n" +
+          "Der zweite Satz besteht nur aus wörtlicher Rede und endet mit einem abschließenden Anführungszeichen und einem Satzzeichen (. ? oder !).\n" +
+          "Nach dem zweiten Satz darf in deiner Antwort nichts Inhaltliches mehr folgen.\n"
       };
 
-      try{
-        const response = await fetch(OPENAI_CHAT_URL,{
-          method:"POST",
-          headers:{
-            "Content-Type":"application/json",
-            "Authorization":"Bearer " + apiKey
+      try {
+        const response = await fetch(OPENAI_CHAT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + apiKey
           },
           body: JSON.stringify({
             model: OPENAI_MODEL,
-            messages:[systemMessage, userMessage],
-            temperature:0.8,
-            max_tokens:220
+            messages: [systemMessage, userMessage],
+            temperature: 0.8,
+            max_tokens: 220
           })
         });
 
-        if(!response.ok) throw new Error("HTTP " + response.status);
+        if (!response.ok) throw new Error("HTTP-Fehler: " + response.status);
 
         const data = await response.json();
-        let text = (data.choices?.[0]?.message?.content || "").trim();
-        text = text.replace(/\s+/g," ").trim();
+        let text = data.choices?.[0]?.message?.content?.trim() || "";
+        text = text.replace(/\s+/g, " ").trim();
 
-        // cut at last . ! ?
-        const dot = text.lastIndexOf(".");
-        const ex  = text.lastIndexOf("!");
-        const qu  = text.lastIndexOf("?");
-        const last = Math.max(dot, ex, qu);
+        // ✅ FIX 2: Base-Text sauber abschneiden (inkl. schließendem ")
+        let baseText = cutTextAtLastSentenceEndWithClosingQuote(text);
 
-        let baseText = text;
-        if(last !== -1) baseText = text.slice(0, last+1).trimRight();
+        if (!baseText) {
+          if (retryCount < 3) return await generateNewFairyAndShowFirstTwelfth(retryCount + 1);
+          baseText = 'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
+        }
 
-        // tail: article + color + motif noun
         const tailPlain = `${motifObj.article} ${color} ${motifObj.noun}`;
-        const storyPlain = `${baseText} ${verb} ${tailPlain}`.replace(/\s+/g," ").trim();
+
+        // ✅ FIX 3: korrektes Komma + Leerzeichen vor dem Verb-Anhang
+        const storyPlain = `${baseText}, ${verb} ${tailPlain}`.replace(/\s+/g, " ").trim();
 
         currentStoryFullPlain = storyPlain;
         currentTailPlain = tailPlain;
@@ -915,185 +970,164 @@
 
         currentChunks = buildTwelfthsVisually(currentStoryFullPlain, currentTailPlain, color);
 
-        // start reading
         currentChunkIndex = 0;
         phase = "reading";
-        setFairyButton("WEITER");
+        setButtonMode("WEITER");
         setStoryPlain(currentChunks[0] || "");
 
-      }catch(err){
+        thisDeviceIsReaderForCurrentFairy = true;
+
+        updateScoringButtonsVisibility();
+      } catch (err) {
         console.error(err);
-        setFairyButton("FAIRY");
+        setButtonMode("FAIRY");
         setStoryMuted("Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internet und API-Key.");
         phase = "idle";
       }
     }
 
-    function showNextChunkOrFinal(){
-      if(!currentChunks || currentChunks.length !== 12) return;
-      if(phase !== "reading") return;
+    function showNextChunkOrFinal() {
+      if (!currentChunks || currentChunks.length !== 12) return;
 
-      const next = currentChunkIndex + 1;
+      if (phase === "reading") {
+        const next = currentChunkIndex + 1;
 
-      // chunks 1..11 (index 0..10) plain
-      if(next <= 10){
-        currentChunkIndex = next;
-        setStoryPlain(currentChunks[currentChunkIndex] || "");
+        if (next <= 10) {
+          currentChunkIndex = next;
+          setStoryPlain(currentChunks[currentChunkIndex] || "");
+          return;
+        }
+
+        currentChunkIndex = 11;
+        phase = "final";
+        setButtonMode("HIDE");
+        setHint("");
+        storyBox.classList.add("final-pop");
+        setArchiveTarget("");
+
+        setStoryHtml(
+          `<div style="
+            font-size: clamp(1.8rem, 7vw, 2.35rem);
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1.15;
+            padding-top: 10px;
+            padding-bottom: 8px;">
+            ${currentTailHtml}
+          </div>`
+        );
+
+        setHint("noch 1 kipp");
+
+        // ✅ FIX 4: Pop länger stehen lassen (statt 3.2s -> 5.2s)
+        setTimeout(() => {
+          setArchiveTarget(currentTailHtml);
+          setStoryMuted(" ");
+          storyBox.classList.remove("final-pop");
+
+          phase = "waitingFund";
+
+          setHint("");
+          setButtonMode("FAIRY");
+
+          updateScoringButtonsVisibility();
+        }, 5200);
+
         return;
       }
-
-      // chunk 12 pop
-      currentChunkIndex = 11;
-      phase = "final";
-      setFairyButton("HIDE");
-      setHint("");
-      storyBox.classList.add("final-pop");
-      setArchiveTarget("");
-
-      setStoryHtml(`
-        <div style="
-          font-size: clamp(1.8rem, 7vw, 2.35rem);
-          font-weight: 900;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          line-height: 1.15;
-          padding-top: 10px;
-          padding-bottom: 8px;">
-          ${currentTailHtml}
-        </div>
-      `);
-
-      setHint("noch 1 kipp");
-
-      setTimeout(()=>{
-        // now waiting: archive shows target, reader can award
-        setArchiveTarget(currentTailHtml);
-        setStoryMuted(" ");
-        storyBox.classList.remove("final-pop");
-        setHint("");
-
-        phase = "waiting";
-        readerReadyForAward = true;
-
-        // Fairy button stays visible as FAIRY but does nothing until new round
-        setFairyButton("FAIRY");
-
-        // Enable award button (reader only)
-        setErkipptEnabled(true);
-      }, 2600);
     }
 
-    // -----------------------------
-    // Award flow
-    // -----------------------------
-    function openConfirm(){
-      if(score >= WIN_POINTS) return;
-      if(!(phase === "waiting" && readerReadyForAward)) return;
-      confirmOverlay.style.display = "flex";
-    }
-    function closeConfirm(){
-      confirmOverlay.style.display = "none";
-    }
-
-    function awardPoint(){
-      closeConfirm();
-
-      if(!(phase === "waiting" && readerReadyForAward)) return;
-
-      score += 1;
-      updateScore();
-
-      // prepare next round
-      readerReadyForAward = false;
-      setErkipptEnabled(false);
-      phase = "idle";
-
-      // keep last archive? -> no, we reset to idle minimal
-      setArchiveTarget("");
-      setStoryMuted(`Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.`);
-      setHint("");
-
-      if(score >= WIN_POINTS){
-        setGameOver();
+    function onFairyErkippt() {
+      if (narratedFairies >= maxFairies) return;
+      if (!playersCount) {
+        showSetupOverlay();
+        return;
       }
+      // (deine bestehende Logik bleibt)
     }
 
-    // -----------------------------
-    // New game / navigation
-    // -----------------------------
-    function startNewGame(){
+    function onNobodyErkippt() {
+      if (narratedFairies >= maxFairies) return;
+      if (!(phase === "waitingFund" && thisDeviceIsReaderForCurrentFairy)) return;
+      applyPointsAndAdvance(1);
+    }
+
+    function startNewGame() {
+      clearPlayersInSession();
       score = 0;
-      updateScore();
-      resetToIdle(true); // keepScore true would keep score, so we already set 0 above
-      resetToIdle(false);
+      narratedFairies = 0;
+      updateScoreDisplay();
+      updateFairyCountDisplay();
+      resetRoundToIdle(true);
+      showSetupOverlay();
     }
 
-    // -----------------------------
-    // Events
-    // -----------------------------
-    fairyBtn.addEventListener("click", async ()=>{
-      if(score >= WIN_POINTS) return;
+    fairyBtn.addEventListener("click", async () => {
+      if (narratedFairies >= maxFairies) return;
 
-      if(phase === "idle"){
-        // start a new fairy
+      if (phase === "idle") {
         await generateNewFairyAndShowFirstTwelfth();
         return;
       }
-      if(phase === "reading"){
+
+      if (phase === "reading") {
         showNextChunkOrFinal();
         return;
       }
-      // phase waiting: fairy does nothing (target should stay)
+      // waitingFund: FAIRY tut absichtlich nichts
     });
 
-    erkBtn.addEventListener("click", ()=>{
-      if(erkBtn.disabled) return;
-      openConfirm();
+    fairyErkipptBtn.addEventListener("click", () => {
+      if (fairyErkipptBtn.disabled) return;
+      onFairyErkippt();
     });
 
-    confirmYes.addEventListener("click", ()=>{
-      awardPoint();
+    nobodyBtn.addEventListener("click", () => {
+      if (nobodyBtn.disabled) return;
+      onNobodyErkippt();
     });
 
-    confirmNo.addEventListener("click", ()=>{
-      closeConfirm();
-    });
+    newGameBtn.addEventListener("click", () => { startNewGame(); });
 
-    confirmOverlay.addEventListener("click", (e)=>{
-      // click outside card closes
-      if(e.target === confirmOverlay) closeConfirm();
-    });
+    backBtn.addEventListener("click", () => { window.location.href = "index.html"; });
 
-    newGameBtn.addEventListener("click", ()=>{
-      startNewGame();
-    });
-
-    backBtn.addEventListener("click", ()=>{
-      window.location.href = "index.html";
-    });
-
-    apikeySaveBtn.addEventListener("click", ()=>{
+    apikeySaveBtn.addEventListener("click", () => {
       const val = apikeyInput.value.trim();
-      if(!val || !val.startsWith("sk-")){
+      if (!val || !val.startsWith("sk-")) {
         alert("Bitte einen gültigen OpenAI-API-Key eingeben (beginnt mit 'sk-').");
         return;
       }
       saveApiKeyToStorage(val);
     });
 
-    apikeyInput.addEventListener("keydown", (e)=>{
-      if(e.key === "Enter") apikeySaveBtn.click();
+    apikeyInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") apikeySaveBtn.click();
     });
 
-    // -----------------------------
-    // Init
-    // -----------------------------
-    function init(){
+    setupRow.addEventListener("click", (e) => {
+      const btn = e.target.closest(".setup-choice");
+      if (!btn) return;
+      const n = Number(btn.dataset.players);
+      if (!(n === 2 || n === 3 || n === 4)) return;
+
+      savePlayersToSession(n);
+      hideSetupOverlay();
+      resetRoundToIdle(true);
+    });
+
+    function init() {
       loadApiKeyFromStorage();
       initUnusedMotifs();
-      updateScore();
-      resetToIdle(true);
+      loadPlayersFromSession();
+
+      updateScoreDisplay();
+      updateFairyCountDisplay();
+      resetRoundToIdle(true);
+
+      if (!playersCount) showSetupOverlay();
     }
+
     init();
   </script>
 </body>
