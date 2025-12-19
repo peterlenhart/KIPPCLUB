@@ -430,66 +430,80 @@
     }
 
     /* -----------------------------
-       KIPPER-ABFRAGE (Fullscreen)
+       START: SPIELERANZAHL (Fullscreen)
        ----------------------------- */
-    .kipp-select{
+    .player-select{
       position: fixed;
       inset: 0;
-      z-index: 80;
+      z-index: 95;
       display: none;
       background: rgba(0,0,0,0.94);
-      padding: 14px;
-      gap: 12px;
-      grid-template-rows: auto 1fr 1fr 1fr; /* Frage + 3 große Felder */
+      padding: 18px;
+      gap: 14px;
+      grid-template-rows: auto auto 1fr;
+      align-content: start;
     }
+    .player-select.show{ display: grid; }
 
-    .kipp-select.show{
-      display: grid;
-    }
-
-    .kipp-q{
-      text-align: center;
+    .player-title{
+      text-align:center;
       font-weight: 900;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
-      font-size: 1.05rem;
-      color: rgba(245,245,245,0.90);
-      padding: 10px 6px 4px;
+      font-size: 1.10rem;
+      color: rgba(245,245,245,0.92);
+      padding-top: 8px;
     }
 
-    .kipp-opt{
-      width: 100%;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: radial-gradient(circle at top, #1a1a1a 0, #0b0b0b 70%);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      padding: 16px;
+    .player-sub{
+      text-align:center;
+      font-size: 0.98rem;
+      color: rgba(245,245,245,0.72);
+      letter-spacing: 0.03em;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    .player-dots{
+      display:flex;
+      justify-content:center;
+      gap: 22px;
+      align-items:center;
+      padding-top: 10px;
+    }
+
+    .dot-btn{
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      background: transparent;
+      border: none;
+      outline: none;
+      position: relative;
+      display: grid;
+      place-items: center;
       user-select: none;
     }
 
-    .kipp-opt:active{ filter: brightness(0.92); transform: scale(0.99); }
-
-    .kipp-title{
-      font-size: clamp(1.6rem, 6vw, 2.3rem);
-      font-weight: 1000;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      text-align: center;
-      color: rgba(245,245,245,0.95);
+    .dot-btn::after{
+      content:"";
+      position:absolute;
+      inset: 0;
+      border-radius: 999px;
+      border: 3px solid rgba(245,245,245,0.75);
+      box-shadow: 0 0 14px rgba(255,255,255,0.08);
     }
 
-    .kipp-sub{
-      font-size: clamp(1.0rem, 3.4vw, 1.25rem);
-      font-weight: 800;
+    .dot-label{
+      position: relative;
+      z-index: 2;
+      font-weight: 900;
+      font-size: 1.15rem;
       letter-spacing: 0.06em;
-      text-transform: uppercase;
-      opacity: 0.82;
-      color: rgba(245,245,245,0.85);
+      color: rgba(245,245,245,0.92);
     }
+
+    .dot-btn:active{ transform: scale(0.96); filter: brightness(0.92); }
   </style>
 </head>
 
@@ -499,6 +513,24 @@
       <span>OpenAI&nbsp;API-Key:</span>
       <input id="apikey-input" class="apikey-input" type="password" placeholder="sk-..." />
       <button class="apikey-btn" id="apikey-save-btn">OK</button>
+    </div>
+  </div>
+
+  <!-- START: Spieleranzahl Overlay -->
+  <div class="player-select" id="player-select" aria-hidden="true">
+    <div class="player-title">Spieleranzahl</div>
+    <div class="player-sub">Tippe auf so viele Punkte, wie ihr Spieler seid.</div>
+
+    <div class="player-dots">
+      <button class="dot-btn" data-players="2" aria-label="2 Spieler">
+        <span class="dot-label">2</span>
+      </button>
+      <button class="dot-btn" data-players="3" aria-label="3 Spieler">
+        <span class="dot-label">3</span>
+      </button>
+      <button class="dot-btn" data-players="4" aria-label="4 Spieler">
+        <span class="dot-label">4</span>
+      </button>
     </div>
   </div>
 
@@ -538,8 +570,7 @@
       </div>
 
       <div class="button-row" style="margin-top: 6px">
-        <!-- Der eine Button unten: Text wird je nach Phase umgeschaltet -->
-        <button id="fairyfund-btn" class="btn-secondary">FAIRY ERKIPPT</button>
+        <button id="fairyfund-btn" class="btn-secondary">FAIRY FUND</button>
       </div>
 
       <div class="button-row" style="margin-top: 6px">
@@ -562,26 +593,6 @@
     </div>
   </div>
 
-  <!-- KIPPER-ABFRAGE (Fullscreen, 4 Spieler -> 3 Felder) -->
-  <div class="kipp-select" id="kipp-select" aria-hidden="true">
-    <div class="kipp-q">Warst du nach dem Fairy-Leser …</div>
-
-    <button class="kipp-opt" data-rank="1">
-      <div class="kipp-title">ERSTER KIPPER</div>
-      <div class="kipp-sub">Gamma 8 Punkte</div>
-    </button>
-
-    <button class="kipp-opt" data-rank="2">
-      <div class="kipp-title">ZWEITER KIPPER</div>
-      <div class="kipp-sub">Gamma 5 Punkte</div>
-    </button>
-
-    <button class="kipp-opt" data-rank="3">
-      <div class="kipp-title">DRITTER KIPPER</div>
-      <div class="kipp-sub">Gamma 3 Punkte</div>
-    </button>
-  </div>
-
   <script>
     // -----------------------------
     // Konfiguration
@@ -590,8 +601,9 @@
     const OPENAI_MODEL = "gpt-4o-mini";
     const APIKEY_STORAGE_KEY = "fairykipp_openai_key";
 
-    // FIX (wie du gesagt hast): 4 Spieler -> 1/2/3 Kipper nach Leser
-    const PLAYER_COUNT = 4;
+    // Spieleranzahl Storage
+    const PLAYERCOUNT_STORAGE_KEY = "fairykipp_player_count";
+    let playerCount = 4; // default fallback
 
     // Motive
     const motifsData = [
@@ -654,9 +666,9 @@
     const successConfirm = document.getElementById("success-confirm");
     const successMiss = document.getElementById("success-miss");
 
-    // Kipper-Select Overlay
-    const kippSelect = document.getElementById("kipp-select");
-    const kippOptions = Array.from(document.querySelectorAll(".kipp-opt"));
+    // Spieleranzahl Overlay
+    const playerSelect = document.getElementById("player-select");
+    const playerDotBtns = Array.from(document.querySelectorAll(".dot-btn"));
 
     // -----------------------------
     // Spielzustand
@@ -670,25 +682,48 @@
     let currentVerb = null;
     let currentColor = null;
 
-    let currentStoryFullPlain = "";   // kompletter Text (Plain)
-    let currentTailPlain = "";        // "der blaue Schuh" (Plain)
-    let currentTailHtml = "";         // Tail mit eingefärbtem Adjektiv (HTML)
-    let currentChunks = [];           // 12 Teile: 1–11 plain, 12 html
-    let currentChunkIndex = -1;       // -1 = nix aktiv
+    let currentStoryFullPlain = "";
+    let currentTailPlain = "";
+    let currentTailHtml = "";
+    let currentChunks = [];
+    let currentChunkIndex = -1;
 
     let score = 0;
     let narratedFairies = 0;
     const maxFairies = 6;
 
     // Phasen:
-    // idle: keine aktive Fairy (Kipper-Erfolg möglich)
+    // idle: keine aktive Fairy (Kipper-Erfolg möglich = 3 Punkte)
     // reading: Zwölftel 1..11
     // final: Zwölftel 12 (Pop)
-    // waitingFund: nach Pop -> Archiv oben, Ergebnis ruhig, Leserbonus möglich
+    // waitingFund: nach Pop -> Archiv oben, Ergebnis ruhig, Leserbonus möglich = 1 Punkt
     let phase = "idle";
 
     // Pending award (Overlay-Bestätigung)
     let pendingAward = null; // { points, kind: "reader"|"perfect" }
+
+    // -----------------------------
+    // Spieleranzahl: Storage
+    // -----------------------------
+    function loadPlayerCount() {
+      const v = Number(window.localStorage.getItem(PLAYERCOUNT_STORAGE_KEY));
+      if (v === 2 || v === 3 || v === 4) playerCount = v;
+    }
+
+    function savePlayerCount(v) {
+      playerCount = v;
+      window.localStorage.setItem(PLAYERCOUNT_STORAGE_KEY, String(v));
+    }
+
+    function openPlayerSelect() {
+      playerSelect.classList.add("show");
+      playerSelect.setAttribute("aria-hidden", "false");
+    }
+
+    function closePlayerSelect() {
+      playerSelect.classList.remove("show");
+      playerSelect.setAttribute("aria-hidden", "true");
+    }
 
     // -----------------------------
     // Hilfsfunktionen
@@ -708,12 +743,6 @@
 
     function updateFairyCountDisplay() {
       fairyCountEl.textContent = String(narratedFairies);
-    }
-
-    function setFairyLimitLabel() {
-      // Anzeige bleibt (dein Layout), aber du wolltest später auf 4 enden.
-      // Für jetzt lassen wir " / 6" stehen, aber die Logik kannst du später umstellen.
-      // (Wenn du willst, ändere hier auf 4 und oben im HTML.)
     }
 
     function initUnusedMotifs() {
@@ -783,7 +812,6 @@
         .replace(/'/g, "&#039;");
     }
 
-    // färbt nur das Farb-Adjektiv im Tail
     function highlightTailColor(tailPlain, adjective) {
       const cssColor = getCssColorForAdj(adjective);
       if (!cssColor) return escapeHtml(tailPlain);
@@ -794,7 +822,6 @@
       return safe.replace(regex, `<span style="color:${cssColor}">$1</span>`);
     }
 
-    // 11 visuell ruhige Wort-Chunks (Wortgrenzen, ungefähr gleich groß)
     function splitWordsBalanced(text, n) {
       const words = text.trim().split(/\s+/).filter(Boolean);
       if (words.length === 0) return Array.from({ length: n }, () => "");
@@ -844,7 +871,7 @@
       const first11 = splitWordsBalanced(head, 11);
       const tailHtml = highlightTailColor(tailPlain, colorAdj);
 
-      return [...first11, tailHtml]; // 12 Teile
+      return [...first11, tailHtml];
     }
 
     function setHint(text) {
@@ -883,7 +910,6 @@
     }
 
     function setButtonMode(mode) {
-      // mode: "FAIRY" | "WEITER" | "HIDE"
       if (mode === "HIDE") {
         fairyBtn.classList.add("hidden");
         return;
@@ -918,43 +944,6 @@
         updateScoreDisplay();
         updateFairyCountDisplay();
       }
-
-      // Unten: in idle ist es der Kipper-Button
-      setBottomActionLabel();
-    }
-
-    // -----------------------------
-    // Bottom Button Text (nur 1 Button, je nach Phase)
-    // -----------------------------
-    function setBottomActionLabel() {
-      // Nur EIN Button: je nach Phase anderer Text
-      if (phase === "waitingFund") {
-        fairyFundBtn.textContent = "NIEMAND HAT ES ERKIPPT";
-      } else {
-        fairyFundBtn.textContent = "FAIRY ERKIPPT";
-      }
-    }
-
-    // -----------------------------
-    // Kipper-Select Overlay
-    // -----------------------------
-    function openKipperSelect() {
-      kippSelect.classList.add("show");
-      kippSelect.setAttribute("aria-hidden", "false");
-    }
-
-    function closeKipperSelect() {
-      kippSelect.classList.remove("show");
-      kippSelect.setAttribute("aria-hidden", "true");
-    }
-
-    function pointsForRank(rank) {
-      // 4 Spieler: 1->8, 2->5, 3->3
-      if (PLAYER_COUNT === 4) return (rank === 1 ? 8 : rank === 2 ? 5 : 3);
-      // 3 Spieler: 1->5, 2->3
-      if (PLAYER_COUNT === 3) return (rank === 1 ? 5 : 3);
-      // 2 Spieler: direkt nach Leser (keine Abfrage)
-      return 3;
     }
 
     // -----------------------------
@@ -976,9 +965,7 @@
           o.stop();
           ctx.close();
         }, Math.max(30, duration * 1000));
-      } catch (_) {
-        // no-op
-      }
+      } catch (_) {}
     }
 
     function playReaderSound() {
@@ -1025,7 +1012,6 @@
     function confirmAward() {
       if (!pendingAward) return;
 
-      // Punkte & Zähler anwenden
       score += pendingAward.points;
       updateScoreDisplay();
 
@@ -1034,8 +1020,6 @@
       updateFairyCountDisplay();
 
       closeAwardOverlay();
-
-      // Nach Bestätigung: zurück in Idle
       resetRoundToIdle(true);
     }
 
@@ -1044,7 +1028,7 @@
     }
 
     // -----------------------------
-    // OpenAI-Aufruf: erzeugt eine neue Fairy und zeigt Zwölftel 1
+    // OpenAI-Aufruf
     // -----------------------------
     async function generateNewFairyAndShowFirstTwelfth(retryCount = 0) {
       if (!apiKey) {
@@ -1057,17 +1041,12 @@
         return;
       }
 
-      // UI in "lade"
       setButtonMode("HIDE");
       setHint("");
       storyBox.classList.remove("final-pop");
       setArchiveTarget("");
       setStoryMuted("… KI zaubert eine neue Geschichte …");
 
-      // Bottom Button Text aktualisieren
-      setBottomActionLabel();
-
-      // 1) Motiv, Verb, Farbe wählen
       const motifObj = chooseMotifNoImmediateRepeat();
       const verb = chooseVerbForMotif(motifObj.noun);
       const color = colorsData[Math.floor(Math.random() * colorsData.length)];
@@ -1128,7 +1107,6 @@
         if (lastPunctIdx === -1) {
           if (retryCount < 3) return await generateNewFairyAndShowFirstTwelfth(retryCount + 1);
 
-          // Fallback (Plain)
           const base = 'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
           const tailPlain = `${motifObj.article} ${color} ${motifObj.noun}`;
           const storyPlain = `${base} ${verb} ${tailPlain}`.replace(/\s+/g, " ").trim();
@@ -1150,11 +1128,8 @@
           currentChunks = buildTwelfthsVisually(currentStoryFullPlain, currentTailPlain, color);
         }
 
-        // Start: Zwölftel 1 anzeigen, Button wird WEITER
         currentChunkIndex = 0;
         phase = "reading";
-        setBottomActionLabel();
-
         setButtonMode("WEITER");
         setStoryPlain(currentChunks[0] || "");
       } catch (err) {
@@ -1162,34 +1137,28 @@
         setButtonMode("FAIRY");
         setStoryMuted("Die Fairy hat sich im Nebel verirrt. Prüfe bitte Internet und API-Key.");
         phase = "idle";
-        setBottomActionLabel();
       }
     }
 
     function showNextChunkOrFinal() {
       if (!currentChunks || currentChunks.length !== 12) return;
 
-      // reading 1..11
       if (phase === "reading") {
         const next = currentChunkIndex + 1;
 
-        if (next <= 10) { // 2..11
+        if (next <= 10) {
           currentChunkIndex = next;
           setStoryPlain(currentChunks[currentChunkIndex] || "");
           return;
         }
 
-        // next == 11 => Zwölftel 12 (Pop)
         currentChunkIndex = 11;
         phase = "final";
-        setBottomActionLabel();
-
         setButtonMode("HIDE");
-        setHint(""); // kommt gleich
+        setHint("");
         storyBox.classList.add("final-pop");
-        setArchiveTarget(""); // noch nicht im Archiv
+        setArchiveTarget("");
 
-        // Zwölftel 12 groß in die Box
         setStoryHtml(
           `<div style="
             font-size: clamp(1.8rem, 7vw, 2.35rem);
@@ -1203,22 +1172,13 @@
           </div>`
         );
 
-        // Hinweis "noch 1 kipp" für ein paar Sekunden
         setHint("noch 1 kipp");
 
-        // Danach: Archiv oben, Ergebnis ruhig, Button wieder FAIRY, Hinweis weg
         setTimeout(() => {
-          // Archiv oben (klein, dezent)
           setArchiveTarget(currentTailHtml);
-
-          // Hauptfläche ruhig/leer
           setStoryMuted(" ");
           storyBox.classList.remove("final-pop");
-
-          // Runde wartet: Leser klickt dann "NIEMAND HAT ES ERKIPPT"
           phase = "waitingFund";
-          setBottomActionLabel();
-
           setHint("");
           setButtonMode("FAIRY");
         }, 3200);
@@ -1228,25 +1188,18 @@
     }
 
     // -----------------------------
-    // FAIRY FUND (1 Button) Logik
+    // FAIRY FUND Logik
     // -----------------------------
-    function onBottomAction() {
-      // Leser (nur 1 Button, exakt): "NIEMAND HAT ES ERKIPPT"
-      if (phase === "waitingFund") {
-        openAwardOverlay("reader", 1);
-        return;
-      }
-
-      // Kipper: "FAIRY ERKIPPT"
-      // Nur sinnvoll, wenn gerade eine Fairy aktiv ist (wir lassen trotzdem zu: idle -> ok)
-      if (PLAYER_COUNT === 2) {
-        // bei 2 Spielern keine Abfrage
+    function onFairyFund() {
+      if (phase === "idle" && currentChunks.length === 0) {
         openAwardOverlay("perfect", 3);
         return;
       }
 
-      // bei 3/4 Spielern: Abfrage (Fullscreen)
-      openKipperSelect();
+      if (phase === "waitingFund") {
+        openAwardOverlay("reader", 1);
+        return;
+      }
     }
 
     // -----------------------------
@@ -1257,28 +1210,15 @@
         await generateNewFairyAndShowFirstTwelfth();
         return;
       }
-
       if (phase === "reading") {
         showNextChunkOrFinal();
         return;
       }
-
-      // waitingFund: FAIRY soll hier nichts machen (dein Wunsch)
     });
 
     fairyFundBtn.addEventListener("click", () => {
       if (narratedFairies >= maxFairies) return;
-      onBottomAction();
-    });
-
-    // Kipper-Auswahl -> Punkte anwenden (über Award Overlay)
-    kippOptions.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const rank = Number(btn.dataset.rank || "3");
-        const pts = pointsForRank(rank);
-        closeKipperSelect();
-        openAwardOverlay("perfect", pts);
-      });
+      onFairyFund();
     });
 
     successConfirm.addEventListener("click", () => {
@@ -1306,6 +1246,16 @@
       if (e.key === "Enter") apikeySaveBtn.click();
     });
 
+    // Spieleranzahl: Auswahl
+    playerDotBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const v = Number(btn.dataset.players);
+        if (v !== 2 && v !== 3 && v !== 4) return;
+        savePlayerCount(v);
+        closePlayerSelect();
+      });
+    });
+
     // -----------------------------
     // Start
     // -----------------------------
@@ -1315,7 +1265,10 @@
       updateScoreDisplay();
       updateFairyCountDisplay();
       resetRoundToIdle(true);
-      setBottomActionLabel();
+
+      loadPlayerCount();
+      const stored = window.localStorage.getItem(PLAYERCOUNT_STORAGE_KEY);
+      if (!stored) openPlayerSelect();
     }
 
     init();
