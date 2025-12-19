@@ -25,11 +25,12 @@
       background: #000;
       color: var(--fk-text);
       font-family:"Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      min-height:100vh;
+
+      min-height: 100dvh;
       display:flex;
       justify-content:center;
-      align-items:flex-start;
-      padding: 18px 14px 22px;
+      align-items:stretch;
+      padding: 18px 14px calc(22px + env(safe-area-inset-bottom));
     }
 
     .app{
@@ -37,13 +38,14 @@
       max-width:520px;
       display:flex;
       flex-direction:column;
-      gap:14px;
-      min-height: calc(100vh - 40px);
+      min-height: 100dvh;
+      gap: 0;
     }
 
     header{
       text-align:center;
       padding-top: 6px;
+      flex: 0 0 auto;
     }
 
     .logo-line{
@@ -70,6 +72,16 @@
       font-size:0.95rem;
       color: var(--fk-muted);
       letter-spacing:0.02em;
+    }
+
+    /* ---------- GAME LAYOUT ---------- */
+    .game{
+      flex: 1 1 auto;
+      display:flex;
+      flex-direction:column;
+      min-height: 0; /* wichtig für scrollbare Bereiche */
+      padding-top: clamp(22px, 5vh, 54px); /* Abstand weg vom Slogan */
+      gap: 14px;
     }
 
     .btn-row{
@@ -116,7 +128,6 @@
 
     .btn-yes:active, .btn-no:active{ transform: translateY(1px) scale(0.99); filter:brightness(0.95); }
 
-    /* Story-Box bleibt wie bisher (dein aktueller Stand) */
     .story{
       width:100%;
       border: 1px solid var(--fk-border);
@@ -136,53 +147,53 @@
       font-size: 1.0rem;
       font-weight: 500;
     }
+    .story{ cursor:pointer; }
+    .story:active{ filter: brightness(1.06); }
 
-    /* Hinweiszeile (ohne "Wählt einen Fairy-Leser") */
-    .indicator{
-      text-align:center;
-      font-size: 0.85rem;
-      color: var(--fk-muted);
-      letter-spacing:0.08em;
-      text-transform: uppercase;
-      min-height: 1.2em;
-    }
-    .indicator strong{
-      color: var(--fk-violet);
-      font-weight:800;
-    }
-
-    /* Footer: unten fix im Layout (so weit es geht) */
-    .footer{
+    /* Untenbereich: Score mittig in der unteren Hälfte + Buttons darüber NICHT weg-rutschen */
+    .bottom{
       margin-top:auto;
       display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      padding-top: 8px;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-end;
+      gap: 14px;
+      padding-top: 10px;
+      padding-bottom: 8px;
     }
 
-    .footer .linkbtn{
+    .scoreValue{
+      text-align:center;
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing:0.02em;
+      line-height: 1;
+      min-width: 70px;
+      color: var(--fk-green);
+      text-shadow: 0 0 12px rgba(59,165,43,0.25);
+    }
+
+    .nav-row{
+      width: 100%;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 0 6px;
+    }
+
+    .linkbtn{
       background: transparent;
       color: var(--fk-muted);
       text-decoration: underline;
       padding: 10px 6px;
       border-radius: 10px;
       font-size: 0.95rem;
+      white-space: nowrap;
     }
-    .footer .linkbtn:active{
+    .linkbtn:active{
       color:#fff;
       background: rgba(255,255,255,0.06);
       text-decoration:none;
-    }
-
-    /* Score: nur Zahl, mittig unten */
-    .scoreValue{
-      text-align:center;
-      font-size: 3.0rem;
-      font-weight: 900;
-      letter-spacing:0.02em;
-      line-height: 1;
-      min-width: 70px;
     }
 
     /* Bestätigungs-Overlay */
@@ -194,7 +205,7 @@
       justify-content:center;
       background: rgba(0,0,0,0.55);
       z-index: 50;
-      padding: 0 14px 18px;
+      padding: 0 14px calc(18px + env(safe-area-inset-bottom));
     }
     .confirm-card{
       width:100%;
@@ -239,6 +250,59 @@
       pointer-events: none;
       filter: grayscale(0.2);
     }
+
+    /* ---------- END SCREEN ---------- */
+    .hidden{ display:none !important; }
+
+    .endscreen{
+      flex: 1 1 auto;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding-top: clamp(18px, 4vh, 44px);
+      padding-bottom: 8px;
+      min-height: 0;
+    }
+
+    .end-center{
+      flex: 1 1 auto;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap: 18px;
+      text-align:center;
+      padding: 10px 6px;
+    }
+
+    .end-number{
+      font-size: 6.2rem;
+      line-height: 0.95;
+      font-weight: 900;
+      color: var(--fk-green);
+      text-shadow: 0 0 18px rgba(59,165,43,0.25);
+    }
+
+    .end-text{
+      color: var(--fk-text);
+      font-size: 1.25rem;
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+    }
+    .end-text .big{
+      display:block;
+      font-size: 1.55rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 4px 0;
+      color: var(--fk-text);
+    }
+    .end-text .muted{
+      color: var(--fk-muted);
+      font-size: 1.05rem;
+      margin-top: 2px;
+    }
   </style>
 </head>
 
@@ -253,27 +317,47 @@
       <div class="tagline">Unendlich viele KIPP-Geschichten</div>
     </header>
 
-    <div class="btn-row">
-      <button id="fairy-btn" class="btn-main">FAIRY</button>
+    <!-- GAME -->
+    <div id="game" class="game">
+
+      <div class="btn-row">
+        <button id="fairy-btn" class="btn-main">FAIRY</button>
+      </div>
+
+      <div id="story" class="story muted" title="Tippe hier oder auf FAIRY/WEITER">
+        Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.
+      </div>
+
+      <div class="btn-row">
+        <button id="btn-erkippt" class="btn-yes">FAIRY ERKIPPT</button>
+        <button id="btn-nicht" class="btn-no">NICHT ERKIPPT</button>
+      </div>
+
+      <div class="bottom">
+        <div id="score" class="scoreValue">0</div>
+        <div class="nav-row">
+          <button id="newgame" class="linkbtn">Neues Spiel</button>
+          <button id="home" class="linkbtn">Zur Startseite</button>
+        </div>
+      </div>
     </div>
 
-    <div id="story" class="story muted" title="Tippe hier für das nächste Drittel">
-      Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.
+    <!-- END SCREEN -->
+    <div id="endscreen" class="endscreen hidden">
+      <div class="end-center">
+        <div id="endScore" class="end-number">0</div>
+        <div class="end-text">
+          <div>Perfekte</div>
+          <span class="big">FAIRY KIPPs</span>
+          <div class="muted">von 6 möglichen</div>
+        </div>
+      </div>
+      <div class="nav-row">
+        <button id="end-newgame" class="linkbtn">Neues Spiel</button>
+        <button id="end-home" class="linkbtn">Zur Startseite</button>
+      </div>
     </div>
 
-    <div id="indicator" class="indicator"></div>
-
-    <div class="btn-row">
-      <button id="btn-erkippt" class="btn-yes">FAIRY ERKIPPT</button>
-      <button id="btn-nicht" class="btn-no">NICHT ERKIPPT</button>
-    </div>
-
-    <!-- Footer: unten, nur Zahl in der Mitte (kein "Punkte") -->
-    <div class="footer">
-      <button id="newgame" class="linkbtn">Neues Spiel</button>
-      <div id="score" class="scoreValue">0</div>
-      <button id="home" class="linkbtn">Zur Startseite</button>
-    </div>
   </div>
 
   <!-- Bestätigung -->
@@ -332,19 +416,25 @@
     // -----------------------------
     const fairyBtn = document.getElementById("fairy-btn");
     const storyEl = document.getElementById("story");
-    const indicatorEl = document.getElementById("indicator");
 
     const btnErkippt = document.getElementById("btn-erkippt");
     const btnNicht = document.getElementById("btn-nicht");
 
     const scoreEl = document.getElementById("score");
+    const endScoreEl = document.getElementById("endScore");
 
     const newgameBtn = document.getElementById("newgame");
     const homeBtn = document.getElementById("home");
 
+    const endNewgameBtn = document.getElementById("end-newgame");
+    const endHomeBtn = document.getElementById("end-home");
+
     const confirmOverlay = document.getElementById("confirm");
     const confirmOk = document.getElementById("confirm-ok");
     const confirmNo = document.getElementById("confirm-no");
+
+    const gameEl = document.getElementById("game");
+    const endscreenEl = document.getElementById("endscreen");
 
     // -----------------------------
     // Spielzustand
@@ -465,23 +555,31 @@
       fairyBtn.classList.toggle("locked", locked);
       btnErkippt.classList.toggle("locked", locked);
       btnNicht.classList.toggle("locked", locked);
+      storyEl.classList.toggle("locked", locked);
     }
 
     function updateScore(){
       scoreEl.textContent = String(score);
+      endScoreEl.textContent = String(score);
+    }
+
+    function showEndScreen(){
+      // Overlay sicher schließen
+      confirmOverlay.style.display = "none";
+
+      setLockedUI(true);
+      gameEl.classList.add("hidden");
+      endscreenEl.classList.remove("hidden");
+      updateScore();
     }
 
     function updateEndStateIfNeeded(){
       if (attempts >= maxAttempts){
-        setLockedUI(true);
-        indicatorEl.textContent = "Spiel für dieses Gerät beendet.";
+        showEndScreen();
       }
     }
 
-    function resetAll(){
-      score = 0;
-      attempts = 0;
-
+    function clearCurrentFairyToStart(){
       currentMotif = null;
       currentVerb = null;
       currentColor = null;
@@ -494,8 +592,20 @@
       fairyBtn.textContent = "FAIRY";
       storyEl.classList.add("muted");
       storyEl.innerHTML = 'Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.';
-      indicatorEl.textContent = "";
+    }
+
+    function resetAll(){
+      score = 0;
+      attempts = 0;
+
+      initUnusedMotifs();
+      unusedVerbsByMotif = {};
+
+      endscreenEl.classList.add("hidden");
+      gameEl.classList.remove("hidden");
+
       setLockedUI(false);
+      clearCurrentFairyToStart();
       updateScore();
     }
 
@@ -534,34 +644,20 @@
     // 3-Teil Split (Situation / direkte Rede / Auflösung)
     // -----------------------------
     function splitIntoThreeParts(storyPlain, tailPlain, colorAdj){
-      // storyPlain hat Form: <zwei Sätze> + ", <verb> <article> <color> <motif>"
-      // Wir schneiden so:
-      // Teil 1 = Satz 1 (Situation)
-      // Teil 2 = Satz 2 (wörtliche Rede, mit "…",)
-      // Teil 3 = verb + tail (farbig)
-
-      // 1) Tail entfernen (damit wir nur "base" haben)
       let base = storyPlain.trim();
       const tail = tailPlain.trim();
 
-      // Tail steht am Ende, aber mit Verb davor
-      // Wir suchen tail im Text und schneiden ab.
       const idxTail = base.lastIndexOf(tail);
       if (idxTail !== -1){
         base = base.slice(0, idxTail).trim();
       }
 
-      // base endet jetzt etwa auf: ...", <verb>
-      // Verb entfernen: letztes Wort (verb) abtrennen
       const m = base.match(/^(.*?)(\b[^\s]+)\s*$/);
       let baseWithoutVerb = base;
       if (m && m[1] && m[2]){
         baseWithoutVerb = m[1].trim();
       }
 
-      // baseWithoutVerb enthält die zwei Sätze (Situation + direkte Rede)
-      // Wir teilen an der letzten Satzendung des 1. Satzes.
-      // Da es genau zwei Sätze sind, nehmen wir die erste Satzendung (.!?)
       const firstEnd = baseWithoutVerb.search(/[.!?]/);
       let part1 = baseWithoutVerb;
       let part2 = "";
@@ -570,8 +666,6 @@
         part2 = baseWithoutVerb.slice(firstEnd + 1).trim();
       }
 
-      // part2 sollte die direkte Rede sein. Wir lassen sie wie sie ist.
-      // Teil 3: farbige Auflösung (verb + tail)
       const verb = currentVerb || "";
       const part3Plain = `${verb} ${tail}`.replace(/\s+/g," ").trim();
       const part3Html = highlightTailColor(part3Plain, colorAdj);
@@ -581,6 +675,15 @@
         escapeHtml(part2),
         part3Html
       ];
+    }
+
+    // Sicherstellen: wirklich nur 2 Sätze aus KI-Output (erste zwei Satzenden)
+    function takeFirstTwoSentences(text){
+      const matches = [...text.matchAll(/[.!?]/g)];
+      if (matches.length >= 2){
+        return text.slice(0, matches[1].index + 1).trim();
+      }
+      return text.trim();
     }
 
     // -----------------------------
@@ -607,7 +710,6 @@
       fairyBtn.textContent = "WEITER";
       storyEl.classList.add("muted");
       storyEl.textContent = "… KI schreibt eine neue Geschichte …";
-      indicatorEl.textContent = "";
 
       const systemMessage = {
         role: "system",
@@ -652,16 +754,10 @@
         let text = data.choices?.[0]?.message?.content?.trim() || "";
         text = text.replace(/\s+/g, " ").trim();
 
-        const dotIdx = text.lastIndexOf(".");
-        const exIdx  = text.lastIndexOf("!");
-        const qIdx   = text.lastIndexOf("?");
-        const lastPunctIdx = Math.max(dotIdx, exIdx, qIdx);
-
-        let baseText = "";
-        if (lastPunctIdx === -1){
+        // wirklich nur 2 Sätze
+        let baseText = takeFirstTwoSentences(text);
+        if (!baseText){
           baseText = 'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
-        } else {
-          baseText = text.slice(0, lastPunctIdx + 1).trim();
         }
 
         const baseFixed = normalizeQuoteAndComma(baseText);
@@ -675,16 +771,13 @@
         currentChunks = splitIntoThreeParts(currentStoryFullPlain, currentTailPlain, color);
         currentChunkIndex = 0;
 
-        // Teil 1 anzeigen + Anzeige
         storyEl.classList.remove("muted");
         storyEl.innerHTML = currentChunks[0];
-        indicatorEl.innerHTML = `<strong>1</strong> / 3`;
 
       } catch(err){
         console.error(err);
         storyEl.classList.remove("muted");
         storyEl.textContent = "Fehler beim Laden. Internet oder API-Key prüfen.";
-        indicatorEl.textContent = "";
       }
     }
 
@@ -694,14 +787,12 @@
 
       storyEl.classList.remove("muted");
       storyEl.innerHTML = currentChunks[currentChunkIndex];
-
-      indicatorEl.innerHTML = `<strong>${currentChunkIndex+1}</strong> / 3`;
     }
 
     // -----------------------------
     // Klicklogik
     // -----------------------------
-    fairyBtn.addEventListener("click", async () => {
+    async function handleNext(){
       if (attempts >= maxAttempts) return;
 
       // Neue Fairy starten
@@ -710,17 +801,23 @@
         return;
       }
 
-      // WEITER durch 3 Teile
+      // WEITER durch 3 Teile (ohne Anzeige 1/3, 2/3, 3/3)
       if (currentChunkIndex < 2){
         showChunk(currentChunkIndex + 1);
       }
-    });
+    }
 
-    // NICHT ERKIPPT: +1 Versuch, keine Punkte
+    fairyBtn.addEventListener("click", handleNext);
+    storyEl.addEventListener("click", handleNext);
+
+    // NICHT ERKIPPT: zählt als Versuch UND führt zurück zum Startscreen (keine Story geladen)
     btnNicht.addEventListener("click", () => {
       if (attempts >= maxAttempts) return;
       attempts += 1;
       updateEndStateIfNeeded();
+      if (attempts < maxAttempts){
+        clearCurrentFairyToStart();
+      }
     });
 
     // FAIRY ERKIPPT: Bestätigung öffnen
@@ -729,7 +826,12 @@
       confirmOverlay.style.display = "flex";
     });
 
-    // Bestätigung: ✓ gibt Punkt +1 und setzt Fairy zurück
+    // Klick außerhalb schließt Overlay
+    confirmOverlay.addEventListener("click", (e) => {
+      if (e.target === confirmOverlay) confirmOverlay.style.display = "none";
+    });
+
+    // Bestätigung: ✓ gibt Punkt +1, zählt Versuch +1 und führt zurück zum Startscreen
     confirmOk.addEventListener("click", () => {
       confirmOverlay.style.display = "none";
       if (attempts >= maxAttempts) return;
@@ -738,20 +840,10 @@
       score += 1;
       updateScore();
 
-      currentMotif = null;
-      currentVerb = null;
-      currentColor = null;
-      currentStoryFullPlain = "";
-      currentTailPlain = "";
-      currentChunks = [];
-      currentChunkIndex = 0;
-
-      fairyBtn.textContent = "FAIRY";
-      storyEl.classList.add("muted");
-      storyEl.innerHTML = 'Tippe auf <strong>FAIRY</strong>, um eine neue Geschichte zu starten.';
-      indicatorEl.textContent = "";
-
       updateEndStateIfNeeded();
+      if (attempts < maxAttempts){
+        clearCurrentFairyToStart();
+      }
     });
 
     // Bestätigung: ✕ bricht ab
@@ -761,17 +853,19 @@
 
     // Neues Spiel
     newgameBtn.addEventListener("click", () => resetAll());
+    endNewgameBtn.addEventListener("click", () => resetAll());
 
     // Zur Startseite: echte Startseite (index.html)
     homeBtn.addEventListener("click", () => {
+      window.location.href = "./index.html";
+    });
+    endHomeBtn.addEventListener("click", () => {
       window.location.href = "./index.html";
     });
 
     // Start
     (function init(){
       loadApiKey();
-      initUnusedMotifs();
-      updateScore();
       resetAll();
     })();
   </script>
