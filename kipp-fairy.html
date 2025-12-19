@@ -21,14 +21,14 @@
 
     *{ box-sizing:border-box; margin:0; padding:0; }
     body{
-      background: #000;
-      color: var(--fk-text);
+      background:#000;
+      color:var(--fk-text);
       font-family:"Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height:100vh;
       display:flex;
       justify-content:center;
       align-items:flex-start;
-      padding: 18px 14px 22px;
+      padding:18px 14px 22px;
     }
 
     .app{
@@ -39,36 +39,38 @@
       gap:14px;
     }
 
-    header{
-      text-align:center;
-      padding-top: 6px;
-    }
-
-    .logo-line{
-      display:inline-flex;
-      align-items:baseline;
-      gap:8px;
-    }
+    header{ text-align:center; padding-top:6px; }
+    .logo-line{ display:inline-flex; align-items:baseline; gap:8px; }
     .logo-fairy{
       font-family:"Pacifico", cursive;
       font-size:2.1rem;
       letter-spacing:0.04em;
-      color: var(--fk-orange);
-      text-shadow: 0 0 10px rgba(242,150,0,0.7);
+      color:var(--fk-orange);
+      text-shadow:0 0 10px rgba(242,150,0,0.7);
     }
     .logo-kipp{
       font-weight:700;
       font-size:1.55rem;
       letter-spacing:0.22em;
-      color: var(--fk-blue);
+      color:var(--fk-blue);
       text-transform:uppercase;
     }
     .tagline{
       margin-top:6px;
       font-size:0.85rem;
-      color: var(--fk-muted);
+      color:var(--fk-muted);
       letter-spacing:0.02em;
     }
+
+    .hint{
+      text-align:center;
+      font-size:0.95rem;
+      color:var(--fk-muted);
+      line-height:1.35;
+      min-height:1.2em;
+    }
+    .hint strong{ color:#fff; font-weight:800; }
+    .hint .vio{ color:var(--fk-violet); font-weight:900; }
 
     .btn-row{
       display:flex;
@@ -82,134 +84,122 @@
       cursor:pointer;
       font-family:inherit;
       user-select:none;
-      -webkit-tap-highlight-color: transparent;
+      -webkit-tap-highlight-color:transparent;
     }
 
     .btn-main{
-      min-width: 190px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      background: var(--fk-orange);
+      min-width:190px;
+      padding:12px 18px;
+      border-radius:12px;
+      font-size:1.05rem;
+      font-weight:800;
+      letter-spacing:0.10em;
+      text-transform:uppercase;
+      background:var(--fk-orange);
       color:#101010;
-      box-shadow: 0 0 16px rgba(242,150,0,0.55);
+      box-shadow:0 0 16px rgba(242,150,0,0.55);
     }
-    .btn-main:active{ transform: translateY(1px) scale(0.99); filter:brightness(0.95); }
+    .btn-main:active{ transform:translateY(1px) scale(0.99); filter:brightness(0.95); }
 
-    .btn-yes, .btn-no{
-      min-width: 168px;
-      padding: 11px 14px;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .btn-yes,.btn-no{
+      min-width:168px;
+      padding:11px 14px;
+      border-radius:12px;
+      font-size:0.95rem;
+      font-weight:800;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
       color:#fff;
     }
-    .btn-yes{ background: var(--fk-blue); box-shadow:0 0 14px rgba(0,101,171,0.45); }
-    .btn-no { background: rgba(255,255,255,0.10); border:1px solid var(--fk-border); }
-
-    .btn-yes:active, .btn-no:active{ transform: translateY(1px) scale(0.99); filter:brightness(0.95); }
+    .btn-yes{ background:var(--fk-blue); box-shadow:0 0 14px rgba(0,101,171,0.45); }
+    .btn-no { background:rgba(255,255,255,0.10); border:1px solid var(--fk-border); }
+    .btn-yes:active,.btn-no:active{ transform:translateY(1px) scale(0.99); filter:brightness(0.95); }
 
     .story{
       width:100%;
-      border: 1px solid var(--fk-border);
-      border-radius: 14px;
-      padding: 16px 16px;
-      min-height: 150px;
-      max-height: 240px;
+      border:1px solid var(--fk-border);
+      border-radius:14px;
+      padding:16px 16px;
+      min-height:160px;
+      max-height:260px;
       overflow-y:auto;
       text-align:center;
-      line-height: 1.7;
-      font-size: 1.35rem;
-      background: rgba(255,255,255,0.03);
+      line-height:1.7;
+      font-size:1.30rem;
+      background:rgba(255,255,255,0.03);
     }
     .story.muted{
-      color: var(--fk-muted);
-      font-style: italic;
-      font-size: 1.0rem;
-      font-weight: 500;
-    }
-
-    .indicator{
-      text-align:center;
-      font-size: 0.85rem;
-      color: var(--fk-muted);
-      letter-spacing:0.08em;
-      text-transform: uppercase;
-      min-height: 1.2em;
-    }
-    .indicator strong{
-      color: var(--fk-violet);
-      font-weight:800;
+      color:var(--fk-muted);
+      font-style:italic;
+      font-size:1.0rem;
+      font-weight:500;
     }
 
     .score{
       text-align:center;
-      margin-top: 2px;
+      margin-top:2px;
     }
     .score .label{
       font-size:0.85rem;
-      color: var(--fk-muted);
+      color:var(--fk-muted);
       letter-spacing:0.14em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
+      text-transform:uppercase;
+      margin-bottom:4px;
     }
     .score .value{
-      font-size: 3.0rem;
-      font-weight: 900;
+      font-size:3.0rem;
+      font-weight:900;
       letter-spacing:0.02em;
     }
 
     .bottom{
-      margin-top: 6px;
+      margin-top:6px;
       display:flex;
       justify-content:space-between;
       gap:12px;
-      font-size: 0.95rem;
+      font-size:0.95rem;
     }
     .bottom button{
-      background: transparent;
-      color: var(--fk-muted);
-      text-decoration: underline;
-      padding: 10px 6px;
-      border-radius: 10px;
+      background:transparent;
+      color:var(--fk-muted);
+      text-decoration:underline;
+      padding:10px 6px;
+      border-radius:10px;
     }
     .bottom button:active{
       color:#fff;
-      background: rgba(255,255,255,0.06);
+      background:rgba(255,255,255,0.06);
       text-decoration:none;
     }
 
-    /* Bestätigungs-Overlay (klein, simpel) */
+    .hidden{ display:none !important; }
+
+    /* Bestätigungs-Overlay */
     .confirm{
-      position: fixed;
+      position:fixed;
       inset:0;
       display:none;
       align-items:flex-end;
       justify-content:center;
-      background: rgba(0,0,0,0.55);
-      z-index: 50;
-      padding: 0 14px 18px;
+      background:rgba(0,0,0,0.55);
+      z-index:50;
+      padding:0 14px 18px;
     }
     .confirm-card{
       width:100%;
-      max-width: 520px;
-      border-radius: 14px;
+      max-width:520px;
+      border-radius:14px;
       border:1px solid var(--fk-border);
-      background: rgba(20,20,20,0.96);
-      padding: 12px;
+      background:rgba(20,20,20,0.96);
+      padding:12px;
     }
     .confirm-title{
       text-align:center;
       font-size:0.9rem;
-      color: var(--fk-muted);
+      color:var(--fk-muted);
       letter-spacing:0.10em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      text-transform:uppercase;
+      margin-bottom:10px;
     }
     .confirm-row{
       display:flex;
@@ -219,31 +209,30 @@
     .mini{
       width:56px;
       height:56px;
-      border-radius: 12px;
-      font-size: 1.6rem;
-      font-weight: 900;
+      border-radius:12px;
+      font-size:1.6rem;
+      font-weight:900;
       display:flex;
       align-items:center;
       justify-content:center;
       border:1px solid var(--fk-border);
-      background: rgba(255,255,255,0.06);
+      background:rgba(255,255,255,0.06);
       color:#fff;
     }
-    .mini.ok{ border-color: rgba(59,165,43,0.8); }
-    .mini.no{ border-color: rgba(255,107,129,0.85); }
-    .mini:active{ transform: translateY(1px) scale(0.99); filter:brightness(0.95); }
+    .mini.ok{ border-color:rgba(59,165,43,0.8); }
+    .mini.no{ border-color:rgba(255,107,129,0.85); }
+    .mini:active{ transform:translateY(1px) scale(0.99); filter:brightness(0.95); }
 
     .locked{
-      opacity: 0.45;
-      pointer-events: none;
-      filter: grayscale(0.2);
+      opacity:0.45;
+      pointer-events:none;
+      filter:grayscale(0.2);
     }
   </style>
 </head>
 
 <body>
   <div class="app">
-
     <header>
       <div class="logo-line">
         <span class="logo-fairy">Fairy</span>
@@ -252,17 +241,17 @@
       <div class="tagline">Unendlich viele KIPP-Fabeln</div>
     </header>
 
-    <div class="btn-row">
-      <button id="fairy-btn" class="btn-main">FAIRY</button>
-    </div>
-
-    <div id="story" class="story muted" title="Tippe hier für das nächste Zwölftel">
-      Tippe auf <strong>FAIRY</strong>, um eine neue Fabel zu starten.
-    </div>
-
-    <div id="indicator" class="indicator"></div>
+    <div id="hint" class="hint"></div>
 
     <div class="btn-row">
+      <button id="fairy-btn" class="btn-main">FAIRY lesen</button>
+    </div>
+
+    <div id="story" class="story muted">
+      Wählt einen Fairy-Leser.
+    </div>
+
+    <div id="row-kipp" class="btn-row">
       <button id="btn-erkippt" class="btn-yes">FAIRY ERKIPPT</button>
       <button id="btn-nicht" class="btn-no">NICHT ERKIPPT</button>
     </div>
@@ -298,21 +287,21 @@
     const APIKEY_STORAGE_KEY = "fairykipp_openai_key";
 
     const motifsData = [
-      { key: "Wasserball",  article: "der",  noun: "Wasserball"  },
-      { key: "Auto",        article: "das",  noun: "Auto"        },
-      { key: "Farbfleck",   article: "der",  noun: "Farbfleck"   },
-      { key: "Buch",        article: "das",  noun: "Buch"        },
-      { key: "Gießkanne",   article: "die",  noun: "Gießkanne"   },
-      { key: "Kerze",       article: "die",  noun: "Kerze"       },
-      { key: "Blume",       article: "die",  noun: "Blume"       },
-      { key: "Fisch",       article: "der",  noun: "Fisch"       },
-      { key: "Schmetterling", article: "der", noun: "Schmetterling" },
-      { key: "Schuh",       article: "der",  noun: "Schuh"       },
-      { key: "Tasse",       article: "die",  noun: "Tasse"       },
-      { key: "T-Shirt",     article: "das",  noun: "T-Shirt"     }
+      { key:"Wasserball",  article:"der", noun:"Wasserball" },
+      { key:"Auto",        article:"das", noun:"Auto" },
+      { key:"Farbfleck",   article:"der", noun:"Farbfleck" },
+      { key:"Buch",        article:"das", noun:"Buch" },
+      { key:"Gießkanne",   article:"die", noun:"Gießkanne" },
+      { key:"Kerze",       article:"die", noun:"Kerze" },
+      { key:"Blume",       article:"die", noun:"Blume" },
+      { key:"Fisch",       article:"der", noun:"Fisch" },
+      { key:"Schmetterling", article:"der", noun:"Schmetterling" },
+      { key:"Schuh",       article:"der", noun:"Schuh" },
+      { key:"Tasse",       article:"die", noun:"Tasse" },
+      { key:"T-Shirt",     article:"das", noun:"T-Shirt" }
     ];
 
-    const colorsData = ["grüne", "blaue", "violette", "orangefarbene"];
+    const colorsData = ["grüne","blaue","violette","orangefarbene"];
 
     const motifVerbBase = {
       Wasserball: ["platschte","plumpste","spritzte","hüpfte","polterte","ploppte"],
@@ -332,15 +321,15 @@
     // -----------------------------
     // UI
     // -----------------------------
+    const hintEl = document.getElementById("hint");
     const fairyBtn = document.getElementById("fairy-btn");
     const storyEl = document.getElementById("story");
-    const indicatorEl = document.getElementById("indicator");
+    const rowKipp = document.getElementById("row-kipp");
 
     const btnErkippt = document.getElementById("btn-erkippt");
     const btnNicht = document.getElementById("btn-nicht");
 
     const scoreEl = document.getElementById("score");
-
     const newgameBtn = document.getElementById("newgame");
     const homeBtn = document.getElementById("home");
 
@@ -349,24 +338,33 @@
     const confirmNo = document.getElementById("confirm-no");
 
     // -----------------------------
-    // Spielzustand
+    // Zustand
     // -----------------------------
     let apiKey = null;
 
     let unusedMotifs = [];
     let unusedVerbsByMotif = {};
 
+    // aktuelle Fairy-Bausteine (3 Teile)
     let currentMotif = null;
     let currentVerb = null;
     let currentColor = null;
 
-    let currentStoryFullPlain = "";
-    let currentTailPlain = "";
-    let currentChunks = [];       // 12 Teile
-    let currentChunkIndex = 0;    // 0..11
+    let part1 = ""; // Situation (endet mit :)
+    let part2 = ""; // direkte Rede (mit „…“ und Satzzeichen)
+    let part3Plain = ""; // verb + artikel + farbe + motiv
+    let part3Html = "";  // farbe farbig markiert
 
-    let score = 0;                // Punkte
-    let attempts = 0;             // Kipp-Versuche (= erkippt + nicht erkippt)
+    // UI-Flow: start -> p1 -> p2 -> endReady -> result
+    // start: alle sehen Startseite
+    // p1: Button = FAIRY Teil 1 (zeigt nach Klick part1)
+    // p2: Button = FAIRY Teil 2 (zeigt nach Klick part2)
+    // endReady: Button = FAIRY END (zeigt nach Klick part3 und wechselt zu result)
+    // result: zeigt nur Erinnerung + Erkippt/Nicht wieder sichtbar
+    let mode = "start";
+
+    let score = 0;
+    let attempts = 0;          // erkippt + nicht erkippt
     const maxAttempts = 6;
 
     // -----------------------------
@@ -374,52 +372,46 @@
     // -----------------------------
     function shuffleArray(arr){
       const a = arr.slice();
-      for (let i = a.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
       }
       return a;
-    }
-
-    function escapeHtml(s){
-      return String(s)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
     }
 
     function initUnusedMotifs(){ unusedMotifs = motifsData.slice(); }
 
     function chooseMotifNoImmediateRepeat(){
-      if (unusedMotifs.length === 0) initUnusedMotifs();
-      const idx = Math.floor(Math.random() * unusedMotifs.length);
-      const motif = unusedMotifs[idx];
-      unusedMotifs.splice(idx, 1);
-      return motif;
-    }
-
-    function getAllowedVerbsForMotif(noun){
-      const base = motifVerbBase[noun];
-      return base ? base.slice() : [];
+      if(unusedMotifs.length===0) initUnusedMotifs();
+      const idx = Math.floor(Math.random()*unusedMotifs.length);
+      const m = unusedMotifs[idx];
+      unusedMotifs.splice(idx,1);
+      return m;
     }
 
     function initUnusedVerbsForMotif(noun){
-      const all = getAllowedVerbsForMotif(noun);
+      const all = (motifVerbBase[noun] ? motifVerbBase[noun].slice() : []);
       unusedVerbsByMotif[noun] = shuffleArray(all);
     }
 
     function chooseVerbForMotif(noun){
-      if (!unusedVerbsByMotif[noun] || unusedVerbsByMotif[noun].length === 0){
+      if(!unusedVerbsByMotif[noun] || unusedVerbsByMotif[noun].length===0){
         initUnusedVerbsForMotif(noun);
       }
       return unusedVerbsByMotif[noun].pop();
     }
 
+    function escapeHtml(s){
+      return String(s)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
     function getCssColorForAdj(adj){
-      if (!adj) return null;
-      const clean = adj.toLowerCase().replace(/[.,!?:;"“”„]+$/g, "");
+      const clean = (adj||"").toLowerCase().replace(/[.,!?:;"“”„]+$/g,"");
       switch(clean){
         case "blaue": return "var(--fk-blue)";
         case "grüne": return "var(--fk-green)";
@@ -429,123 +421,93 @@
       }
     }
 
-    function highlightTailColor(text, adjective){
-      const cssColor = getCssColorForAdj(adjective);
-      if (!cssColor) return escapeHtml(text);
+    function colorizeAdjInPhrase(plainPhrase, adjective){
+      const css = getCssColorForAdj(adjective);
+      const safe = escapeHtml(plainPhrase);
+      if(!css) return safe;
 
       const escapedAdj = adjective.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const regex = new RegExp(`\\b(${escapedAdj})\\b`, "i");
-      const safe = escapeHtml(text);
-      return safe.replace(regex, `<span style="color:${cssColor}; font-weight:900">$1</span>`);
+      const re = new RegExp(`\\b(${escapedAdj})\\b`, "i");
+      return safe.replace(re, `<span style="color:${css}; font-weight:900">$1</span>`);
     }
 
-    function splitWordsBalanced(text, n){
-      const words = text.trim().split(/\s+/).filter(Boolean);
-      if (words.length === 0) return Array.from({length:n}, () => "");
-
-      const totalLen = words.reduce((acc,w)=>acc + w.length + 1, 0);
-      const target = Math.max(1, Math.round(totalLen / n));
-
-      const chunks = [];
-      let cur = [];
-      let curLen = 0;
-
-      for (const w of words){
-        const addLen = w.length + (cur.length ? 1 : 0);
-
-        if (chunks.length < n - 1 && cur.length > 0 && (curLen + addLen) > target){
-          chunks.push(cur.join(" "));
-          cur = [w];
-          curLen = w.length;
-        } else {
-          cur.push(w);
-          curLen += addLen;
-        }
+    function lockIfEnded(){
+      const ended = attempts >= maxAttempts;
+      fairyBtn.classList.toggle("locked", ended);
+      btnErkippt.classList.toggle("locked", ended);
+      btnNicht.classList.toggle("locked", ended);
+      if(ended){
+        hintEl.innerHTML = `<span class="vio">6</span> KIPP-Versuche – Spiel für dich zu Ende.`;
       }
-      chunks.push(cur.join(" "));
-
-      while(chunks.length < n) chunks.push("");
-      while(chunks.length > n){
-        const a = chunks.pop();
-        chunks[chunks.length-1] = (chunks[chunks.length-1] + " " + a).trim();
-      }
-      return chunks;
+      return ended;
     }
 
-    function buildTwelfthsVisually(fullPlain, tailPlain, colorAdj){
-      let head = fullPlain.trim();
-      const tail = tailPlain.trim();
+    function updateScore(){ scoreEl.textContent = String(score); }
 
-      if (head.endsWith(tail)){
-        head = head.slice(0, head.length - tail.length).trim();
-      } else {
-        const idx = head.lastIndexOf(tail);
-        if (idx !== -1) head = head.slice(0, idx).trim();
+    function setHint(html){ hintEl.innerHTML = html || ""; }
+
+    function setMode(newMode){
+      mode = newMode;
+
+      if(mode === "start"){
+        // Startseite bei jedem
+        setHint("Wählt einen Fairy-Leser.");
+        fairyBtn.textContent = "FAIRY lesen";
+        rowKipp.classList.remove("hidden");
+        storyEl.classList.add("muted");
+        storyEl.textContent = "Wählt einen Fairy-Leser.";
+        lockIfEnded();
+        return;
       }
 
-      const first11 = splitWordsBalanced(head, 11);
-      const tailHtml = highlightTailColor(tailPlain, colorAdj); // schon escaped + farbig
-      return [...first11.map(escapeHtml), tailHtml]; // 12 Teile: 1-11 escaped, 12 html
-    }
-
-    function showChunk(i){
-      if (!currentChunks || currentChunks.length !== 12) return;
-      currentChunkIndex = Math.max(0, Math.min(11, i));
-
-      if (currentChunkIndex < 11){
-        storyEl.innerHTML = currentChunks[currentChunkIndex];
-      } else {
-        storyEl.innerHTML = currentChunks[currentChunkIndex]; // html
+      if(mode === "p1"){
+        // Leser: bereit für Teil 1 (Buttons unten weg)
+        setHint("Lies den 1. Teil der Fairy vor.");
+        fairyBtn.textContent = "FAIRY Teil 1";
+        rowKipp.classList.add("hidden");
+        storyEl.classList.add("muted");
+        storyEl.textContent = "Bereit.";
+        return;
       }
 
-      storyEl.classList.remove("muted");
-      indicatorEl.innerHTML = `<strong>${currentChunkIndex+1}</strong> / 12`;
-    }
-
-    function setLockedUI(locked){
-      fairyBtn.classList.toggle("locked", locked);
-      btnErkippt.classList.toggle("locked", locked);
-      btnNicht.classList.toggle("locked", locked);
-    }
-
-    function updateScore(){
-      scoreEl.textContent = String(score);
-    }
-
-    function updateEndStateIfNeeded(){
-      if (attempts >= maxAttempts){
-        setLockedUI(true);
-        indicatorEl.textContent = "Spiel für dieses Gerät beendet.";
+      if(mode === "p2"){
+        setHint("Kipp einmal und lies Teil 2.");
+        fairyBtn.textContent = "FAIRY Teil 2";
+        rowKipp.classList.add("hidden");
+        return;
       }
-    }
 
-    function resetAll(){
-      score = 0;
-      attempts = 0;
+      if(mode === "endReady"){
+        setHint("Kipp einmal und lies das Ende.");
+        fairyBtn.textContent = "FAIRY END";
+        rowKipp.classList.add("hidden");
+        return;
+      }
 
-      currentMotif = null;
-      currentVerb = null;
-      currentColor = null;
+      if(mode === "result"){
+        // Erinnerung + Buttons wieder sichtbar
+        setHint("Kipp ein letztes Mal.");
+        fairyBtn.textContent = "FAIRY lesen";
+        rowKipp.classList.remove("hidden");
 
-      currentStoryFullPlain = "";
-      currentTailPlain = "";
-      currentChunks = [];
-      currentChunkIndex = 0;
+        // Zeige nur die Erinnerung (farbiges Adjektiv)
+        storyEl.classList.remove("muted");
+        storyEl.style.fontSize = "1.55rem";
+        storyEl.style.fontWeight = "900";
+        storyEl.style.lineHeight = "1.55";
+        storyEl.innerHTML = part3Html;
 
-      fairyBtn.textContent = "FAIRY";
-      storyEl.classList.add("muted");
-      storyEl.innerHTML = 'Tippe auf <strong>FAIRY</strong>, um eine neue Fabel zu starten.';
-      indicatorEl.textContent = "";
-      setLockedUI(false);
-      updateScore();
+        lockIfEnded();
+        return;
+      }
     }
 
     // -----------------------------
-    // API Key (kein Banner, nur Prompt)
+    // API Key (Prompt)
     // -----------------------------
     function loadApiKey(){
       const stored = window.localStorage.getItem(APIKEY_STORAGE_KEY);
-      if (stored && stored.startsWith("sk-")) {
+      if(stored && stored.startsWith("sk-")){
         apiKey = stored;
         return true;
       }
@@ -554,15 +516,13 @@
     }
 
     function ensureApiKey(){
-      if (apiKey && apiKey.startsWith("sk-")) return true;
-
-      const ok = loadApiKey();
-      if (ok) return true;
+      if(apiKey && apiKey.startsWith("sk-")) return true;
+      if(loadApiKey()) return true;
 
       const val = window.prompt("OpenAI API-Key eingeben (beginnt mit sk-):", "");
-      if (!val) return false;
+      if(!val) return false;
       const key = val.trim();
-      if (!key.startsWith("sk-")) {
+      if(!key.startsWith("sk-")){
         alert("Ungültiger Key. Muss mit 'sk-' beginnen.");
         return false;
       }
@@ -572,90 +532,105 @@
     }
 
     // -----------------------------
-    // Text-Fix: direkte Rede sauber schließen + Komma
+    // Text-Fix: 3 Elemente
     // -----------------------------
-    function normalizeQuoteAndComma(baseText){
-      // Ziel: Am Ende der KI-Ausgabe soll stehen:  ...!"  -> wir machen: ...!", (also Quote + Komma + Leerzeichen)
-      // Wir akzeptieren: ...!"  oder ...!   oder ...!“   etc.
-      let t = baseText.trim();
+    function normalizeToThreeParts(aiTextRaw){
+      // 1) Whitespace + deutsche Quotes vereinheitlichen
+      let t = (aiTextRaw||"").replace(/\s+/g," ").trim();
+      t = t.replace(/[„“”]/g, '"'); // intern nur "
 
-      // typografische Anführungszeichen vereinheitlichen auf "
-      t = t.replace(/[„“”]/g, '"');
-
-      // Wenn am Ende kein Satzzeichen ist: Punkt setzen
-      if (!/[.!?]$/.test(t) && !/[.!?]"$/.test(t)){
-        t += ".";
+      // 2) Zwei Sätze herausziehen (best effort)
+      //    Wir nehmen: erster Satz = bis erstes Satzende (.!?)
+      //               zweiter Satz = Rest bis letztes Satzende (.!?)
+      const m1 = t.match(/^(.+?[.!?])\s*(.+)$/);
+      let s1 = "";
+      let rest = "";
+      if(m1){
+        s1 = m1[1].trim();
+        rest = m1[2].trim();
+      } else {
+        // fallback: alles als s1
+        s1 = t;
+        rest = "";
       }
 
-      // Wenn endet auf Satzzeichen + " -> perfekt, dann -> ", 
-      if (/[.!?]"$/.test(t)){
-        t = t.replace(/([.!?])"$/, '$1",');
-        return t + " ";
+      // zweiter Satz bis letztes Satzzeichen
+      let s2 = rest;
+      if(rest){
+        const dot = rest.lastIndexOf(".");
+        const ex  = rest.lastIndexOf("!");
+        const q   = rest.lastIndexOf("?");
+        const last = Math.max(dot, ex, q);
+        if(last !== -1) s2 = rest.slice(0, last+1).trim();
       }
 
-      // Wenn endet auf Satzzeichen ohne " -> " hinzufügen und Komma setzen
-      if (/[.!?]$/.test(t)){
-        t = t.replace(/([.!?])$/, '$1",');
-        return t + " ";
+      if(!s2){
+        s2 = "Jetzt bin ich dran!";
       }
 
-      // Fallback
-      return t + '", ';
+      // 3) Part1: Situation als Satz, endet mit :
+      //    Wir entfernen evtl. vorhandene Anführungszeichen aus s1
+      s1 = s1.replace(/"/g,"").trim();
+      // Satzzeichen am Ende entfernen, dann ":" setzen
+      s1 = s1.replace(/[.!?]+$/g,"").trim();
+      const part1 = s1 + ":";
+
+      // 4) Part2: direkte Rede mit „…“ und korrektem Satzzeichen innen
+      //    Wir entfernen alle Quotes, stellen sicher, dass am Ende .!? steht
+      let core = s2.replace(/"/g,"").trim();
+      if(!/[.!?]$/.test(core)) core += "!";
+      // Anzeige mit deutschen Anführungszeichen:
+      const part2 = `„${core}“`;
+
+      return { part1, part2 };
     }
 
     // -----------------------------
-    // OpenAI-Aufruf
+    // OpenAI-Aufruf (liefert 2 Sätze, Code macht 3 Teile)
     // -----------------------------
     async function generateFairy(){
-      if (attempts >= maxAttempts){
-        updateEndStateIfNeeded();
-        return;
-      }
+      if(lockIfEnded()) return;
+      if(!ensureApiKey()) return;
 
-      if (!ensureApiKey()){
-        return;
-      }
-
-      // 1) Motiv / Verb / Farbe wählen
+      // Motiv/Verb/Farbe wählen
       const motifObj = chooseMotifNoImmediateRepeat();
       const verb = chooseVerbForMotif(motifObj.noun);
-      const color = colorsData[Math.floor(Math.random() * colorsData.length)];
+      const color = colorsData[Math.floor(Math.random()*colorsData.length)];
 
       currentMotif = motifObj;
       currentVerb = verb;
       currentColor = color;
 
-      fairyBtn.textContent = "WEITER";
+      // UI: Leser-Modus vorbereiten
+      setMode("p1");
       storyEl.classList.add("muted");
-      storyEl.textContent = "… KI schreibt eine neue Fabel …";
-      indicatorEl.textContent = "";
+      storyEl.textContent = "… KI schreibt eine neue Fairy …";
 
       const systemMessage = {
-        role: "system",
+        role:"system",
         content:
           "Du schreibst sehr kurze Fabeltexte auf Deutsch für ein Gesellschaftsspiel.\n" +
           "Du MUSST GENAU zwei Sätze liefern, insgesamt etwa 18–28 Wörter.\n" +
           "Regeln:\n" +
-          "- Schreibe in der dritten Person.\n" +
-          "- Verwende keine weiteren Farbwörter im Text.\n" +
-          "- Verwende das Motivwort NICHT.\n" +
+          "- Dritte Person.\n" +
+          "- Keine Farbwörter.\n" +
+          "- Das Motivwort NICHT verwenden.\n" +
           "- Kein Genitiv.\n" +
           "- Kein 'sagte', 'meinte', 'dachte'.\n"
       };
 
       const userMessage = {
-        role: "user",
+        role:"user",
         content:
-          "Die unsichtbare Hauptfigur dieser Fabel ist: \"" + motifObj.noun + "\".\n" +
-          "Schreibe GENAU zwei zusammenhängende Sätze, insgesamt ca. 18–28 Wörter.\n" +
-          "Der erste Satz beschreibt die Situation, ohne das Wort \"" + motifObj.noun + "\".\n" +
-          "Der zweite Satz besteht nur aus wörtlicher Rede.\n" +
-          "Der zweite Satz endet mit einem abschließenden Anführungszeichen und einem Satzzeichen (. ? oder !).\n" +
-          "Nach dem zweiten Satz darf in deiner Antwort nichts Inhaltliches mehr folgen.\n"
+          "Die unsichtbare Hauptfigur ist: \"" + motifObj.noun + "\".\n" +
+          "Schreibe GENAU zwei Sätze (18–28 Wörter):\n" +
+          "Satz 1: Situation, ohne das Wort \"" + motifObj.noun + "\".\n" +
+          "Satz 2: nur wörtliche Rede.\n" +
+          "Nach Satz 2 nichts mehr.\n"
       };
 
       try{
-        const resp = await fetch(OPENAI_CHAT_URL, {
+        const resp = await fetch(OPENAI_CHAT_URL,{
           method:"POST",
           headers:{
             "Content-Type":"application/json",
@@ -663,138 +638,149 @@
           },
           body: JSON.stringify({
             model: OPENAI_MODEL,
-            messages: [systemMessage, userMessage],
-            temperature: 0.8,
-            max_tokens: 220
+            messages:[systemMessage, userMessage],
+            temperature:0.8,
+            max_tokens:220
           })
         });
 
-        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        if(!resp.ok) throw new Error("HTTP " + resp.status);
 
         const data = await resp.json();
-        let text = data.choices?.[0]?.message?.content?.trim() || "";
-        text = text.replace(/\s+/g, " ").trim();
+        const raw = data.choices?.[0]?.message?.content?.trim() || "";
 
-        // letztes Satzzeichen (. ! ?) suchen
-        const dotIdx = text.lastIndexOf(".");
-        const exIdx  = text.lastIndexOf("!");
-        const qIdx   = text.lastIndexOf("?");
-        const lastPunctIdx = Math.max(dotIdx, exIdx, qIdx);
+        const parts = normalizeToThreeParts(raw);
+        part1 = parts.part1;
+        part2 = parts.part2;
 
-        // falls Mist zurückkommt -> Fallback
-        let baseText = "";
-        if (lastPunctIdx === -1){
-          baseText = 'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
-        } else {
-          baseText = text.slice(0, lastPunctIdx + 1).trim();
-        }
+        // Part3 = Verb + Artikel + Farbe + Motiv (ohne Beistrich nötig, weil eigene Zeile)
+        part3Plain = `${currentVerb} ${motifObj.article} ${currentColor} ${motifObj.noun}`;
+        part3Html = colorizeAdjInPhrase(part3Plain, currentColor);
 
-        // >>> WICHTIG: Anführungszeichen + Komma + Leerzeichen erzwingen
-        const baseFixed = normalizeQuoteAndComma(baseText);
-
-        // Tail
-        const tailPlain = `${motifObj.article} ${color} ${motifObj.noun}`;
-
-        // Finaler Satz: ...!", flackerte die grüne Kerze
-        const storyPlain = `${baseFixed}${verb} ${tailPlain}`.replace(/\s+/g," ").trim();
-
-        currentStoryFullPlain = storyPlain;
-        currentTailPlain = tailPlain;
-
-        currentChunks = buildTwelfthsVisually(currentStoryFullPlain, currentTailPlain, color);
-        currentChunkIndex = 0;
-
-        showChunk(0);
+        // Jetzt ist Teil 1 bereit (Button FAIRY Teil 1)
+        storyEl.classList.add("muted");
+        storyEl.textContent = "Bereit.";
+        setMode("p1");
 
       } catch(err){
         console.error(err);
         storyEl.classList.remove("muted");
         storyEl.textContent = "Fehler beim Laden. Internet oder API-Key prüfen.";
-        indicatorEl.textContent = "";
+        // zurück zur Startseite
+        setMode("start");
       }
     }
 
     // -----------------------------
-    // Klicklogik
+    // Versuche zählen + Startseite wiederherstellen
+    // -----------------------------
+    function backToStartKeepScore(){
+      // aktuelle Fairy "weg" (damit alle wieder Startseite haben)
+      currentMotif = null;
+      currentVerb = null;
+      currentColor = null;
+      part1 = ""; part2 = ""; part3Plain = ""; part3Html = "";
+      storyEl.style.fontSize = ""; // zurücksetzen
+      storyEl.style.fontWeight = "";
+      storyEl.style.lineHeight = "";
+      setMode("start");
+    }
+
+    // -----------------------------
+    // Events
     // -----------------------------
     fairyBtn.addEventListener("click", async () => {
-      if (attempts >= maxAttempts) return;
+      if(lockIfEnded()) return;
 
-      // Wenn noch keine aktive Fairy existiert -> neue generieren
-      if (!currentChunks || currentChunks.length !== 12){
+      if(mode === "start"){
+        // Leser startet Fairy (generieren)
         await generateFairy();
         return;
       }
 
-      // Wenn Fairy aktiv: WEITER = nächstes Zwölftel (bis 12/12)
-      if (currentChunkIndex < 11){
-        showChunk(currentChunkIndex + 1);
+      if(mode === "p1"){
+        // Teil 1 anzeigen
+        storyEl.classList.remove("muted");
+        storyEl.textContent = part1;
+        setMode("p2");
+        return;
+      }
+
+      if(mode === "p2"){
+        // Teil 2 anzeigen
+        storyEl.classList.remove("muted");
+        storyEl.textContent = part2;
+        setMode("endReady");
+        return;
+      }
+
+      if(mode === "endReady"){
+        // Teil 3 anzeigen + in Ergebnis-Ansicht wechseln
+        setMode("result");
+        return;
+      }
+
+      if(mode === "result"){
+        // im Result passiert beim Button nix (Lesen kann man erst wieder nach Startzustand / neuer Fairy)
+        // (der Button steht hier wieder auf "FAIRY lesen" – aber Lesen soll erst sinnvoll sein, wenn man wieder Startseite hat)
+        // Deshalb: In Result ignorieren.
+        return;
       }
     });
 
-    // Tippe auf Story: nächstes Zwölftel
-    storyEl.addEventListener("click", () => {
-      if (!currentChunks || currentChunks.length !== 12) return;
-      if (currentChunkIndex >= 11) return;
-      showChunk(currentChunkIndex + 1);
-    });
-
-    // NICHT ERKIPPT: +1 Versuch, keine Punkte, Fairy/Motiv darf bleiben
+    // NICHT ERKIPPT: +1 Versuch, zurück zur Startseite (wie von dir gewünscht)
     btnNicht.addEventListener("click", () => {
-      if (attempts >= maxAttempts) return;
+      if(lockIfEnded()) return;
       attempts += 1;
-      updateEndStateIfNeeded();
+      lockIfEnded();
+      backToStartKeepScore();
     });
 
-    // FAIRY ERKIPPT: Bestätigung öffnen
+    // FAIRY ERKIPPT: Bestätigung
     btnErkippt.addEventListener("click", () => {
-      if (attempts >= maxAttempts) return;
+      if(lockIfEnded()) return;
       confirmOverlay.style.display = "flex";
     });
 
-    // Bestätigung: ✓ gibt Punkt +1 und setzt Leserzustand (Fairy wird "verbraucht")
+    // ✓ bestätigt: +1 Punkt, +1 Versuch, zurück zur Startseite
     confirmOk.addEventListener("click", () => {
       confirmOverlay.style.display = "none";
-      if (attempts >= maxAttempts) return;
+      if(lockIfEnded()) return;
 
       attempts += 1;
       score += 1;
       updateScore();
-
-      // Wer ERKIPPT hat, wird Leser -> alte Fairy weg, bereit für neue
-      currentMotif = null;
-      currentVerb = null;
-      currentColor = null;
-      currentStoryFullPlain = "";
-      currentTailPlain = "";
-      currentChunks = [];
-      currentChunkIndex = 0;
-
-      fairyBtn.textContent = "FAIRY";
-      storyEl.classList.add("muted");
-      storyEl.innerHTML = 'Tippe auf <strong>FAIRY</strong>, um die nächste Fabel zu starten.';
-      indicatorEl.textContent = "";
-
-      updateEndStateIfNeeded();
+      lockIfEnded();
+      backToStartKeepScore();
     });
 
-    // Bestätigung: ✕ bricht ab
+    // ✕ bricht ab
     confirmNo.addEventListener("click", () => {
       confirmOverlay.style.display = "none";
     });
 
-    // Neues Spiel
-    newgameBtn.addEventListener("click", () => resetAll());
+    // Neues Spiel: Score & Versuche auf 0
+    newgameBtn.addEventListener("click", () => {
+      score = 0;
+      attempts = 0;
+      updateScore();
+      fairyBtn.classList.remove("locked");
+      btnErkippt.classList.remove("locked");
+      btnNicht.classList.remove("locked");
+      backToStartKeepScore();
+    });
 
-    // Zur Startseite (hier: wie Reset, weil wir nur eine Seite haben)
-    homeBtn.addEventListener("click", () => resetAll());
+    // Zur Startseite: nur Ansicht zurück (Punkte bleiben)
+    homeBtn.addEventListener("click", () => {
+      backToStartKeepScore();
+    });
 
     // Start
     (function init(){
       loadApiKey();
       initUnusedMotifs();
       updateScore();
-      resetAll();
+      setMode("start");
     })();
   </script>
 </body>
