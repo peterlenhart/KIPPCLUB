@@ -79,8 +79,8 @@
       flex: 1 1 auto;
       display:flex;
       flex-direction:column;
-      min-height: 0; /* wichtig für scrollbare Bereiche */
-      padding-top: clamp(22px, 5vh, 54px); /* Abstand weg vom Slogan */
+      min-height: 0;
+      padding-top: clamp(22px, 5vh, 54px); /* deutlicher Abstand weg vom Slogan */
       gap: 14px;
     }
 
@@ -150,66 +150,14 @@
     .story{ cursor:pointer; }
     .story:active{ filter: brightness(1.06); }
 
-    /* Untenbereich: Score mittig in der unteren Hälfte + Buttons darüber NICHT weg-rutschen */
-    .bottom{
-      margin-top:auto;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-end;
-      gap: 14px;
-      padding-top: 10px;
-      padding-bottom: 8px;
-    }
-
-    .scoreValue{
-      text-align:center;
-      font-size: 3.2rem;
-      font-weight: 900;
-      letter-spacing:0.02em;
-      line-height: 1;
-      min-width: 70px;
-      color: var(--fk-green);
-      text-shadow: 0 0 12px rgba(59,165,43,0.25);
-    }
-
-    .nav-row{
-      width: 100%;
-      display:flex;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 0 6px;
-    }
-
-    .linkbtn{
-      background: transparent;
-      color: var(--fk-muted);
-      text-decoration: underline;
-      padding: 10px 6px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      white-space: nowrap;
-    }
-    .linkbtn:active{
-      color:#fff;
-      background: rgba(255,255,255,0.06);
-      text-decoration:none;
-    }
-
-    /* Bestätigungs-Overlay */
-    .confirm{
-      position: fixed;
-      inset:0;
+    /* ✅ Bestätigung direkt UNTER den Buttons (inline, nicht mehr fixed unten) */
+    .confirm-inline{
       display:none;
-      align-items:flex-end;
-      justify-content:center;
-      background: rgba(0,0,0,0.55);
-      z-index: 50;
-      padding: 0 14px calc(18px + env(safe-area-inset-bottom));
+      width:100%;
+      margin-top: 2px;
     }
     .confirm-card{
       width:100%;
-      max-width: 520px;
       border-radius: 14px;
       border:1px solid var(--fk-border);
       background: rgba(20,20,20,0.96);
@@ -245,6 +193,50 @@
     .mini.no{ border-color: rgba(255,107,129,0.85); }
     .mini:active{ transform: translateY(1px) scale(0.99); filter:brightness(0.95); }
 
+    /* ✅ Score höher + größer + Nav-Links weiter rauf */
+    .bottom{
+      margin-top: clamp(18px, 5vh, 56px); /* NICHT mehr bis ganz unten drücken */
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 12px;
+      padding-bottom: clamp(14px, 3vh, 34px); /* Abstand zum unteren Rand */
+    }
+
+    .scoreValue{
+      text-align:center;
+      font-size: 4.2rem; /* größer */
+      font-weight: 900;
+      letter-spacing:0.02em;
+      line-height: 1;
+      min-width: 70px;
+      color: var(--fk-green);
+      text-shadow: 0 0 12px rgba(59,165,43,0.25);
+    }
+
+    .nav-row{
+      width: 100%;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 0 6px;
+    }
+
+    .linkbtn{
+      background: transparent;
+      color: var(--fk-muted);
+      text-decoration: underline;
+      padding: 10px 6px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+    .linkbtn:active{
+      color:#fff;
+      background: rgba(255,255,255,0.06);
+      text-decoration:none;
+    }
+
     .locked{
       opacity: 0.45;
       pointer-events: none;
@@ -258,25 +250,26 @@
       flex: 1 1 auto;
       display:flex;
       flex-direction:column;
-      justify-content:space-between;
-      padding-top: clamp(18px, 4vh, 44px);
-      padding-bottom: 8px;
+      justify-content:flex-start;  /* ✅ nicht mehr space-between */
+      padding-top: clamp(12px, 3vh, 34px); /* ✅ alles weiter rauf */
+      padding-bottom: clamp(16px, 3vh, 34px);
       min-height: 0;
+      gap: 18px;
     }
 
     .end-center{
-      flex: 1 1 auto;
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center;
-      gap: 18px;
+      justify-content:flex-start;
+      gap: 16px;
       text-align:center;
-      padding: 10px 6px;
+      padding: 6px 6px 0;
+      margin-top: clamp(0px, 4vh, 42px); /* ✅ weiter rauf */
     }
 
     .end-number{
-      font-size: 6.2rem;
+      font-size: 7.4rem; /* ✅ größer */
       line-height: 0.95;
       font-weight: 900;
       color: var(--fk-green);
@@ -302,6 +295,11 @@
       color: var(--fk-muted);
       font-size: 1.05rem;
       margin-top: 2px;
+    }
+
+    /* ✅ Endscreen-Links weiter rauf (nicht am Rand kleben) */
+    .end-nav{
+      margin-top: clamp(12px, 6vh, 60px);
     }
   </style>
 </head>
@@ -333,6 +331,17 @@
         <button id="btn-nicht" class="btn-no">NICHT ERKIPPT</button>
       </div>
 
+      <!-- ✅ Bestätigung jetzt direkt unter den Buttons -->
+      <div id="confirmInline" class="confirm-inline">
+        <div class="confirm-card">
+          <div class="confirm-title">FAIRY ERKIPPT bestätigen?</div>
+          <div class="confirm-row">
+            <button id="confirm-ok" class="mini ok" aria-label="Bestätigen">✓</button>
+            <button id="confirm-no" class="mini no" aria-label="Abbrechen">✕</button>
+          </div>
+        </div>
+      </div>
+
       <div class="bottom">
         <div id="score" class="scoreValue">0</div>
         <div class="nav-row">
@@ -352,23 +361,12 @@
           <div class="muted">von 6 möglichen</div>
         </div>
       </div>
-      <div class="nav-row">
+      <div class="nav-row end-nav">
         <button id="end-newgame" class="linkbtn">Neues Spiel</button>
         <button id="end-home" class="linkbtn">Zur Startseite</button>
       </div>
     </div>
 
-  </div>
-
-  <!-- Bestätigung -->
-  <div id="confirm" class="confirm">
-    <div class="confirm-card">
-      <div class="confirm-title">FAIRY ERKIPPT bestätigen?</div>
-      <div class="confirm-row">
-        <button id="confirm-ok" class="mini ok" aria-label="Bestätigen">✓</button>
-        <button id="confirm-no" class="mini no" aria-label="Abbrechen">✕</button>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -429,7 +427,8 @@
     const endNewgameBtn = document.getElementById("end-newgame");
     const endHomeBtn = document.getElementById("end-home");
 
-    const confirmOverlay = document.getElementById("confirm");
+    // ✅ inline confirm
+    const confirmInline = document.getElementById("confirmInline");
     const confirmOk = document.getElementById("confirm-ok");
     const confirmNo = document.getElementById("confirm-no");
 
@@ -451,9 +450,9 @@
     let currentStoryFullPlain = "";
     let currentTailPlain = "";
 
-    // 3 Teile (Teil 1 / Teil 2 / End)
-    let currentChunks = [];    // 3 Teile
-    let currentChunkIndex = 0; // 0..2
+    // 3 Teile (Situation / direkte Rede / Auflösung)
+    let currentChunks = [];
+    let currentChunkIndex = 0;
 
     let score = 0;
     let attempts = 0;
@@ -529,7 +528,6 @@
       return safe.replace(regex, `<span style="color:${cssColor}; font-weight:900">$1</span>`);
     }
 
-    // Text-Fix: direkte Rede sauber schließen + Komma
     function normalizeQuoteAndComma(baseText){
       let t = baseText.trim();
       t = t.replace(/[„“”]/g, '"');
@@ -564,9 +562,7 @@
     }
 
     function showEndScreen(){
-      // Overlay sicher schließen
-      confirmOverlay.style.display = "none";
-
+      confirmInline.style.display = "none";
       setLockedUI(true);
       gameEl.classList.add("hidden");
       endscreenEl.classList.remove("hidden");
@@ -604,6 +600,7 @@
       endscreenEl.classList.add("hidden");
       gameEl.classList.remove("hidden");
 
+      confirmInline.style.display = "none";
       setLockedUI(false);
       clearCurrentFairyToStart();
       updateScore();
@@ -641,7 +638,7 @@
     }
 
     // -----------------------------
-    // 3-Teil Split (Situation / direkte Rede / Auflösung)
+    // 3-Teil Split
     // -----------------------------
     function splitIntoThreeParts(storyPlain, tailPlain, colorAdj){
       let base = storyPlain.trim();
@@ -677,7 +674,6 @@
       ];
     }
 
-    // Sicherstellen: wirklich nur 2 Sätze aus KI-Output (erste zwei Satzenden)
     function takeFirstTwoSentences(text){
       const matches = [...text.matchAll(/[.!?]/g)];
       if (matches.length >= 2){
@@ -687,7 +683,7 @@
     }
 
     // -----------------------------
-    // OpenAI-Aufruf
+    // OpenAI
     // -----------------------------
     async function generateFairy(){
       if (attempts >= maxAttempts){
@@ -707,6 +703,7 @@
       currentVerb = verb;
       currentColor = color;
 
+      confirmInline.style.display = "none"; // sicher weg
       fairyBtn.textContent = "WEITER";
       storyEl.classList.add("muted");
       storyEl.textContent = "… KI schreibt eine neue Geschichte …";
@@ -754,7 +751,6 @@
         let text = data.choices?.[0]?.message?.content?.trim() || "";
         text = text.replace(/\s+/g, " ").trim();
 
-        // wirklich nur 2 Sätze
         let baseText = takeFirstTwoSentences(text);
         if (!baseText){
           baseText = 'Etwas Unbenanntes wartete geduldig am Rand des Spielfelds. "Jetzt kommt mein Moment!"';
@@ -795,13 +791,11 @@
     async function handleNext(){
       if (attempts >= maxAttempts) return;
 
-      // Neue Fairy starten
       if (!currentChunks || currentChunks.length !== 3){
         await generateFairy();
         return;
       }
 
-      // WEITER durch 3 Teile (ohne Anzeige 1/3, 2/3, 3/3)
       if (currentChunkIndex < 2){
         showChunk(currentChunkIndex + 1);
       }
@@ -810,30 +804,28 @@
     fairyBtn.addEventListener("click", handleNext);
     storyEl.addEventListener("click", handleNext);
 
-    // NICHT ERKIPPT: zählt als Versuch UND führt zurück zum Startscreen (keine Story geladen)
+    // NICHT ERKIPPT: Versuch + zurück zum Start
     btnNicht.addEventListener("click", () => {
       if (attempts >= maxAttempts) return;
       attempts += 1;
+      confirmInline.style.display = "none";
       updateEndStateIfNeeded();
       if (attempts < maxAttempts){
         clearCurrentFairyToStart();
       }
     });
 
-    // FAIRY ERKIPPT: Bestätigung öffnen
+    // FAIRY ERKIPPT: inline bestätigen anzeigen
     btnErkippt.addEventListener("click", () => {
       if (attempts >= maxAttempts) return;
-      confirmOverlay.style.display = "flex";
+      confirmInline.style.display = "block";
+      // kleine Fokuswirkung: sichtbar machen
+      confirmInline.scrollIntoView({ behavior:"smooth", block:"nearest" });
     });
 
-    // Klick außerhalb schließt Overlay
-    confirmOverlay.addEventListener("click", (e) => {
-      if (e.target === confirmOverlay) confirmOverlay.style.display = "none";
-    });
-
-    // Bestätigung: ✓ gibt Punkt +1, zählt Versuch +1 und führt zurück zum Startscreen
+    // ✓ bestätigt: Versuch + Punkt + zurück zum Start
     confirmOk.addEventListener("click", () => {
-      confirmOverlay.style.display = "none";
+      confirmInline.style.display = "none";
       if (attempts >= maxAttempts) return;
 
       attempts += 1;
@@ -846,16 +838,16 @@
       }
     });
 
-    // Bestätigung: ✕ bricht ab
+    // ✕ bricht ab
     confirmNo.addEventListener("click", () => {
-      confirmOverlay.style.display = "none";
+      confirmInline.style.display = "none";
     });
 
     // Neues Spiel
     newgameBtn.addEventListener("click", () => resetAll());
     endNewgameBtn.addEventListener("click", () => resetAll());
 
-    // Zur Startseite: echte Startseite (index.html)
+    // Zur Startseite
     homeBtn.addEventListener("click", () => {
       window.location.href = "./index.html";
     });
